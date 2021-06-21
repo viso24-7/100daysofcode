@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new HTML tags</title>
+    <style>
+           *{
+             padding:10px;
+             margin: 0;
+             box-sizing: border-box;
+           }
+  
+
+           visi-tag{
+             position: relative;
+             right: 50px;
+             width: 150px;
+             height: 150px;
+             background-color: blueviolet;
+             pointer-events: visible;
+           }
+           
+   </style>
+</head>
+<body> 
+      <visi-tag open="view"></visi-tag>
+    </body>
+<html>
+  <script>
+ class VisiTag extends HTMLElement{
+     constructor(){
+       super();
+
+       this.addEventListener('click',e => {
+         if(this.disabled){
+           return;
+         }
+
+         this.toggleDrawer();
+       })
+     }
+   
+     static get observedAttributes() {
+        return ['disabled', 'open'];
+      }
+
+     connectedCallback(){
+       this.innerHTML = "<picture></picture>";
+     } 
+
+      get open(){
+        return this.hasAttribute('open');
+      }
+
+      set open(value){
+        if(value){
+          this.setAttribute('open','');
+        }else{
+          this.removeAttribute('open');
+        }
+        this.toggleDrawer();
+      }
+
+      get disabled(){
+        return this.hasAttribute('disabled');
+      }
+
+      set disabled(value){
+        if(value){
+          this.setAttribute('disabled','');
+        } else{
+          this.removeAttribute('disabled');
+        }
+      }
+
+      toggleDrawer(){
+
+      }
+
+      //Elements can react to attribute changes by defining a attributeChangedCallback
+      attributeChangedCallback(name,oldValue,newValue){
+        if(this.disabled){
+          this.setAttribute('tabindex','-1');
+          this.setAttribute('aria-disabled','true');
+        } else{
+          this.setAttribute('tabindex','0');
+          this.setAttribute('aria-disabled','false');
+        }
+      }
+   }
+
+   window.customElements.define('visi-tag',VisiTag);
+   window.customElements.whenDefined('visi-tag').then(() => 
+     console.log('visi-tag is defined')
+   ) 
+   
+   class VisiButt extends HTMLButtonElement{
+       static get observedAttributes(){
+           return ['visible','hidden'];
+       }
+
+     constructor(){
+       super();
+
+       let shadowel = this.attachShadow({mode:'open'});
+       shadowel.appendChild()
+     }
+
+     connectedCallback(){
+         if(!this.hasAttribute('role')) 
+          this.setAttribute('role','')
+
+          if(!this.hasAttribute('visible'))
+           this.setAttribute('visible','')
+
+        this.addEventListener('click',draw(14,45));
+        this.addEventListener('mouseover',goAround());
+     }
+
+     goAround(){
+        // do some stuff here
+     }
+
+     draw(x,y){
+        let adddiv = document.createElement('div');
+        adddiv.classList.add('ripple');
+        this.appendChild(adddiv);
+        adddiv.style.top = `${y - adddiv.clientHeight/2}px`;
+        adddiv.style.left = `${x - adddiv.clientWidth/2}px`;
+        adddiv.style.backgroundColor = 'currentColor';
+        adddiv.classList.add('run');
+        adddiv.addEventListener('transitionend', e => adddiv.remove());
+     }
+
+        disconnectedCalllback(){
+            this.removeEventListener('click',draw(14,45));
+            this.removeEventListener('mouseover',goAround())
+       }
+    
+
+       get hidden(){
+           return this.hasAttribute('hidden');
+       }
+
+       set hidden(value){
+            if(value){
+                this.setAttribute('hidden','')
+            } else{
+                this.removeAttribute('hidden')
+            }
+       }
+
+       get visible(){
+           return this.hasAttribute('visible');
+       }
+
+       set visible(value){
+            if(value){
+                this.setAttribute('visible','')
+            } else{
+                this.removeAttribute('visible')
+            }
+       }
+
+       attributeChangedCallback(name,oldValue,newValue){
+           let hasValue = newValue !== null;
+           switch(name){
+               case 'hidden':
+                 this.setAttribute('hidden',hasValue);
+                 break;   
+
+                 case 'visible':
+                     this.setAttribute('visible',hasValue);
+                     break;
+           }
+       }  
+   }
+   customElements.define('visi-butt',VisiButt,{extends:'button'});
+
+   let newbut = document.createElement('button',{is:'visi-butt'})
+       newbut.textContent = "Visi Fancy button";
+       newbut.disabled = false;
+       newbut.style.color = "rgb(212, 112, 112)";
+       document.body.appendChild(newbut);
+
+   class WordCount extends HTMLParagraphElement{
+      constructor(){
+        super();        // Always call super first in constructor
+        var wcParent = this.parentNode; // count words in element's parent element
+
+        function countWords(node){
+          var text = node.innerText || node.textContent
+          return text.trim().split(/\s+/g).length;
+        }
+
+        var count = 'Words: ' + countWords(wcParent);
+        var shadow = this.attachShadow({mode: 'open'}); //mode:closed denies access to the node(s) of a closed shadow root from JavaScript outside it:
+
+        // Create text node and add word count to it
+        var text = document.createElement('span');
+            text.textContent = count;
+
+        // Append it to the shadow root
+        shadow.appendChild(text);
+
+        // Update count when element content changes
+        setInterval(function() {
+          var count = 'Words: ' + countWords(wcParent);
+          text.textContent = count;
+        }, 200)
+      }
+    }
+
+    // Define the new element
+    customElements.define('word-count', WordCount, { extends: 'p' });
+
+    class VisiImg extends Image{
+        constructor(height,width){
+            super(height*20,width/10);
+        }
+    }
+
+    customElements.define('visi-img',VisiImg,{extends:"img"});
+    let myImg = customElements.get('visi-img');
+    let param = new myImg(50,600);
+    console.log(param);
+
+    class VisiVideo extends HTMLElement{
+      static get observedAttributes(){
+        return ['name','value'];
+      }
+
+      constructor(){
+          super();
+ 
+          let shadowDom = this.attachShadow({mode:'open'});
+          shadowDom.appendChild(myImg.content.cloneNode(true))
+      }
+
+
+      
+      connectedCallback(){
+       
+      }
+
+      disconnectedCalllback(){
+
+      }
+
+
+      set name(val){
+        let isVal = Boolean(val);
+        if(isVal){
+          this.setAttribute('name','')
+        }else{
+          this.removeAttribute('name')
+        }
+      }
+
+      get name(){
+        return this.getAttribute('name');
+      }
+
+      set value(val){
+        let isVal = Boolean(val);
+        if(isVal){
+          this.setAttribute('value','')
+        }else{
+          this.removeAttribute('value')
+        }
+      }
+
+      get value(){
+        return this.getAttribute('value');
+      }
+
+
+      attributeChangedCallback(name,oldValue,newValue){
+       let isnewval = newValue !== null;
+       switch(name){
+         case 'name':
+           this.setAttribute('name',isnewval);
+           break;
+
+          case 'value':           
+             this.setattribute('value',isnewval) 
+       }
+      }
+    }
+
+    customElements.define('visi-video',VisiVideo)
+  </script> 
+</html>

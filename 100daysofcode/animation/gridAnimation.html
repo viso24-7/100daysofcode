@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    html {
+       background: #111;
+    }
+
+    label, #animation-picker {
+        display: block;
+        margin: 24px;
+        font: bold 12px sans-serif;
+        color: #bbb;
+    }
+
+    #animation-picker {
+        height: 36px;
+        width: 165px;
+        margin-top: -22px;
+        border: none;
+        outline: none;
+        font-weight: normal;
+        background: #282828;
+    }
+
+    .grid {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 330px;
+        width: 330px;
+        margin: auto;
+        font-size: 0;
+    }
+
+    .grid div {
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        margin: 3px;
+        border-radius: 50%;
+        background: #181818;
+    }
+
+    .wave div:nth-child(1) {
+        animation: pulse 3s ease-in-out 0.02479s infinite;
+    }
+
+    .wave div:nth-child(2) {
+        animation: pulse 3s ease-in-out 0.04959s infinite;
+    }
+
+    .wave div:nth-child(3) {
+        animation: pulse 3s ease-in-out 0.07438s infinite;
+    }
+
+    .wave div:nth-child(4) {
+        animation: pulse 3s ease-in-out 0.09917s infinite;
+    }
+
+    .wave div:nth-child(5) {
+       animation: pulse 3s ease-in-out 0.12397s infinite;
+    }
+
+    .wave div:nth-child(6) {
+        animation: pulse 3s ease-in-out 0.14876s infinite;
+    }
+
+    .wave div:nth-child(7) {
+        animation: pulse 3s ease-in-out 0.17355s infinite;
+    }
+
+    .wave div:nth-child(8) {
+        animation: pulse 3s ease-in-out 0.19835s infinite;;
+    }
+
+    .wave div:nth-child(9) {
+        animation: pulse 3s ease-in-out 0.22314s infinite;
+    }
+
+    .wave div:nth-child(10) {
+        animation: pulse 3s ease-in-out 0.24793s infinite;
+    }
+
+    .wave div:nth-child(11) {
+        animation: pulse 3s ease-in-out 0.27273s infinite;
+    }
+
+    .wave div:nth-child(12) {
+        animation: pulse 3s ease-in-out 0.29752s infinite;
+    }
+
+    .wave div:nth-child(13) {
+        animation: pulse 3s ease-in-out 0.32231s infinite;
+    }
+
+    .wave div:nth-child(14) {
+        animation: pulse 3s ease-in-out 0.34711s infinite;
+    }
+
+    .wave div:nth-child(15) {
+        animation: pulse 3s ease-in-out 0.3719s infinite;
+    }
+
+    .wave div:nth-child(16) {
+        animation: pulse 3s ease-in-out 0.39669s infinite;
+    }
+
+    .wave div:nth-child(17) {
+        animation: pulse 3s ease-in-out 0.42149s infinite;
+    }
+
+    .wave div:nth-child(18) {
+        animation: pulse 3s ease-in-out 0.44628s infinite;
+    }
+
+    .wave div:nth-child(19) {
+        animation: pulse 3s ease-in-out 0.47107s infinite;
+    }
+
+    .wave div:nth-child(20) {
+        animation: pulse 3s ease-in-out 0.49587s infinite;
+    }
+
+    .wave div:nth-child(21) {
+        animation: pulse 3s ease-in-out 0.52066s infinite;
+    }
+
+    .wave div:nth-child(22) {
+        animation: pulse 3s ease-in-out 0.54545s infinite;
+    }
+
+    .wave div:nth-child(23) {
+        animation: pulse 3s ease-in-out 0.57025s infinite;
+    }
+
+    .wave div:nth-child(24) {
+        animation: pulse 3s ease-in-out 0.59504s infinite;
+    }
+
+    .wave div:nth-child(25) {
+       animation: pulse 3s ease-in-out 0.61983s infinite;
+    }
+
+    .wave div:nth-child(26) {
+        animation: pulse 3s ease-in-out 0.64463s infinite;
+    }
+
+    .wave div:nth-child(27) {
+        animation: pulse 3s ease-in-out 0.66942s infinite;
+    }
+
+    .wave div:nth-child(28) {
+        animation: pulse 3s ease-in-out 0.69421s infinite;
+    }
+
+    .wave div:nth-child(29) {
+        animation: pulse 3s ease-in-out 0.71901s infinite;
+    }
+
+    .wave div:nth-child(30) {
+        animation: pulse 3s ease-in-out 0.7438s infinite;
+    }
+
+    .wave div:nth-child(31) {
+        animation: pulse 3s ease-in-out 0.7686s infinite;
+    }
+
+    .wave div:nth-child(32) {
+        animation: pulse 3s ease-in-out 0.79339s infinite;
+    }
+
+    .wave div:nth-child(33) {
+        animation: pulse 3s ease-in-out 0.81818s infinite;
+    }
+
+    .wave div:nth-child(34) {
+        animation: pulse 3s ease-in-out 0.84298s infinite;
+    }
+
+    .wave div:nth-child(35) {
+    animation: pulse 3s ease-in-out 0.86777s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.86777s infinite;
+    }
+    .wave div:nth-child(36) {
+    animation: pulse 3s ease-in-out 0.89256s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.89256s infinite;
+    }
+    .wave div:nth-child(37) {
+    animation: pulse 3s ease-in-out 0.91736s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.91736s infinite;
+    }
+    .wave div:nth-child(38) {
+    animation: pulse 3s ease-in-out 0.94215s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.94215s infinite;
+    }
+    .wave div:nth-child(39) {
+    animation: pulse 3s ease-in-out 0.96694s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.96694s infinite;
+    }
+    .wave div:nth-child(40) {
+    animation: pulse 3s ease-in-out 0.99174s infinite;
+    -webkit-animation: pulse 3s ease-in-out 0.99174s infinite;
+    }
+    .wave div:nth-child(41) {
+    animation: pulse 3s ease-in-out 1.01653s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.01653s infinite;
+    }
+    .wave div:nth-child(42) {
+    animation: pulse 3s ease-in-out 1.04132s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.04132s infinite;
+    }
+    .wave div:nth-child(43) {
+    animation: pulse 3s ease-in-out 1.06612s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.06612s infinite;
+    }
+    .wave div:nth-child(44) {
+    animation: pulse 3s ease-in-out 1.09091s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.09091s infinite;
+    }
+    .wave div:nth-child(45) {
+    animation: pulse 3s ease-in-out 1.1157s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.1157s infinite;
+    }
+    .wave div:nth-child(46) {
+    animation: pulse 3s ease-in-out 1.1405s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.1405s infinite;
+    }
+    .wave div:nth-child(47) {
+    animation: pulse 3s ease-in-out 1.16529s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.16529s infinite;
+    }
+    .wave div:nth-child(48) {
+    animation: pulse 3s ease-in-out 1.19008s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.19008s infinite;
+    }
+    .wave div:nth-child(49) {
+    animation: pulse 3s ease-in-out 1.21488s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.21488s infinite;
+    }
+    .wave div:nth-child(50) {
+    animation: pulse 3s ease-in-out 1.23967s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.23967s infinite;
+    }
+    .wave div:nth-child(51) {
+    animation: pulse 3s ease-in-out 1.26446s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.26446s infinite;
+    }
+    .wave div:nth-child(52) {
+    animation: pulse 3s ease-in-out 1.28926s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.28926s infinite;
+    }
+    .wave div:nth-child(53) {
+    animation: pulse 3s ease-in-out 1.31405s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.31405s infinite;
+    }
+    .wave div:nth-child(54) {
+    animation: pulse 3s ease-in-out 1.33884s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.33884s infinite;
+    }
+    .wave div:nth-child(55) {
+    animation: pulse 3s ease-in-out 1.36364s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.36364s infinite;
+    }
+    .wave div:nth-child(56) {
+    animation: pulse 3s ease-in-out 1.38843s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.38843s infinite;
+    }
+    .wave div:nth-child(57) {
+    animation: pulse 3s ease-in-out 1.41322s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.41322s infinite;
+    }
+    .wave div:nth-child(58) {
+    animation: pulse 3s ease-in-out 1.43802s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.43802s infinite;
+    }
+    .wave div:nth-child(59) {
+    animation: pulse 3s ease-in-out 1.46281s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.46281s infinite;
+    }
+    .wave div:nth-child(60) {
+    animation: pulse 3s ease-in-out 1.4876s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.4876s infinite;
+    }
+    .wave div:nth-child(61) {
+    animation: pulse 3s ease-in-out 1.5124s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.5124s infinite;
+    }
+    .wave div:nth-child(62) {
+    animation: pulse 3s ease-in-out 1.53719s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.53719s infinite;
+    }
+    .wave div:nth-child(63) {
+    animation: pulse 3s ease-in-out 1.56198s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.56198s infinite;
+    }
+    .wave div:nth-child(64) {
+    animation: pulse 3s ease-in-out 1.58678s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.58678s infinite;
+    }
+    .wave div:nth-child(65) {
+    animation: pulse 3s ease-in-out 1.61157s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.61157s infinite;
+    }
+    .wave div:nth-child(66) {
+    animation: pulse 3s ease-in-out 1.63636s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.63636s infinite;
+    }
+    .wave div:nth-child(67) {
+    animation: pulse 3s ease-in-out 1.66116s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.66116s infinite;
+    }
+    .wave div:nth-child(68) {
+    animation: pulse 3s ease-in-out 1.68595s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.68595s infinite;
+    }
+    .wave div:nth-child(69) {
+    animation: pulse 3s ease-in-out 1.71074s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.71074s infinite;
+    }
+    .wave div:nth-child(70) {
+    animation: pulse 3s ease-in-out 1.73554s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.73554s infinite;
+    }
+    .wave div:nth-child(71) {
+    animation: pulse 3s ease-in-out 1.76033s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.76033s infinite;
+    }
+    .wave div:nth-child(72) {
+    animation: pulse 3s ease-in-out 1.78512s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.78512s infinite;
+    }
+    .wave div:nth-child(73) {
+    animation: pulse 3s ease-in-out 1.80992s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.80992s infinite;
+    }
+    .wave div:nth-child(74) {
+    animation: pulse 3s ease-in-out 1.83471s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.83471s infinite;
+    }
+    .wave div:nth-child(75) {
+    animation: pulse 3s ease-in-out 1.8595s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.8595s infinite;
+    }
+    .wave div:nth-child(76) {
+    animation: pulse 3s ease-in-out 1.8843s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.8843s infinite;
+    }
+    .wave div:nth-child(77) {
+    animation: pulse 3s ease-in-out 1.90909s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.90909s infinite;
+    }
+    .wave div:nth-child(78) {
+    animation: pulse 3s ease-in-out 1.93388s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.93388s infinite;
+    }
+    .wave div:nth-child(79) {
+    animation: pulse 3s ease-in-out 1.95868s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.95868s infinite;
+    }
+    .wave div:nth-child(80) {
+    animation: pulse 3s ease-in-out 1.98347s infinite;
+    -webkit-animation: pulse 3s ease-in-out 1.98347s infinite;
+    }
+    .wave div:nth-child(81) {
+    animation: pulse 3s ease-in-out 2.00826s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.00826s infinite;
+    }
+    .wave div:nth-child(82) {
+    animation: pulse 3s ease-in-out 2.03306s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.03306s infinite;
+    }
+    .wave div:nth-child(83) {
+    animation: pulse 3s ease-in-out 2.05785s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.05785s infinite;
+    }
+    .wave div:nth-child(84) {
+    animation: pulse 3s ease-in-out 2.08264s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.08264s infinite;
+    }
+    .wave div:nth-child(85) {
+    animation: pulse 3s ease-in-out 2.10744s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.10744s infinite;
+    }
+    .wave div:nth-child(86) {
+    animation: pulse 3s ease-in-out 2.13223s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.13223s infinite;
+    }
+    .wave div:nth-child(87) {
+    animation: pulse 3s ease-in-out 2.15702s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.15702s infinite;
+    }
+    .wave div:nth-child(88) {
+    animation: pulse 3s ease-in-out 2.18182s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.18182s infinite;
+    }
+    .wave div:nth-child(89) {
+    animation: pulse 3s ease-in-out 2.20661s infinite;
+    -webkit-animation: pulse 3s ease-in-out 2.20661s infinite;
+    }
+
+    .wave div:nth-child(90) {
+        animation: pulse 3s ease-in-out 2.2314s infinite;
+    }
+
+    .wave div:nth-child(91) {
+        animation: pulse 3s ease-in-out 2.2562s infinite;
+    }
+
+    .wave div:nth-child(92) {
+        animation: pulse 3s ease-in-out 2.28099s infinite;
+    }
+
+    .wave div:nth-child(93) {
+        animation: pulse 3s ease-in-out 2.30579s infinite;
+    }
+
+    .wave div:nth-child(94) {
+        animation: pulse 3s ease-in-out 2.33058s infinite;
+    }
+
+    .wave div:nth-child(95) {
+        animation: pulse 3s ease-in-out 2.35537s infinite;
+    }
+
+    .wave div:nth-child(96) {
+        animation: pulse 3s ease-in-out 2.38017s infinite;
+    }
+
+    .wave div:nth-child(97) {
+        animation: pulse 3s ease-in-out 2.40496s infinite;
+    }
+
+    .wave div:nth-child(98) {
+        animation: pulse 3s ease-in-out 2.42975s infinite;
+    }
+
+    .wave div:nth-child(99) {
+        animation: pulse 3s ease-in-out 2.45455s infinite;
+    }
+
+    .wave div:nth-child(100) {
+        animation: pulse 3s ease-in-out 2.47934s infinite;
+    }
+
+    .wave div:nth-child(101) {
+        animation: pulse 3s ease-in-out 2.50413s infinite;
+    }
+
+    .wave div:nth-child(102) {
+        animation: pulse 3s ease-in-out 2.52893s infinite;
+    }
+
+    .wave div:nth-child(103) {
+        animation: pulse 3s ease-in-out 2.55372s infinite;
+    }
+
+    .wave div:nth-child(104) {
+        animation: pulse 3s ease-in-out 2.57851s infinite;
+    }
+
+    .wave div:nth-child(105) {
+        animation: pulse 3s ease-in-out 2.60331s infinite;
+    }
+
+    .wave div:nth-child(106) {
+        animation: pulse 3s ease-in-out 2.6281s infinite;
+    }
+
+    .wave div:nth-child(107) {
+        animation: pulse 3s ease-in-out 2.65289s infinite;
+    }
+
+    .wave div:nth-child(108) {
+        animation: pulse 3s ease-in-out 2.67769s infinite;
+    }
+
+    .wave div:nth-child(109) {
+        animation: pulse 3s ease-in-out 2.70248s infinite;
+    }
+
+    .wave div:nth-child(110) {
+        animation: pulse 3s ease-in-out 2.72727s infinite;
+    }
+
+    .wave div:nth-child(111) {
+        animation: pulse 3s ease-in-out 2.75207s infinite;
+    }
+
+    .wave div:nth-child(112) {
+        animation: pulse 3s ease-in-out 2.77686s infinite;
+    }
+
+    .wave div:nth-child(113) {
+        animation: pulse 3s ease-in-out 2.80165s infinite;
+    }
+
+    .wave div:nth-child(114) {
+        animation: pulse 3s ease-in-out 2.82645s infinite;
+    }
+
+    .wave div:nth-child(115) {
+        animation: pulse 3s ease-in-out 2.85124s infinite;
+    }
+
+    .wave div:nth-child(116) {
+        animation: pulse 3s ease-in-out 2.87603s infinite;
+    }
+
+    .wave div:nth-child(117) {
+        animation: pulse 3s ease-in-out 2.90083s infinite;
+    }
+
+    .wave div:nth-child(118) {
+        animation: pulse 3s ease-in-out 2.92562s infinite;
+    }
+
+    .wave div:nth-child(119) {
+        animation: pulse 3s ease-in-out 2.95041s infinite;
+    }
+    .wave div:nth-child(120) {
+        animation: pulse 3s ease-in-out 2.97521s infinite;
+    }
+
+    .wave div:nth-child(121) {
+        animation: pulse 3s ease-in-out 3s infinite;
+    }
+
+    .reversewave div:nth-child(1) {
+    animation: pulse 3s ease-in-out -0.02479s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.02479s infinite;
+    }
+    .reversewave div:nth-child(2) {
+    animation: pulse 3s ease-in-out -0.04959s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.04959s infinite;
+    }
+    .reversewave div:nth-child(3) {
+    animation: pulse 3s ease-in-out -0.07438s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.07438s infinite;
+    }
+    .reversewave div:nth-child(4) {
+    animation: pulse 3s ease-in-out -0.09917s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.09917s infinite;
+    }
+    .reversewave div:nth-child(5) {
+    animation: pulse 3s ease-in-out -0.12397s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.12397s infinite;
+    }
+    .reversewave div:nth-child(6) {
+    animation: pulse 3s ease-in-out -0.14876s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.14876s infinite;
+    }
+    .reversewave div:nth-child(7) {
+    animation: pulse 3s ease-in-out -0.17355s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.17355s infinite;
+    }
+    .reversewave div:nth-child(8) {
+    animation: pulse 3s ease-in-out -0.19835s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.19835s infinite;
+    }
+    .reversewave div:nth-child(9) {
+    animation: pulse 3s ease-in-out -0.22314s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.22314s infinite;
+    }
+    .reversewave div:nth-child(10) {
+    animation: pulse 3s ease-in-out -0.24793s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.24793s infinite;
+    }
+    .reversewave div:nth-child(11) {
+    animation: pulse 3s ease-in-out -0.27273s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.27273s infinite;
+    }
+    .reversewave div:nth-child(12) {
+    animation: pulse 3s ease-in-out -0.29752s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.29752s infinite;
+    }
+    .reversewave div:nth-child(13) {
+    animation: pulse 3s ease-in-out -0.32231s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.32231s infinite;
+    }
+    .reversewave div:nth-child(14) {
+    animation: pulse 3s ease-in-out -0.34711s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.34711s infinite;
+    }
+    .reversewave div:nth-child(15) {
+    animation: pulse 3s ease-in-out -0.3719s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.3719s infinite;
+    }
+    .reversewave div:nth-child(16) {
+    animation: pulse 3s ease-in-out -0.39669s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.39669s infinite;
+    }
+    .reversewave div:nth-child(17) {
+    animation: pulse 3s ease-in-out -0.42149s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.42149s infinite;
+    }
+    .reversewave div:nth-child(18) {
+    animation: pulse 3s ease-in-out -0.44628s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.44628s infinite;
+    }
+    .reversewave div:nth-child(19) {
+    animation: pulse 3s ease-in-out -0.47107s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.47107s infinite;
+    }
+    .reversewave div:nth-child(20) {
+    animation: pulse 3s ease-in-out -0.49587s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.49587s infinite;
+    }
+    .reversewave div:nth-child(21) {
+    animation: pulse 3s ease-in-out -0.52066s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.52066s infinite;
+    }
+    .reversewave div:nth-child(22) {
+    animation: pulse 3s ease-in-out -0.54545s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.54545s infinite;
+    }
+    .reversewave div:nth-child(23) {
+    animation: pulse 3s ease-in-out -0.57025s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.57025s infinite;
+    }
+    .reversewave div:nth-child(24) {
+    animation: pulse 3s ease-in-out -0.59504s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.59504s infinite;
+    }
+    .reversewave div:nth-child(25) {
+    animation: pulse 3s ease-in-out -0.61983s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.61983s infinite;
+    }
+    .reversewave div:nth-child(26) {
+    animation: pulse 3s ease-in-out -0.64463s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.64463s infinite;
+    }
+    .reversewave div:nth-child(27) {
+    animation: pulse 3s ease-in-out -0.66942s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.66942s infinite;
+    }
+    .reversewave div:nth-child(28) {
+    animation: pulse 3s ease-in-out -0.69421s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.69421s infinite;
+    }
+    .reversewave div:nth-child(29) {
+    animation: pulse 3s ease-in-out -0.71901s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.71901s infinite;
+    }
+    .reversewave div:nth-child(30) {
+    animation: pulse 3s ease-in-out -0.7438s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.7438s infinite;
+    }
+    .reversewave div:nth-child(31) {
+    animation: pulse 3s ease-in-out -0.7686s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.7686s infinite;
+    }
+    .reversewave div:nth-child(32) {
+    animation: pulse 3s ease-in-out -0.79339s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.79339s infinite;
+    }
+    .reversewave div:nth-child(33) {
+    animation: pulse 3s ease-in-out -0.81818s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.81818s infinite;
+    }
+    .reversewave div:nth-child(34) {
+    animation: pulse 3s ease-in-out -0.84298s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.84298s infinite;
+    }
+    .reversewave div:nth-child(35) {
+    animation: pulse 3s ease-in-out -0.86777s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.86777s infinite;
+    }
+    .reversewave div:nth-child(36) {
+    animation: pulse 3s ease-in-out -0.89256s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.89256s infinite;
+    }
+    .reversewave div:nth-child(37) {
+    animation: pulse 3s ease-in-out -0.91736s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.91736s infinite;
+    }
+    .reversewave div:nth-child(38) {
+    animation: pulse 3s ease-in-out -0.94215s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.94215s infinite;
+    }
+    .reversewave div:nth-child(39) {
+    animation: pulse 3s ease-in-out -0.96694s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.96694s infinite;
+    }
+    .reversewave div:nth-child(40) {
+    animation: pulse 3s ease-in-out -0.99174s infinite;
+    -webkit-animation: pulse 3s ease-in-out -0.99174s infinite;
+    }
+    .reversewave div:nth-child(41) {
+    animation: pulse 3s ease-in-out -1.01653s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.01653s infinite;
+    }
+    .reversewave div:nth-child(42) {
+    animation: pulse 3s ease-in-out -1.04132s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.04132s infinite;
+    }
+    .reversewave div:nth-child(43) {
+    animation: pulse 3s ease-in-out -1.06612s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.06612s infinite;
+    }
+    .reversewave div:nth-child(44) {
+    animation: pulse 3s ease-in-out -1.09091s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.09091s infinite;
+    }
+    .reversewave div:nth-child(45) {
+    animation: pulse 3s ease-in-out -1.1157s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.1157s infinite;
+    }
+    .reversewave div:nth-child(46) {
+    animation: pulse 3s ease-in-out -1.1405s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.1405s infinite;
+    }
+    .reversewave div:nth-child(47) {
+    animation: pulse 3s ease-in-out -1.16529s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.16529s infinite;
+    }
+    .reversewave div:nth-child(48) {
+    animation: pulse 3s ease-in-out -1.19008s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.19008s infinite;
+    }
+    .reversewave div:nth-child(49) {
+    animation: pulse 3s ease-in-out -1.21488s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.21488s infinite;
+    }
+    .reversewave div:nth-child(50) {
+    animation: pulse 3s ease-in-out -1.23967s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.23967s infinite;
+    }
+    .reversewave div:nth-child(51) {
+    animation: pulse 3s ease-in-out -1.26446s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.26446s infinite;
+    }
+    .reversewave div:nth-child(52) {
+    animation: pulse 3s ease-in-out -1.28926s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.28926s infinite;
+    }
+    .reversewave div:nth-child(53) {
+    animation: pulse 3s ease-in-out -1.31405s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.31405s infinite;
+    }
+    .reversewave div:nth-child(54) {
+    animation: pulse 3s ease-in-out -1.33884s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.33884s infinite;
+    }
+    .reversewave div:nth-child(55) {
+    animation: pulse 3s ease-in-out -1.36364s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.36364s infinite;
+    }
+    .reversewave div:nth-child(56) {
+    animation: pulse 3s ease-in-out -1.38843s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.38843s infinite;
+    }
+    .reversewave div:nth-child(57) {
+    animation: pulse 3s ease-in-out -1.41322s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.41322s infinite;
+    }
+    .reversewave div:nth-child(58) {
+    animation: pulse 3s ease-in-out -1.43802s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.43802s infinite;
+    }
+    .reversewave div:nth-child(59) {
+    animation: pulse 3s ease-in-out -1.46281s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.46281s infinite;
+    }
+    .reversewave div:nth-child(60) {
+    animation: pulse 3s ease-in-out -1.4876s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.4876s infinite;
+    }
+    .reversewave div:nth-child(61) {
+    animation: pulse 3s ease-in-out -1.5124s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.5124s infinite;
+    }
+    .reversewave div:nth-child(62) {
+    animation: pulse 3s ease-in-out -1.53719s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.53719s infinite;
+    }
+    .reversewave div:nth-child(63) {
+    animation: pulse 3s ease-in-out -1.56198s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.56198s infinite;
+    }
+    .reversewave div:nth-child(64) {
+    animation: pulse 3s ease-in-out -1.58678s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.58678s infinite;
+    }
+    .reversewave div:nth-child(65) {
+    animation: pulse 3s ease-in-out -1.61157s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.61157s infinite;
+    }
+    .reversewave div:nth-child(66) {
+    animation: pulse 3s ease-in-out -1.63636s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.63636s infinite;
+    }
+    .reversewave div:nth-child(67) {
+    animation: pulse 3s ease-in-out -1.66116s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.66116s infinite;
+    }
+    .reversewave div:nth-child(68) {
+    animation: pulse 3s ease-in-out -1.68595s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.68595s infinite;
+    }
+    .reversewave div:nth-child(69) {
+    animation: pulse 3s ease-in-out -1.71074s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.71074s infinite;
+    }
+    .reversewave div:nth-child(70) {
+    animation: pulse 3s ease-in-out -1.73554s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.73554s infinite;
+    }
+    .reversewave div:nth-child(71) {
+    animation: pulse 3s ease-in-out -1.76033s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.76033s infinite;
+    }
+    .reversewave div:nth-child(72) {
+    animation: pulse 3s ease-in-out -1.78512s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.78512s infinite;
+    }
+    .reversewave div:nth-child(73) {
+    animation: pulse 3s ease-in-out -1.80992s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.80992s infinite;
+    }
+    .reversewave div:nth-child(74) {
+    animation: pulse 3s ease-in-out -1.83471s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.83471s infinite;
+    }
+    .reversewave div:nth-child(75) {
+    animation: pulse 3s ease-in-out -1.8595s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.8595s infinite;
+    }
+    .reversewave div:nth-child(76) {
+    animation: pulse 3s ease-in-out -1.8843s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.8843s infinite;
+    }
+    .reversewave div:nth-child(77) {
+    animation: pulse 3s ease-in-out -1.90909s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.90909s infinite;
+    }
+    .reversewave div:nth-child(78) {
+    animation: pulse 3s ease-in-out -1.93388s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.93388s infinite;
+    }
+    .reversewave div:nth-child(79) {
+    animation: pulse 3s ease-in-out -1.95868s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.95868s infinite;
+    }
+    .reversewave div:nth-child(80) {
+    animation: pulse 3s ease-in-out -1.98347s infinite;
+    -webkit-animation: pulse 3s ease-in-out -1.98347s infinite;
+    }
+    .reversewave div:nth-child(81) {
+    animation: pulse 3s ease-in-out -2.00826s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.00826s infinite;
+    }
+    .reversewave div:nth-child(82) {
+    animation: pulse 3s ease-in-out -2.03306s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.03306s infinite;
+    }
+    .reversewave div:nth-child(83) {
+    animation: pulse 3s ease-in-out -2.05785s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.05785s infinite;
+    }
+    .reversewave div:nth-child(84) {
+    animation: pulse 3s ease-in-out -2.08264s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.08264s infinite;
+    }
+    .reversewave div:nth-child(85) {
+    animation: pulse 3s ease-in-out -2.10744s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.10744s infinite;
+    }
+    .reversewave div:nth-child(86) {
+    animation: pulse 3s ease-in-out -2.13223s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.13223s infinite;
+    }
+    .reversewave div:nth-child(87) {
+    animation: pulse 3s ease-in-out -2.15702s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.15702s infinite;
+    }
+    .reversewave div:nth-child(88) {
+    animation: pulse 3s ease-in-out -2.18182s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.18182s infinite;
+    }
+    .reversewave div:nth-child(89) {
+    animation: pulse 3s ease-in-out -2.20661s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.20661s infinite;
+    }
+    .reversewave div:nth-child(90) {
+    animation: pulse 3s ease-in-out -2.2314s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.2314s infinite;
+    }
+    .reversewave div:nth-child(91) {
+    animation: pulse 3s ease-in-out -2.2562s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.2562s infinite;
+    }
+    .reversewave div:nth-child(92) {
+    animation: pulse 3s ease-in-out -2.28099s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.28099s infinite;
+    }
+    .reversewave div:nth-child(93) {
+    animation: pulse 3s ease-in-out -2.30579s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.30579s infinite;
+    }
+    .reversewave div:nth-child(94) {
+    animation: pulse 3s ease-in-out -2.33058s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.33058s infinite;
+    }
+    .reversewave div:nth-child(95) {
+    animation: pulse 3s ease-in-out -2.35537s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.35537s infinite;
+    }
+    .reversewave div:nth-child(96) {
+    animation: pulse 3s ease-in-out -2.38017s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.38017s infinite;
+    }
+    .reversewave div:nth-child(97) {
+    animation: pulse 3s ease-in-out -2.40496s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.40496s infinite;
+    }
+    .reversewave div:nth-child(98) {
+    animation: pulse 3s ease-in-out -2.42975s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.42975s infinite;
+    }
+    .reversewave div:nth-child(99) {
+    animation: pulse 3s ease-in-out -2.45455s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.45455s infinite;
+    }
+    .reversewave div:nth-child(100) {
+    animation: pulse 3s ease-in-out -2.47934s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.47934s infinite;
+    }
+    .reversewave div:nth-child(101) {
+    animation: pulse 3s ease-in-out -2.50413s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.50413s infinite;
+    }
+    .reversewave div:nth-child(102) {
+    animation: pulse 3s ease-in-out -2.52893s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.52893s infinite;
+    }
+    .reversewave div:nth-child(103) {
+    animation: pulse 3s ease-in-out -2.55372s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.55372s infinite;
+    }
+    .reversewave div:nth-child(104) {
+    animation: pulse 3s ease-in-out -2.57851s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.57851s infinite;
+    }
+    .reversewave div:nth-child(105) {
+    animation: pulse 3s ease-in-out -2.60331s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.60331s infinite;
+    }
+    .reversewave div:nth-child(106) {
+    animation: pulse 3s ease-in-out -2.6281s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.6281s infinite;
+    }
+    .reversewave div:nth-child(107) {
+    animation: pulse 3s ease-in-out -2.65289s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.65289s infinite;
+    }
+    .reversewave div:nth-child(108) {
+    animation: pulse 3s ease-in-out -2.67769s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.67769s infinite;
+    }
+    .reversewave div:nth-child(109) {
+    animation: pulse 3s ease-in-out -2.70248s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.70248s infinite;
+    }
+    .reversewave div:nth-child(110) {
+    animation: pulse 3s ease-in-out -2.72727s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.72727s infinite;
+    }
+    .reversewave div:nth-child(111) {
+    animation: pulse 3s ease-in-out -2.75207s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.75207s infinite;
+    }
+    .reversewave div:nth-child(112) {
+    animation: pulse 3s ease-in-out -2.77686s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.77686s infinite;
+    }
+    .reversewave div:nth-child(113) {
+    animation: pulse 3s ease-in-out -2.80165s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.80165s infinite;
+    }
+    .reversewave div:nth-child(114) {
+    animation: pulse 3s ease-in-out -2.82645s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.82645s infinite;
+    }
+    .reversewave div:nth-child(115) {
+    animation: pulse 3s ease-in-out -2.85124s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.85124s infinite;
+    }
+    .reversewave div:nth-child(116) {
+    animation: pulse 3s ease-in-out -2.87603s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.87603s infinite;
+    }
+    .reversewave div:nth-child(117) {
+    animation: pulse 3s ease-in-out -2.90083s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.90083s infinite;
+    }
+    .reversewave div:nth-child(118) {
+    animation: pulse 3s ease-in-out -2.92562s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.92562s infinite;
+    }
+    .reversewave div:nth-child(119) {
+    animation: pulse 3s ease-in-out -2.95041s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.95041s infinite;
+    }
+    .reversewave div:nth-child(120) {
+    animation: pulse 3s ease-in-out -2.97521s infinite;
+    -webkit-animation: pulse 3s ease-in-out -2.97521s infinite;
+    }
+
+    .reversewave div:nth-child(121) {
+        animation: pulse 3s ease-in-out -3s infinite;
+    }
+
+    .pulse div {
+        animation: flash 2s ease-in-out 0s infinite;
+    }
+
+    .boxpulse div:nth-child(-n + 11), .boxpulse div:nth-child(n + 111), .boxpulse div:nth-child(11n), .boxpulse div:nth-child(11n + 1) {
+        animation: flash 2s ease-in-out 0s infinite;
+    }
+
+    .dotpulse div:nth-child(61) {
+         animation: flash 2s ease-in-out 0s infinite;
+    }
+
+    @keyframes pulse {
+        50% {
+            background: #fff700;
+            transform: translateY(10px) translateX(2px);
+        }
+
+        90% {
+            background:#FFA500;
+            transform: translateY(-3px);
+        }
+    }
+
+    @keyframes flash {
+        20% {
+            background: #2ecc71;
+        }
+        40% {
+            background: #181818;
+        }
+    }
+    </style>
+</head>
+<body>
+    <label for="animation-picker">Select animation:</label>
+    <select id="animation-picker">
+        <optgroup label="Wave">
+           <option selected="" value="wave">Wave</option>
+           <option value="reversewave">Reverse Wave</option>
+        </optgroup>
+
+        <optgroup label="Pulse">
+            <option value="pulse">Pulse</option>
+            <option value="boxpulse">Boxpulse</option>
+            <option value="dotpulse">Dotpulse</option>
+        </optgroup>
+    </select>
+
+    <div class="grid wave">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+        (function() {
+                var gridWidth;
+                gridWidth = $('.grid').width();
+                
+                $('select').change(function() {
+                    var $grid;
+                        $grid = $('.grid');
+                    return $grid.removeClass().width(gridWidth).addClass(`grid ${$(this).val()}`);
+                });
+                // width is changed to trigger a document reflow, thereby resetting all animations
+        }).call(this);
+</script>
+</html>

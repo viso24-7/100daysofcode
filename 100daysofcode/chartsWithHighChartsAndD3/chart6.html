@@ -1,0 +1,64 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    </head>
+  <html>
+      <body>
+        <style>
+            canvas {
+                margin: 50px auto;
+                max-width: 400px;
+            }
+           </style>
+          <canvas id="bug_chart" width="225" height="225"></canvas>
+      </body>
+  <script>
+              const ctx = document.getElementById("bug_chart");
+        const colors = ["#2B3954", "#42516F", "#606D88"];
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Minor", "Moderate", "Breaking"],
+                datasets: [
+                    {
+                        data: [5, 13,8],
+                        backgroundColor: [colors[0], colors[1], colors[2]],
+                        borderColor: [colors[0], colors[1], colors[2]],
+                        minBarLength: 1,
+                        barThickness: 10,
+                    },
+                ],
+            },
+            options: {
+                animation: { animateScale: true,},
+                cornerRadius: 20,
+                cutoutPercentage: 70,
+                legend: {
+                    display: false,
+                    position: "bottom",
+                    align: "center",
+                    labels: {
+                        fontColor: "white",
+                        fontFamily: "Fira Mono",
+                        boxWidth: 10,
+                        padding: 20,
+                        usePointStyle: true,
+                        drawRoundedRectangle: true,
+                        // fontSize: "0.8rem",
+                    },
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: { beginAtZero: true },
+                        },
+                    ],
+                },
+            }
+        });
+  </script>
+</html>

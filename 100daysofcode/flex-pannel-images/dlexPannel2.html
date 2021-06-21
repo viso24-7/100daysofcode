@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>review project</title>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+            :root {
+                    /* dark shades of primary color*/
+                    --clr-primary-1: hsl(205, 86%, 17%);
+                    --clr-primary-2: hsl(205, 77%, 27%);
+                    --clr-primary-3: hsl(205, 72%, 37%);
+                    --clr-primary-4: hsl(205, 63%, 48%);
+                    /* primary/main color */
+                    --clr-primary-5: hsl(205, 78%, 60%);
+                    /* lighter shades of primary color */
+                    --clr-primary-6: hsl(205, 89%, 70%);
+                    --clr-primary-7: hsl(205, 90%, 76%);
+                    --clr-primary-8: hsl(205, 86%, 81%);
+                    --clr-primary-9: hsl(205, 90%, 88%);
+                    --clr-primary-10: hsl(205, 100%, 96%);
+                    /* darkest grey - used for headings */
+                    --clr-grey-1: hsl(209, 61%, 16%);
+                    --clr-grey-2: hsl(211, 39%, 23%);
+                    --clr-grey-3: hsl(209, 34%, 30%);
+                    --clr-grey-4: hsl(209, 28%, 39%);
+                    /* grey used for paragraphs */
+                    --clr-grey-5: hsl(210, 22%, 49%);
+                    --clr-grey-6: hsl(209, 23%, 60%);
+                    --clr-grey-7: hsl(211, 27%, 70%);
+                    --clr-grey-8: hsl(210, 31%, 80%);
+                    --clr-grey-9: hsl(212, 33%, 89%);
+                    --clr-grey-10: hsl(210, 36%, 96%);
+                    --clr-white: #fff;
+                    --clr-red-dark: hsl(360, 67%, 44%);
+                    --clr-red-light: hsl(360, 71%, 66%);
+                    --clr-green-dark: hsl(125, 67%, 44%);
+                    --clr-green-light: hsl(125, 71%, 66%);
+                    --clr-black: #222;
+                    --ff-primary: "Roboto", sans-serif;
+                    --ff-secondary: "Open Sans", sans-serif;
+                    --transition: all 0.3s linear;
+                    --spacing: 0.1rem;
+                    --radius: 0.25rem;
+                    --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    --max-width: 1170px;
+                    --fixed-width: 620px;
+                 }
+
+
+            *,
+            ::after,
+            ::before {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+            }
+
+            body {
+                color: var(--clr-grey-1);
+                line-height: 1.5;
+                font-size: 0.875rem;
+                font-family: var(--ff-secondary);
+                background-image: url('https://images.unsplash.com/photo-1468962786167-fbc55c2cd852?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTB8fGFib3V0JTIwdXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+                background-size: cover;
+            }
+
+            ul { list-style-type: none; }
+            a { text-decoration: none; }
+
+            h1,h2,h3,h4 {
+                letter-spacing: var(--spacing);
+                text-transform: capitalize;
+                line-height: 1.25;
+                margin-bottom: 0.75rem;
+                font-family: var(--ff-primary);
+            }
+
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            h3 {font-size: 1.25rem; }
+            h4 {font-size: 0.875rem; }
+
+            p {
+                margin-bottom: 1.25rem;
+                color: var(--clr-grey-5);
+            }
+
+            /*  global classes */
+            /* section */
+            .section {
+                 padding: 5rem 0;
+            }
+
+            .section-center {
+                width: 90vw;
+                margin: 0 auto;
+                max-width: 1170px;
+            }
+
+            main {
+                min-height: 100vh;
+                display: grid;
+                place-items: center;
+            }
+
+            .title {
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+ 
+            .title:hover h2{
+                font-size: 5rem;
+                text-emphasis-color: #211109;
+                transform: translateZ(-35px);
+            }
+
+            .container {
+                width: 80vw;
+                max-width: var(--fixed-width);
+            }
+
+            .review {
+                background: var(--clr-white);
+                padding: 1.5rem 2rem;
+                border: 2px solid #211109;
+                border-radius: 5% 10%;
+                box-shadow: var(--light-shadow);
+                transition: var(--transition);
+                text-align: center;
+            }
+
+            .review:hover {
+                box-shadow: 2px 5px #211109;
+            }
+
+            .img-container {
+                position: relative;
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                margin: 0 auto;
+                margin-bottom: 1.5rem;
+            }
+
+            #person-img {
+                position: relative;
+                display: block;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+
+            .img-container::before {
+                content: "";
+                position: absolute;
+                top: -0.25rem;
+                right: -0.5rem;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(45,208,52,1) 0%, rgba(197,144,38,0.7755251758906687) 46%, rgba(28,230,130,1) 100%, rgba(55,49,26,1) 100%, rgba(8,222,19,1) 100%, rgba(145,172,140,1) 100%, rgba(109,196,233,1) 100%, rgba(80,97,205,1) 100%, rgba(87,87,201,1) 100%, rgba(0,212,255,1) 100%);
+                border-radius: 50%;
+            }
+
+            .img-container::after {
+                content: "\f10e";
+                position: absolute;
+                display: grid;
+                place-items: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                transform: translateY(25%);
+                background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(45,208,52,1) 0%, rgba(197,144,38,0.7755251758906687) 46%, rgba(28,230,130,1) 100%, rgba(55,49,26,1) 100%, rgba(8,222,19,1) 100%, rgba(145,172,140,1) 100%, rgba(109,196,233,1) 100%, rgba(80,97,205,1) 100%, rgba(87,87,201,1) 100%, rgba(0,212,255,1) 100%);
+                color: var(--clr-white);
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
+            }
+
+            #author {
+              margin-bottom: 0.25rem;
+            }
+
+            #job {
+                margin-bottom: 0.5rem;
+                color: var(--clr-primary-5);
+                font-size: 0.85rem;
+            }
+
+            #info {
+                 margin-bottom: 0.75rem;
+            }
+
+            .prev-btn, .next-btn {
+                color: var(--clr-primary-7);
+                font-size: 1.25rem;
+                background: transparent;
+                border-color: transparent;
+                margin: 0 0.5rem;
+                transition: var(--transition);
+                cursor: pointer;
+            }
+
+            .prev-btn:hover,
+            .next-btn:hover {
+                color: var(--clr-primary-5);
+            }
+
+            .random-btn {
+                margin-top: 0.5rem;
+                background: var(--clr-primary-10);
+                color: var(--clr-primary-5);
+                padding: 0.25rem 0.5rem;
+                text-transform: capitalize;
+                border-radius: var(--radius);
+                transition: var(--transition);
+                border-color: var(--clr-primary-5);
+                cursor: pointer;
+            }
+
+            .random-btn:hover {
+                background: var(--clr-primary-5);
+                color: var(--clr-primary-1);
+            }
+
+            @media screen and (min-width: 800px) {
+                    h1 {font-size: 4rem; }
+                    h2 { font-size: 2.5rem; }
+                    h3 { font-size: 1.75rem; }
+                    h4 { font-size: 1rem; }
+                    body { font-size: 1rem; }
+
+                    h1,h2,h3,h4 {
+                        line-height: 1;
+                    }
+            }
+
+            @media screen and (min-width: 992px) {
+                .section-center {
+                    width: 95vw;
+                }
+            }
+    </style>
+    <main>
+        <section class="container">
+            <!-- title -->
+            <div class="title">
+                <h2>About us</h2>
+            </div>
+            <!-- review -->
+            <article id="review" class="review">
+                <div class="img-container">
+                    <img src="person-1.jpeg" id="person-img" alt="" />
+                </div>
+                <h4 id="author">sara jones</h4>
+                <p id="job">ux designer</p>
+                <p id="info">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto asperiores debitis incidunt, eius earum ipsam cupiditate libero? Iste, doloremque nihil?
+                </p>
+                <!-- prev next buttons-->
+                <div class="button-container">
+                    <button class="prev-btn">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+                    <button class="next-btn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+                </div>
+                <!-- random button -->
+                <button class="random-btn">Random one</button>
+            </article>
+        </section>
+    </main>
+
+
+    <script>  
+        const reviews = [{
+                id: 0,
+                name: "shkelqim cimi",
+                job: "Javascript Developer",
+                img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text:"I'm currently a developer for a e-commerce company. I build applications that help the company process customer orders and track payment and other customer information."
+            },
+            {
+                id: 1,
+                name: "Julia johnson",
+                job: "UI Designer",
+                img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text: "I typically use an online spreadsheet to track not only project requirements but also their deadlines. This lets me view the requirements no matter my location and in an organized format. It also lets me share the document with other members of my team so everyone understands the project's requirements and deadlines."
+            },
+            {
+                id: 2,
+                name: "Jax jones",
+                job: "Test Engineer",
+                img: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8cGVvcGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text: "I have experience with JavaScript, Python and C++. I'm also learning Swift via an online class and I'm always open to learning new languages to expand my skill set. As a developer, I think it's important to keep our skills up-to-date to contribute to our company's success and advance in our career"
+            },
+            {
+                id: 3,
+                name: "Toni haifman",
+                job: "Node.js",
+                img: "https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text: "I do my best work in a quiet environment. Despite this, I enjoy working in a cross-functional team that fosters collaboration. I also prefer to work in an open-layout environment that allows me to communicate with my team members face-to-face"
+            },
+            {
+                id: 4,
+                name: "Maria Esperata",
+                job: "Vue.js",
+                img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8cGVvcGxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text: "In my most recent role, another developer and I disagreed with a project's direction. To resolve the matter, we met and discussed our opinions while letting each other speak."
+            },
+            {
+                id: 5,
+                name: "Julia Schutte",
+                job: "Boss",
+                img: "https://images.unsplash.com/photo-1484588168347-9d835bb09939?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjZ8fHBlb3BsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                text: "In my role, another developers can discussed our concerns, we came to a mutual agreement for the betterment of the project and our company"
+            }
+        ];
+
+        const personImg = document.getElementById('person-img');
+        const authorName = document.getElementById('author');
+        const authorJob = document.getElementById('job');
+        const authorInfo = document.getElementById('info');
+        const cartWrapper = document.querySelector('article')
+        const nextBtn = document.querySelector('.next-btn');
+        const prevBtn = document.querySelector(".prev-btn");
+        const randomBtn = document.querySelector('.random-btn');
+
+        let currentItem = 0;
+        window.addEventListener("DOMContentLoaded", function() {
+            showPerson();
+        });
+
+        function showPerson() {
+            const data = reviews[currentItem];
+            cartWrapper.id = data.id;
+            authorName.innerHTML = data.name;
+
+            personImg.src = data.img;
+            authorJob.innerHTML = data.job;
+            authorInfo.innerHTML = data.text;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentItem++;
+            if (currentItem > reviews.length - 1) {
+                currentItem = 0;
+            }
+            showPerson();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentItem--;
+            if (currentItem < 0) {
+                currentItem = reviews.length - 1;
+            }
+            showPerson();
+        });
+
+
+        randomBtn.addEventListener('click', () => {
+            let randomItem = Math.floor(Math.random() * reviews.length);
+            currentItem = randomItem;
+            showPerson();
+        })
+    </script>
+</body>
+
+</html>

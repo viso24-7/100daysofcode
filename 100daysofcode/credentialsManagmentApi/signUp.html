@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credential Management API</title>
+
+  <meta name="google-signin-client_id" content="958899272372-k713dk2pdddd4jmqvbqt3oupbg4q3ik3.apps.googleusercontent.com">
+  <script src="./fetch.js"></script>
+  <script src="./webcomponents-lite.js"></script>
+  <script src="https://apis.google.com/js/platform.js"></script>
+  <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="./shim.js"></script>
+
+  <link rel="import" href="./vulnanized.html">
+  <link rel="shortcut icon" href="">
+  <style>
+    .paper-font-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .hidden {
+        appearance: none;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        min-width: 5.14em;
+        color: inherit;
+    }
+
+    .profile img {
+        width: 96px;
+        height: 96px;
+        clip-path: circle(50% at 50% 50%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        -moz-clip-path: circle(50% at 50% 50%);
+        -o-clip-path: circle(50% at 50% 50%);
+    }
+
+    .gsignin, .fbsignin {
+      width: 186px;
+    }
+
+    .gsignin img, .fbsignin img {
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #toast {
+      color: white;
+    }
+
+    iron-pages > div { margin: 0 16px; }
+    paper-item { cursor: pointer; }
+    paper-card { margin-top: 24px; }
+    paper-card > * { padding: 0 24px 24px 24px; }
+
+    .howto img {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .howto .left {
+      float: left;
+    }
+  </style>
+</head>
+<body unresolved class="fullbleed layout vertical">
+  <template id="app" is="dom-bind">
+    <paper-dialog id="dialog" modal>
+      <paper-dialog-scrollable>
+        <h2>Please sign-in</h2>
+
+        <form is="iron-form" id="signin-form" action="/auth/password" method="post" on-iron-form-presubmit="onPwSignIn">
+          <paper-input type="email" id="lemail" name="email" label="email" autocomplete="username"
+                error-message="at least email format, please" auto-validate></paper-input>
+          <paper-input id="lpassword" type="password" name="password" label="password" autocomplete="current-password" 
+                pattern=".{4,32}"  error-message="4-32 letters please" auto-validate required></paper-input>
+
+          <div class="buttons">
+            <button type="cancel" class="hidden">
+              <paper-button dialog-dismiss raised>Cancel</paper-button>
+            </button>
+            <button type="submit" class="hidden">
+              <paper-button raised>Submit</paper-button>
+            </button>
+          </div>
+        </form>
+
+        <div class="layout horizontal center-justified">
+          <span>or</span>
+        </div>
+        <div class="gsignin" on-tap="onGSignIn">
+          <img src="./img/google_signin.png" alt="google"/>
+        </div>
+        <div class="fbsignin" on-tap="onFbSignIn">
+          <img src="./img/facebook_signin.png" alt="facebook" />
+        </div>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+        <paper-menu class="content" selected="{{selected}}">
+          <paper-item>Home</paper-item>
+          <paper-item>What's this?</paper-item>
+          <template is="dom-if" if="[[userProfile]]">
+            <paper-item on-tap="onUnregister">Remove account</paper-item>
+          </template>
+        </paper-menu>
+
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-header-panel main mode="seamed">
+
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle>
+          </paper-icon-button>
+          <div class="flex title">
+            Credential Management API Demo
+          </div>
+
+          <!-- Toolbar icons -->
+          <template is="dom-if" if="[[!userProfile]]">
+            <paper-button on-tap="openDialog" raised>Sign In</paper-button>
+          </template>
+          <template is="dom-if" if="[[userProfile]]">
+            <paper-button on-tap="signOut" raised>Sign Out</paper-button>
+          </template>
+        </paper-toolbar>
+
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages selected="{{selected}}">
+            <div class="layout center vertical">
+              <template is="dom-if" if="[[!cmaEnabled]]">
+                <p>Credential Management API is not available on your browser.
+                Try <a href="https://www.google.com/chrome/browser/beta.html">
+                Google Chrome</a> version 51 or above.</p>
+              </template>
+              <template is="dom-if" if="[[userProfile]]">
+                <div class="profile layout center vertical">
+                  <h2>Welcome! <span>[[userProfile.name]]</span></h2>
+                  <div class="flex">
+                    <img src="[[userProfile.imageUrl]]"/>
+                  </div>
+                </div>
+              </template>
+              <template is="dom-if" if="[[!userProfile]]">
+                <paper-card heading="Sign-up now!">
+                  <form is="iron-form" id="reg-form" action="/register" method="post" on-iron-form-presubmit="onRegister">
+                    <paper-input id="name" name="name" label="Whatever name" autocomplete="name" pattern=".{1,32}"
+                       error-message="4-32 letters please" auto-validate required></paper-input>
+                    <paper-input type="email" id="email" name="email" label="Fake email address" auto-validate required 
+                       autocomplete="username email" error-message="at least email format, please"></paper-input>
+                    <paper-input id="password" type="password" name="password" label="Bogus password" auto-validate required 
+                       autocomplete="new-password" pattern=".{4,32}" error-message="4-32 letters please"></paper-input>
+
+                    <div class="layout horizontal around-justified">
+                      <button type="submit" class="hidden">
+                        <paper-button raised>Register</paper-button>
+                      </button>
+                    </div>
+                  </form>
+                  <div class="layout horizontal center-justified">
+                    <span>or</span>
+                  </div>
+                  <div class="gsignin" on-tap="onGSignIn">
+                    <img src="./img/google_signin.png" />
+                  </div>
+                  <div class="fbsignin" on-tap="onFbSignIn">
+                    <img src="./img/facebook_signin.png" />
+                  </div>
+                </paper-card>
+              </template>
+            </div>
+
+          </iron-pages>
+        </div>
+      </paper-header-panel>
+    </paper-drawer-panel>
+    <paper-toast id="toast" duration="3000"></paper-toast>
+  </template>
+</body>
+<script>
+    const PASSWORD_LOGIN = 'password';
+    const GOOGLE_SIGNIN  = 'https://accounts.google.com';
+    const FACEBOOK_LOGIN = 'https://www.facebook.com';
+    const REGISTER       = 'register';
+    const UNREGISTER     = 'unregister';
+    const SIGNOUT        = 'singout';
+    const DEFAULT_IMG    = '/images/default_img.png';
+
+    const app = document.querySelector('#app');
+          app.selected = 0;           // `selected` is used to show a portion of our page
+          app.userProfile = null;     // User profile automatically show up when an object is set.
+          app.listeners = {'show-toast': 'showToast'};   // Set an event listener to show a toast. (Polymer)
+
+    /**
+     * Authentication flow with our own server
+     * @param  {String} provider Credential type string.
+     * @param  {FormData} form FormData to POST to the server
+     * @return {Promise} Resolves when successfully authenticated
+     */
+    app._fetch = async function(provider,c = new FormData()){
+          let url = '';
+          switch(provider){
+              case FACEBOOK_LOGIN:
+                  url = '/auth/facebook';
+                  break;
+
+              case GOOGLE_SIGNIN:
+                  url = '/auth/google';
+                  break;
+
+              case PASSWORD_LOGIN:
+                  url = '/auth/password';
+                  break;
+
+              case REGISTER:
+                  url = '/register';
+                  break;
+
+              case UNREGISTER:
+                  url = '/unregister';
+                  break;
+
+              case SIGNOUT:
+                  url = '/signout';
+                  break;
+          }
+
+        // `credentials:'include'` is required to include cookies on `fetch`
+        // `X-Requested-With` header to avoid CSRF attacks
+        const res = await fetch(url,{method:'POST',credentials: 'include',headers: {'X-Requested-With':'XMLHttpRequest'},
+                              body: c});
+
+          // Convert JSON string to an object
+          if(res.status === 200){
+              return res.json();
+          } else {
+              return Promise.reject();
+          }
+    };
+
+    /**
+     * Let users sign-in without typing credentials
+     * @param  {Boolean} silent Determines if account chooser shouldn't be
+     * displayed.
+     * @return {Promise} Resolves if credential info is available.
+     */
+    app._autoSignIn = async function(silent){
+        if(window.PasswordCredential || window.FederatedCredential){
+            // Actual Credential Management API call to get credential object
+            const cred = await navigator.credentials.get({
+                                password: true,
+                                federated: {providers: [GOOGLE_SIGNIN, FACEBOOK_LOGIN]},
+                                mediation: silent ? 'silent' : 'optional'
+                              });
+
+            // If credential object is available
+          if(cred){
+              console.log('auto sign-in performed');
+
+             let promise;
+             switch(cred.type){
+                case 'password':
+                    if(cred.password === undefined){   // If `password` prop doesn't exist, this is Chrome < 60
+                            cred.idName = 'email';
+                            promise = app._fetch(PASSWORD_LOGIN, cred);
+                    } else { // Change form `id` name to `email`
+                        const form = new FormData();
+                            form.append('email', cred.id);
+                            form.append('password', cred.password);
+                            promise = app._fetch(PASSWORD_LOGIN, form);
+                    }
+                    break;
+
+                case 'federated':
+                    switch(cred.provider){
+                        case GOOGLE_SIGNIN:
+                            promise = app.gSignIn(cred.id);       // Return Promise from `gSignIn`
+                            break;
+
+                        case FACEBOOK_LOGIN:
+                            promise = app.fbSignIn();             // Return Promise from `fbSignIn`
+                            break;
+                    }
+                    break;
+               }
+
+                if(promise){
+                    return promise.then(app.signedIn);
+                  }else{
+                    return Promise.resolve();
+                }
+
+            } else{
+                console.log('auto sign-in not performed');
+                return Promise.resolve();        // Resolve if credential object is not available
+            }
+         } else {// Resolve if Credential Management API is not available
+            return Promise.resolve();
+        }
+    };
+
+    /**
+     * When password sign-in button is pressed.
+     * @return {void}
+     */
+    app.onPwSignIn = function(e){
+        e.preventDefault();
+        const signinForm = e.target;
+        // Polymer `iron-form` feature to validate the form
+        if (!signinForm.validate()) return;
+
+        const signinFormData = new FormData(signinForm);
+        // Store the exact credentials sent to the server
+        const email = signinFormData.get('email');
+        const password = signinFormData.get('password');
+
+            // Sign-In with our own server
+            app._fetch(PASSWORD_LOGIN,signinFormData).then(app.signedIn).then(profile => {
+                app.$.dialog.close(); //Cancels the overlay for paper-dialog-scrollbar
+
+                if(window.PasswordCredential){
+                  // Construct `FormData` object from actual `form`
+                  const cred = new PasswordCredential({id: email, password: password});
+                  cred.name = profile.name;
+
+                  // Store credential information before posting
+                  navigator.credentials.store(cred);
+                }
+
+                app.fire('show-toast', {text: 'You are signed in'});
+              }, () => {
+               // Polymer event to notice user that 'Authentication failed'.
+               app.fire('show-toast', {text: 'Authentication failed'});
+            });
+    };
+
+    /**
+     * When google sign-in button is pressed.
+     * @return {void}
+     */
+    app.onGSignIn = function() {
+        app.gSignIn().then(app.signedIn).then(profile => {
+            app.$.dialog.close();
+
+            if(window.FederatedCredential){
+                // Create `Credential` object for federation
+                const cred = new FederatedCredential({
+                                id:       profile.email,
+                                name:     profile.name,
+                                iconURL:  profile.imageUrl || DEFAULT_IMG,
+                                provider: GOOGLE_SIGNIN
+                            });
+                // Store credential information after successful authentication
+                navigator.credentials.store(cred);
+            }
+
+            app.fire('show-toast', {text: 'You are signed in'});
+         }, () => {// Polymer event to notice user that 'Authentication failed'.
+            app.fire('show-toast', {text: 'Authentication failed'});
+        });
+    };
+
+    /**
+     * Let user sign-in using Google Sign-in
+     * @param  {String} id Preferred Gmail address for user to sign-in
+     * @return {Promise} Returns result of authFlow
+     */
+    app.gSignIn = function(id){  // Return Promise after Facebook Login dance.
+        return (() => {
+            const auth2 = gapi.auth2.getAuthInstance();
+            if (auth2.isSignedIn.get()){   // Check if currently signed in user is the same as intended.
+                const googleUser = auth2.currentUser.get();
+                if (googleUser.getBasicProfile().getEmail() === id){
+                    return Promise.resolve(googleUser);
+                }
+            }
+
+            // If the user is not signed in with expected account, let sign in.
+            // Set `login_hint` to specify an intended user account,otherwise user selection dialog will popup.
+            return auth2.signIn({login_hint: id || '' });
+        })().then(googleUser => {
+            // Now user is successfully authenticated with Google.
+            // Send ID Token to the server to authenticate with our server.
+            const form = new FormData();
+            form.append('id_token', googleUser.getAuthResponse().id_token);
+            return app._fetch(GOOGLE_SIGNIN, form);
+        });
+    };
+
+    /**
+     * When facebook login button is pressed.
+     * @return {void}
+     */
+    app.onFbSignIn = function(){
+        app.fbSignIn().then(app.signedIn).then(profile => {
+            app.$.dialog.close();
+
+            if(window.FederatedCredential){ // Create `Credential` object for federation
+                    const cred = new FederatedCredential({
+                                        id:       profile.email,
+                                        name:     profile.name,
+                                        iconURL:  profile.imageUrl || DEFAULT_IMG,
+                                        provider: FACEBOOK_LOGIN
+                                    });
+                                    
+                    // Store credential information after successful authentication
+                    navigator.credentials.store(cred);
+            }
+
+            app.fire('show-toast', {text: 'You are signed in'});
+        }, () => {  // Polymer event to notice user that 'Authentication failed'.
+            app.fire('show-toast', {text: 'Authentication failed'});
+        });
+    };
+
+    /**
+     * Let user sign-in using Facebook Login
+     * @return {Promise} Returns result of authFlow
+     */
+    app.fbSignIn = function() {
+        // Return Promise after Facebook Login dance.
+        return (() => {
+            return new Promise(function(resolve){
+                FB.getLoginStatus(function(res){
+                    if(res.status == 'connected'){
+                       resolve(res);
+                    } else {
+                       FB.login(resolve, {scope: 'email'});
+                    }
+                });
+            });
+        })().then(res => { // On successful authentication with Facebook
+            if (res.status == 'connected') {
+                // For Facebook, we use the Access Token to authenticate.
+                const form = new FormData();
+                      form.append('access_token', res.authResponse.accessToken);
+                return app._fetch(FACEBOOK_LOGIN, form);
+            } else {
+                // When authentication was rejected by Facebook
+                return Promise.reject();
+            }
+        });
+    };
+
+    /**
+     * Invoked when 'Register' button is pressed, performs registration flow
+     * and let user sign-in.
+     * @return {void}
+     */
+    app.onRegister = function(e){
+        e.preventDefault();
+        const regForm = e.target;
+        // Polymer `iron-form` feature to validate the form
+        if (!regForm.validate()) return;
+
+        const regFormData = new FormData(regForm);
+        const email = regFormData.get('email');
+        const password = regFormData.get('password');
+
+        app._fetch(REGISTER,regFormData).then(app.signedIn).then(profile => {
+            app.fire('show-toast', {text: 'Thanks for signing up!'});
+
+            if(window.PasswordCredential){ // Create password credential
+            const cred = new PasswordCredential({id: email,password: password});
+                cred.name = profile.name;
+                cred.iconURL = profile.imageUrl;
+
+                // Store user information as this is registration using id/password
+                navigator.credentials.store(cred);
+            }
+        }, () => {
+            app.fire('show-toast', {text: 'Registration failed'});
+        });
+    };
+
+    /**
+     * Invoked when 'Unregister' button is pressed, unregisters user.
+     * @return {[type]} [description]
+     */
+    app.onUnregister = function(){ // POST `id` to `/unregister` to unregister the user
+        const form = new FormData();
+        form.append('id', app.userProfile.id);
+
+        app._fetch(UNREGISTER, form).then(() => {
+            if (navigator.credentials && navigator.credentials.preventSilentAccess){
+                navigator.credentials.preventSilentAccess();
+            }
+            
+            app.userProfile = null;
+            app.fire('show-toast', {text: "You're unregistered."});
+            app.selected = 0;
+        }, e => {
+            console.error(e);
+            app.fire('show-toast', {text: 'Failed to unregister'});
+        });
+    };
+
+    /**
+     * Invoked when 'Sign-out' button is pressed, performs sign-out.
+     * @return {void}
+     */
+    app.signOut = function(){
+        app._fetch(SIGNOUT).then(() => {
+            if (navigator.credentials && navigator.credentials.preventSilentAccess) {
+                // Turn on the mediation mode so auto sign-in won't happen until next time user intended to do so.
+                navigator.credentials.preventSilentAccess();
+            }
+
+            app.userProfile = null;
+            app.fire('show-toast', {text: "You're signed out."});
+        }, () => {
+            app.fire('show-toast', {text: 'Failed to sign out'});
+        });
+    };
+
+    /**
+     * User is signed in. Fill user info.
+     * @param  {Object} profile Profile information object
+     * @return {Promise} Resolves when authentication succeeded.
+     */
+    app.signedIn = function(profile){
+        if(profile && profile.name && profile.email){
+            app.userProfile = {id:profile.id,name:profile.name,email:profile.email,
+                               imageUrl: profile.imageUrl || DEFAULT_IMG};
+            return Promise.resolve(profile);
+        }else{
+            return Promise.reject();
+        }
+    };
+
+    /**
+     * Polymer event handler to show a toast.
+     * @param  {Event} e Polymer custom event object
+     * @return {void}
+     */
+    app.showToast = function(e){
+        this.$.toast.text = e.detail.text;
+        this.$.toast.show();
+    };
+
+    /**
+     * Invoked when 'Sign-In' button is pressed, perform auto-sign-in and
+     * open dialog if it fails.
+     * @return {void}
+     */
+    app.openDialog = function(){  // Try auto sign-in before opening the dialog
+        app._autoSignIn(false).then(profile => {
+            // When auto sign-in didn't resolve with a profile it's failed to get credential information.
+            // Open the form so the user can enter id/password or select federated login manually
+            if (!profile) {
+                app.$.dialog.open();
+            }
+        }, () => {
+            app.$.dialog.open();
+            app.fire('show-toast', {text: 'Authentication failed' });
+        });
+    };
+
+    // Initialise Facebook Login,replace this with your own App ID
+      var FB_APPID = '775126365960457';
+      FB.init({appId: FB_APPID,cookie: true,xfbml: false,version:'v2.12'});
+
+    // Initialise Google Sign-In
+    gapi.load('auth2', function(){
+        gapi.auth2.init().then(() => {   // Try auto sign-in performance after initialization
+            app._autoSignIn(true);
+        });
+    });
+</script>
+</html>

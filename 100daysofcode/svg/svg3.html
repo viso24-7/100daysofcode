@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+ <html>
+     <body>
+         <style>
+             html,body,svg{
+                 height:100%;
+             }
+
+             body{
+                 background: black;
+             }
+         </style>
+        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <radialGradient id="myGradient">
+                        <stop offset="10%" stop-color="gold" />
+                        <stop offset="88%" stop-color="#211109" stop-opacity="0.6"/>
+                        <stop offset="33%" stop-color="#f0cf34" />
+                        <stop offset="155%" stop-color="red" />
+                    </radialGradient>
+                </defs>
+    
+              <!-- using my radial gradient -->
+              <circle cx="5" cy="5" r="4" fill="url('#myGradient')" />
+        </svg>
+     </body>
+ </html>

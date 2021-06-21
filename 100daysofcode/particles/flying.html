@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluturon shqipja</title>
+  </head>
+  <body>
+    <p style="text-align: right">
+      <img src="./eagle.gif" style="position: relative" />
+    </p>
+    <script>
+      let eagle = document.querySelector("img");
+      let angle = Math.PI / 6;
+
+      function animate(time, lastTime) {
+            if (lastTime != null) {
+               angle += (time - lastTime) * 0.0009;
+            }
+        eagle.style.top = Math.sin(angle) * 100 + "px";
+        eagle.style.left = Math.exp(angle) * -60 + "px";
+        requestAnimationFrame((newTime) => animate(newTime, time));
+      }
+
+      requestAnimationFrame(animate);
+    </script>
+  </body>
+</html>

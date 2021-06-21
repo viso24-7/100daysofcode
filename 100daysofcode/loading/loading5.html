@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .container{
+             display: flex;
+             justify-content: center;
+        }
+
+        .loading{
+            height: 64px;
+            width: 64px;
+            margin-top: 16px;
+            border-radius: 50%;
+            border-top: 10px solid rgba(58,207,58);
+            border-left: 10px solid rgba(136,136,136,0.2);
+            border-right: 10px solid rgba(136,136,136,0.2);
+            border-bottom: 10px solid rgba(136,136,136,0.2);
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            0%{
+                transform: rotate(0deg);
+            }
+
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="conntainer">
+        <div class="loading"></div>
+    </div> 
+    <script>
+    var drawLine = function(screen,width,x1,x2,y){
+        var byte;
+        var pixel;
+
+        var findByte = function(x, y, width) {
+                var start = y * width / 8;
+                return start + Math.floor(x / 8);
+        };
+            
+         var findPixel = function(x) {
+                return x % 8;
+        };
+            
+        for (var i = x1; i <= x2; i++) {
+                byte = findByte(i, y, width);
+                pixel = findPixel(i);
+                screen[byte][pixel] = 1;
+         }
+        return screen;
+    };
+
+    /* Test */
+
+    var testScreen = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], 
+                [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]];
+    drawLine(testScreen, 32, 2, 18, 1);
+    console.log(testScreen);
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: "ftohte";
+            src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/Ice%20kingdom%20-%20Bold%20-%20Por%20Kustren.woff");
+        }
+
+
+        html, body {
+            height: 100%;
+            background: linear-gradient(to bottom, #000428, #004e92);
+        }
+
+        h1 {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            margin:0;
+            text-align: center;
+            font-size: 20vw;
+            font-weight: 900;
+            font-family: "ftohte", serif;
+            color: transparent;
+            caret-color: coral;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/209981/6963bbf342d87b3a2150bd8f59682b89.jpg);
+            -webkit-background-clip: text;
+            background-size: contain;
+            transform: translate(-50%, -50%);
+        }
+
+        h1::before {
+            content: attr(data-heading);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            color: transparent;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0) 100%);
+            -webkit-background-clip: text;
+            mix-blend-mode: screen;
+            background-size: 200%;
+            text-shadow: 2px 5px 15px rgba(0, 0, 0, 0.2),
+                        -8px 5px 15px rgba(0, 0, 0, 0.2), 
+                        -2px 5px 15px rgba(0, 0, 0, 0.2);
+            animation: wind 1s alternate-reverse infinite;
+        }
+
+        @keyframes wind {
+            0% {
+                background-position: -100%;
+            }
+            100% {
+                background-position: 150%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 contenteditable data-dimer="Ftohte">
+        Ftohte
+    </h1>
+</body>
+<script>
+    var h = document.querySelector("h1");
+        h.addEventListener("input", function() {
+            this.setAttribute("data-dimer", this.innerText);
+        });
+</script>
+</html>

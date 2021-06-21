@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    @import url(https://fonts.googleapis.com/css?family=Oswald);
+    body {
+        font-family: "Oswald", sans-serif;
+        background:url('https://images.unsplash.com/photo-1505673542670-a5e3ff5b14a3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8bmlnaHQlMjBza3l8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+        background-size: cover;
+        margin: 0;
+    }
+
+    .wrapper {
+        position: relative;
+        width: 800px;
+        padding: 50px 0px;
+        margin: 125px auto;
+        overflow: hidden;
+        text-align: center;
+        background: white;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .wrapper label {
+        display: inline-block;
+        width: 200px;
+        height: 200px;
+        border-radius: 2px;
+        margin: 10px;
+        cursor: pointer;
+        background: #72a054;
+        transform-style: preserve-3d;
+    }
+
+    .wrapper label span {
+        color: white;
+        font-size: 13px;
+        position: relative;
+        top: 10px;
+    }
+
+    .wrapper label p {
+        position: absolute;
+        display: none;
+        top: 25px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        width: 150px;
+        margin: 25px;
+        color: white;
+        margin: 0 auto;
+        font-size: 10px;
+    }
+
+    .wrapper label a {
+        position: absolute;
+        display: none;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        font-size: 10px;
+        color: white;
+    }
+
+    .wrapper label span:hover{
+        font-size: 25px;
+        color:rgb(240, 40, 40)
+    }
+    .wrapper input[type=checkbox] {
+        display: none;
+    }
+
+    .wrapper input[type=checkbox]:checked + label a, .wrapper input[type=checkbox]:checked + label p {
+        display: block;
+    }
+    .wrapper input[type=checkbox]:checked + label span, .wrapper input[type=checkbox]:checked + label div {
+        visibility: hidden;
+    }
+
+    .wrapper input[type=checkbox]:checked + label {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: scale(3.33);
+        transition-duration: 0.1s;
+        transition-property: transform;
+        z-index: 122221;
+        background: #dd47b0;
+        border-radius: 10px;
+    }
+
+    .wrapper input[type=checkbox]:not(:checked) + label {
+        transform: scale(1);
+        transition-duration: 0.1s;
+        transition-property: transform;
+    }
+
+    .wrapper label:nth-of-type(1) {
+       transform-origin: 0% 0%;
+    }
+
+    .wrapper label:nth-of-type(2) {
+       transform-origin: 50% 0%;
+    }
+
+    .wrapper label:nth-of-type(3) {
+       transform-origin: 100% 0%;
+    }
+
+    .wrapper label:nth-of-type(4) {
+       transform-origin: 0% 50%;
+    }
+
+    .wrapper label:nth-of-type(5) {
+       transform-origin: 50% 50%;
+    }
+
+    .wrapper label:nth-of-type(6) {
+       transform-origin: 100% 50%;
+    }
+
+    .wrapper label:nth-of-type(7) {
+       transform-origin: 0% 100%;
+    }
+
+    .wrapper label:nth-of-type(8) {
+       transform-origin: 50% 100%;
+    }
+    .wrapper label:nth-of-type(9) {
+       transform-origin: 100% 100%;
+    }
+
+    .wrapper .circle {
+        width: 40px;
+        height: 40px;
+        opacity: 0.3;
+        visibility: visible;
+        margin: 60px auto 0px auto;
+        border-radius: 100%;
+        border: 3px solid rgb(168, 54, 54);
+        animation: circle 1s infinite;
+    }
+
+    @-webkit-keyframes circle {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.8);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class='wrapper'>
+        <input id='1' type='checkbox'>
+        <label for='1'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='2' type='checkbox'>
+        <label for='2'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='3' type='checkbox'>
+        <label for='3'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='4' type='checkbox'>
+        <label for='4'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='5' type='checkbox'>
+        <label for='5'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='6' type='checkbox'>
+        <label for='6'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='7' type='checkbox'>
+        <label for='7'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='8' type='checkbox'>
+        <label for='8'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+        <input id='9' type='checkbox'>
+        <label for='9'>
+          <div>
+            <div class='circle'></div>
+            <span>Click me</span>
+          </div>
+          <p>Thank you,for visiting my website! Thanks for checking my work. Take a shot to see some of my other stuff on github.</p>
+          <a href='https://github.com/cimi'>See more</a>
+        </label>
+      </div>  
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+                height: 100%;
+                overflow:auto;
+                font-family: sans-serif;
+                font-size: 150%;
+                background: white;
+            }
+
+           *{
+             padding:10px;
+             margin: 0;
+             box-sizing: border-box;
+           }
+           body {
+                  height: 100%; 
+    
+            }
+            
+            :is(section.is-styling, aside.is-styling, footer.is-styling) a {
+                color: red;
+            }
+            
+            :where(section.where-styling, aside.where-styling, footer.where-styling) a {
+                color: orange;
+            }
+
+
+            #draggable {
+              width: 200px;
+              height: 20px;
+              left:20px;
+              text-align: center;
+              font-size: 15px;
+              background: white;
+            }
+
+            .dropzone {
+              width: 200px;
+              height: 20px;
+              background: blueviolet;
+              margin-bottom: 10px;
+              padding: 10px;
+            }
+            .right{
+              position:absolute;
+              right: 30px;
+              height: 250px;
+              width: 250px;
+            }
+
+            .linqe{
+              position: absolute;
+              height:280px;
+              width:190px;
+              top:15px;
+              right: 20px;
+              border-radius: 15%;
+              background-color: rgb(158, 125, 132);
+            }
+           
+            .linqe > a{
+              display: flex;
+              align-items: center;
+              margin: 20px;
+              color:chocolate;
+            }
+
+            .linqe + a{
+              text-transform: uppercase;
+            }
+
+            .linqe a:hover{
+              text-decoration: rgb(156, 34, 146);
+              font-size: 25px;
+            }
+            
+            h2{
+              text-overflow: clip;
+              font-size: medium;
+              font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+
+            a{
+              text-decoration-line: none;
+              color: rgb(17, 12, 13);
+            }
+
+            #myDIV {
+              height: 250px;
+              width: 250px;
+              overflow: auto;
+              background: green;
+            }
+
+            input:in-range{
+              border: 1px solid rgb(224, 202, 202);
+            }
+
+            input:out-of-range{
+              border: 1px solid rgb(230, 24, 24);
+            }
+
+            .rechange::-webkit-input-placeholder {
+                color: #1c91e6;
+                font-size: 1rem;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+
+            form{
+               position: relative;
+               height: 250px;
+               width: 350px;
+               top: 30px;
+               background:white;
+            }
+            
+            form input{
+              display: flex;
+              flex-direction: column;
+            }
+
+            input[type="name"]{
+              width:98%;
+              height:10%;
+              margin-bottom: 5px;
+              border: 2px solid grey;
+            }
+
+            input[type="email"]{
+              width:98%;
+              height:10%;
+              margin-bottom: 5px;
+              border: 2px solid grey;
+            }
+
+            input[type="password"]{
+              width:98%;
+              height:10%;
+              margin-bottom: 5px;
+              border: 2px solid grey;
+            }
+
+            .rresh{
+              height: 35px;
+              width: 65px;
+              left: 50px;
+              transform-style: preserve-3d;
+              transform: perspective(500) translate3d(150px,150px,160px);
+            }
+
+            button{
+              width: 105px;
+              font-size: 18px;
+              font-family: Verdana, Geneva, Tahoma, sans-serif;
+              text-shadow:  1px 1px rgb(41, 38, 38);
+              color:green;
+              transition: width 2s ease-in-out;
+            }
+
+           
+            button{
+              content: "Here i am  ";
+              animation: identifier 5s linear 23s;
+            }
+
+           @keyframes identifier {
+              from{
+                    color: blue;
+              }
+              to{
+                 color: green;
+              }
+           }
+
+          ul + li{
+            background: rgb(0,191,255);
+             background: radial-gradient(circle, rgba(0,191,255,1) 95%, rgba(10,10,5,1) 95%, rgba(2,0,36,1) 100%, rgba(80,97,205,1) 100%, rgba(16,79,240,1) 100%, rgba(109,196,233,1) 100%, rgba(55,49,26,1) 100%, rgba(28,230,130,1) 100%, rgba(36,103,24,1) 100%, rgba(132,90,38,1) 100%, rgba(119,76,36,0.7755251758906687) 100%, rgba(237,250,114,0.8539565484396884) 100%, rgba(8,222,19,1) 100%, rgba(87,87,201,1) 100%, rgba(236,203,52,1) 100%, rgba(27,30,31,1) 100%, rgba(211,175,48,1) 100%);
+        
+          } 
+           li:not(#golaazo){
+             font-family: fantasy;
+             font-variant: small-caps;
+             background: rgb(0,191,255);
+             writing-mode:vertical-lr;
+             transform: skewX(15deg);
+      
+           }
+           p::first-line{
+             text-transform: uppercase;
+           }
+
+           textarea{
+             white-space: nowrap;
+  
+           }
+
+           visi-tag{
+             position: relative;
+             left: 50px;
+             width: 150px;
+             height: 150px;
+             background-color: blueviolet;
+             pointer-events: visible;
+           }
+   </style>
+</head>
+<body>
+    <article>
+        <h2 id="nuk">:is()-styled links</h2>
+        <section class="is-styling">
+          <p>Here is my main content. This <a href="https://mozilla.org">contains a link</a>.
+        </section>
+      
+        <aside class="is-styling">
+          <p>Here is my aside content. This <a href="https://developer.mozilla.org">also contains a link</a>.
+        </aside>
+      
+        <footer class="is-styling">
+          <p>This is my footer, also containing <a href="https://github.com/mdn">a link</a>.
+        </footer>
+      </article>
+      
+      <article>
+        <h2>:where()-styled links</h2>
+        <section class="where-styling" onload="init()">
+          <p class="ci">Here is my main content. This <a href="https://mozilla.org">contains a link</a>.
+        </section>
+      
+        <aside class="where-styling" style="align-items: baseline;">
+          <p>Here is my aside content. This <a href="https://developer.mozilla.org">also contains a link</a>.
+        </aside>
+      
+        <footer class="where-styling">
+          <p>This is my footer, also containing <a href="https://github.com/mdn">a link</a>.
+        </footer>
+      </article>
+  
+      <button class="tonode" placeholder="add new node" data-age="22">add</button>
+        <div class="linqe" style="display:block;overflow: auto;">
+            <a id="l1" href="google.com/" class="llafe">Google</a>
+            <a id="l2" href="facebook.com/" >Facebook</a>
+            <a id="l3" href="linkedin.com/">Linkedin</a>
+            <a id="l4" href="alibaba.com/">Alibaba</a>
+        </div>
+ </body>
+<html>
+  <script>
+
+    function serial(asyncFunctions) {
+        return asyncFunctions.reduce(function(functionChain, nextFunction) {
+            return functionChain.then((previousResult) => nextFunction(previousResult));
+        }, Promise.resolve());
+     }
+
+    serial(['parameterValidation', 'dbQuery', 'serviceCall' ])
+          .then((result) => console.log(`Operation result: ${result}`))
+          .catch((error) => console.log(`There has been an error: ${error}`))
+
+
+    function serial(asyncFunctions) {
+      return asyncFunctions.map(function(functionChain, nextFunction) {
+          return functionChain.then((previousResult) => nextFunction(previousResult))
+                              .then(result => ({ status: 'fulfilled', result }))
+                              .catch(error => ({ status: 'rejected', error }));
+      }, Promise.resolve());
+    }
+ </script> 
+</html>

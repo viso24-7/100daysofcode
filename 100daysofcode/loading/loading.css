@@ -1,0 +1,50 @@
+body {
+    margin: 20px;
+    background: white;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 300px;
+}
+
+#progress-path {
+    stroke-dasharray: 314.273, 314.273; /* higher this value the faster is going animation */
+
+    animation-name: draw-path;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes draw-path {
+    from { stroke-dashoffset: 0; }
+    to {   stroke-dashoffset: -314.273; }
+}
+
+/* second way
+body {
+    margin: 20px;
+    background: white;
+}
+
+.progress-bar {
+    width: 300px;
+    height: 300px;
+}
+
+#progress-path {
+    stroke-dasharray: 14;
+
+    animation-name: draw-path;
+    animation-timing-function: ease-in-out;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes draw-path {
+    from { stroke-dashoffset: 0; }
+    to {   stroke-dashoffset: -514; }
+}
+
+*/

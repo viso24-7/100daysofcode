@@ -1,0 +1,74 @@
+body {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+  }
+  
+  .logo-container {
+    position: relative;
+  }
+  
+  #logo,
+  #static-logo,
+  #logo2 {
+    transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: absolute;
+    top: 0;
+  }
+  
+  #static-logo {
+    z-index: -1;
+  }
+  
+  #static-logo:hover {
+  }
+  
+  #logo:hover ~ #static-logo,
+  #logo:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  
+  #logo path:nth-child(1) {
+    stroke-dasharray: 938;
+    stroke-dashoffset: 938;
+  }
+  
+  #logo:hover path:nth-child(1) {
+    animation: line-anim 2s ease alternate-reverse;
+  }
+  
+  #logo path:nth-child(2) {
+    stroke-dasharray: 429;
+    stroke-dashoffset: 429;
+  }
+  
+  #logo:hover path:nth-child(2) {
+    animation: line-anim 2s ease forwards;
+  }
+  
+  #logo path:nth-child(3) {
+    stroke-dasharray: 90;
+    stroke-dashoffset: 90;
+  }
+  
+  #logo:hover path:nth-child(3) {
+    animation: line-anim 2s ease forwards;
+  }
+  
+  @keyframes line-anim {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes fill {
+    from {
+      fill: transparent;
+    }
+    to {
+      fill: white;
+    }
+  }

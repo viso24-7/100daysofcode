@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./style.css" />
+		<title>Text Matrix</title>
+	</head>
+	<body>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700;900&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Source Code Pro', monospace;
+            }
+
+            body {
+                overflow: hidden;
+            }
+
+            section {
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+                width: 100%;
+                background: #0e0e0e;
+            }
+
+            section .container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            #mmm {
+                color: #2dd034;
+            }
+
+            section .container h2,h3 {
+                position: relative;
+                width: 100%;
+                text-align: center;
+                text-transform: uppercase;
+                font-weight: 900;
+                color: #222;
+                font-size: 3.2em;
+                line-height: 0.9em;
+                letter-spacing: 4px;
+            }
+
+            section .container h2 span {
+                position: relative;
+                z-index: 1;
+                color: #fff;
+                animation: animate 5s linear infinite;
+            }
+
+            section .container h2 span.text2 {
+                animation-delay: -0.5s;
+                filter: hue-rotate(180deg);
+            }
+
+            section .container h2 span.text3 {
+                animation-delay: -1s;
+                filter: hue-rotate(180deg);
+            }
+
+            section .container h2 span.text4 {
+                animation-delay: -1.5s;
+                filter: hue-rotate(320deg);
+            }
+
+            @keyframes animate {
+                0%,5%,10.1%,15.1%,25.1%,45%,70.1%,90%,100% {
+                    color: #222;
+                    text-shadow: 0 0 0 #222;
+                    transform: translateZ(65px);
+                }
+
+                5.1%,10%,15.2%,25%,45.1%, 70%,90.1%,95% {
+                    color: #fff;
+                    text-shadow: 0 0 10px #9acc14, 0 0 20px #9acc14, 0 0 40px #9acc14,
+                        0 0 80px #9acc14, 0 0 190px #9acc14;
+                    transform: translateZ(65px) ;
+                }
+            }
+        </style>
+		<section>
+			<div class="container">
+				<h2>pwhscws4d5wfrfshsw48d5aav3hk</h2>
+				<h2>rhx5sg46sacxcptrhxmsg46saacxc</h2>
+				<h2>jasesdvjas8sdv<span>CH</span>dssdse3dssdse3</h2>
+				<h2>
+					sda284<span class="text2">Madrid</span>4a<span>A</span>s5c21sws5c21sw
+				</h2>
+				<h2>d8wbnvdd8wqnvd<span>M</span>s83s52ds83s52d</h2>
+				<h2>
+					25ezvks2<span class="text4">Real</span>v<span>P</span>alvamklalvamk
+				</h2>
+				<h2>wpoqndswpoznds<span>I</span>hvkxswrhvkxswr</h2>
+				<h2>
+					95sgc5895ssc58<span>O</span>rb<span class="text3">Legends</span>swz9e
+				</h2>
+				<h2>ukaYzp4ukalzp4<span>N</span>e2xee41e2xee41</h2>
+				<h2>ptrhxmsptrhxmsa46sacxc46sacxc</h2>
+				<h2>jas8sdv2dssdse3jas8sdv2dssdse</h2>
+				<h3 id="mmm">bestoffootbalteamsof21centery</h3>
+				<h2>ksv5echekjc2s5vkjuev5a25cveyn</h2>
+				<h2>ksv5echekjc2s5vkjuev5a25cveyn</h2>
+			</div>
+		</section>
+		<script>
+            const word = document.querySelector('h3');
+            let interv = 'undefined';
+            let canChange = false;
+            let globalCount = 0;
+            let count = 0;
+            let INITIAL_WORD = word.innerHTML;
+            let isGoing = false;
+
+
+            function rand(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function getRandomLetter() {
+                const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+                return alphabet[rand(0, alphabet.length - 1)];
+            }
+
+            function getRandomWord(word){
+                const text = word.innerHTML;
+                let finalWord = '';
+                for (let i = 0; i < text.length; i++) {
+                    finalWord += text[i] == ' ' ? ' ' : getRandomLetter();
+                }
+                return finalWord;
+            }
+
+            function init(){
+                if (isGoing) return;
+
+                isGoing = true;
+                const randomWord = getRandomWord(word);
+                word.innerHTML = randomWord;
+
+                interv = setInterval(function(){
+                    let finalWord = '';
+                    for(let x = 0; x < INITIAL_WORD.length; x++){
+                        if(x <= count && canChange){
+                            finalWord += INITIAL_WORD[x];
+                        } else {
+                            finalWord += getRandomLetter();
+                        }
+                    }
+
+                    word.innerHTML = finalWord;
+                    if(canChange){ count++; }
+                    if(globalCount >= 20){ canChange = true;}
+                    if(count >= INITIAL_WORD.length){
+                        clearInterval(interv);
+                        count = 0;
+                        canChange = false;
+                        globalCount = 0;
+                        isGoing = false;
+                    }
+
+                    globalCount++;
+                }, 50);
+            }
+
+            word.addEventListener('mouseenter', init);
+        </script>
+	</body>
+</html>

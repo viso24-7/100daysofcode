@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Houdini Fractals Demo</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="fractals.css">
+</head>
+<body>
+    <div class="flex">
+        <section class="demo fractals"></section>
+        <section>
+            <div>
+                <label>Colors</label>
+                <select id="colors">
+                    <option selected>red green blue cyan magenta yellow</option>
+                    <option>red green blue</option>
+                    <option>black</option>
+                    <option>#000 #222 #444 #666 #888 #aaa #ccc</option>
+                </select>
+            </div>
+            <div>
+                <label>Shape</label>
+                <select id="shape">
+                    <option value="line" selected>line</option>
+                    <option value="circle">circle</option>
+                    <option value="square">square</option>
+                </select>
+            </div>
+            <div>
+                <label>Angle</label>
+                <input id="angle" type="range" min="0" max="360" value="30">
+            </div>
+            <div>
+                <label>Starting Length %</label>
+                <input id="starting-length-percent" type="range" min="5" max="95" value="22">
+            </div>
+            <div>
+                <label>Next Line Size</label>
+                <input id="next-line-size" type="range" min="0.1" max="0.9" step="0.1" value=".8">
+            </div>
+            <div>
+                <label>Max Draw Count</label>
+                <input id="max-draw-count" type="range" min="0" max="250000" step="1000" value="10000">
+            </div>
+            <div>
+                <label>Show Origin</label>
+                <select id="show-origin">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+            <div>
+                <label>Debug to Console</label>
+                <select id="debug-to-console">
+                    <option value="1">Yes</option>
+                    <option value="0" selected>No</option>
+                </select>
+            </div>
+          </section>
+    </div>
+
+    <script type="module">
+        // Register the Fractals Paint Worklet
+        (async function () {
+            if (CSS['paintWorklet'] === undefined) {
+                await import('https://unpkg.com/css-paint-polyfill');
+            }
+            CSS.paintWorklet.addModule('fractals.js');
+        })();
+
+        // Setup page form
+        (function () {
+            const demo = document.querySelector('.demo');
+            const inputs = document.querySelectorAll('input, select');
+            for (const input of inputs) {
+                input.setAttribute('current-value', input.value);
+                input.oninput = () => {
+                    demo.style.setProperty('--' + input.id, input.value);
+                    input.setAttribute('current-value', input.value);
+                };
+            }
+        })();
+    </script>
+
+    <!-- Show a warning for Older browsers (IE, Older Mobile Devices, etc) -->
+    <script nomodule src="https://cdn.jsdelivr.net/npm/dataformsjs@5/js/web-components/old-browser-warning.min.js"></script>
+</body>
+</html>

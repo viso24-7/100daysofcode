@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Particle Text</title>
+    </head>
+    <body>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                overflow: hidden;
+                background: black;
+            }
+
+            canvas {
+                position: absolute;
+                top: 100px;
+                left:150px;
+            }
+        </style>
+        <canvas id="canv"></canvas>
+
+        <script>
+            const canvas = document.querySelector("#canv");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particleArray = [];
+            let adjustX = 2;
+            let adjustY = -2;
+
+            //handle mouse
+            const mouse = {
+                x: null,
+                y: null,
+                radius: 150,
+            };
+
+            window.addEventListener("mousemove",  (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+
+            ctx.fillStyle = "white";
+            ctx.font = "30px Courier New";
+            ctx.fillText("Cimi", 0, 30);
+            const data = ctx.getImageData(0, 0, 150, 50);
+
+            class Particle {
+                constructor(x,y){
+                    this.x = x;
+                    this.y = y;
+                    this.size = 3;
+                    this.baseX = this.x;
+                    this.baseY = this.y;
+                    this.density = Math.random() * 35 - 1;
+                }
+
+                draw(){
+                    ctx.fillStyle = "red";
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                update(){
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        this.size = 20;
+                    } else {
+                        this.size = 3;
+                    }
+                }
+            }
+
+            function init(){
+                for (let y = 0,y2=data.height; y < y2; y++) {
+                    for (let x = 0,x2=data.width; x < x2; x++) {
+                        if (data.data[y * 4 * data.width + x * 4 + 3] > 128) {
+                            let positionX = x + adjustX;
+                            let positionY = y + adjustY;
+                            particleArray.push(new Particle(positionX * 20, positionY * 20));
+                        }
+                    }
+                }
+            }
+            init();
+
+            function animate(){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let particle of particleArray) {
+                    particle.draw();
+                    particle.update();
+                }
+                //window.requestAnimationFrame() tells the browser that you wish to perform an animation and requests that
+                requestAnimationFrame(animate); //the browser calls a specified function to update an animation before the next repaint. 
+            }
+            animate();
+        </script>
+    </body>
+</html>

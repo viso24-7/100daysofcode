@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+           padding: 2px;
+           margin:5px;
+        }
+        form {
+           width:70%;
+           margin: 0 auto;
+           text-align: center;
+        }
+        input[type="button"] {
+           border-radius: 10px;
+        }
+     </style>
+</head>
+<body>
+    <form>
+        <fieldset>
+           <legend>HTML-DOM-Window-frameElement</legend>
+           <input id="urlSelect" type="url" placeholder="Type URL here...">
+           <input type="button" value="Go To" onclick="goToURL()">
+           <div id="divDisplay"></div>
+        </fieldset>
+     </form>
+</body>
+<script>
+    var urlSelect = document.getElementById("urlSelect");
+    var divDisplay = document.getElementById("divDisplay");
+    function goToURL() {
+       if(window.frameElement){
+          window.frameElement.src=urlSelect.value;
+          divDisplay.textContent = 'Current Window is embedded';
+       }
+       else
+          divDisplay.textContent = 'Current Window is not embedded';
+       }
+    </script>
+</html>

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>How to toggle aria-expanded attribute</title>
+    </head>
+    <body>
+        <button onclick="toggleAria()"  id="b" aria-expanded="false">Toggle</button>
+    </body>
+    <script>
+        function toggleAria(){
+            var el = document.getElementById("b");
+            var x = el.getAttribute("aria-expanded"); 
+                if (x == "true") {
+                x = "false"
+                } else {
+                x = "true"
+                }
+            el.setAttribute("aria-expanded", x);
+            el.innerHTML = "aria-expanded =" + x;
+        }
+    </script>
+</html>

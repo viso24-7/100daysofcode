@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>My Skills</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" />
+	</head>
+	<body>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Roboto Mono', monospace;
+            }
+
+            .container {
+                position: relative;
+                margin: 30px auto;
+                width: 600px;
+                height: 300px;
+                display: flex;
+                flex-direction: row;
+                padding: 30px;
+            }
+
+            .cube_face > i {
+                font-size: 45px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+            }
+
+            .scene > i {
+                font-size: 35px;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 0);
+                color: black;
+                transition: bottom 0.3s;
+            }
+
+            .scene:hover > i {
+                transform: translate(-50%, 0) rotateY(360deg);
+                bottom: -10px;
+                transition: 0.3s 0.2s;
+            }
+
+            .cube {
+                transform: translateY(0) translateZ(-100px) rotateX(-20deg) rotateY(20deg);
+            }
+
+            .scene {
+                width: 50px;
+                height: 50px;
+                perspective: 500px;
+                margin-left: 8px;
+            }
+
+            .cube {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 0.3s ease-in;
+            }
+
+            .cube_shadow {
+                display: block;
+                position: absolute;
+                width: 50px;
+                height: 40px;
+                filter: blur(10px);
+                bottom: -10px;
+                left: 0;
+                background-color: black;
+                transition: 0.3s ease-in;
+            }
+
+            .scene:hover .cube_shadow {
+                width: 60px;
+                height: 10px;
+                filter: blur(15px);
+                bottom: 0;
+                left: 10px;
+            }
+
+            .cube_face {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: #350757;
+                opacity: 1;
+                border: 1px solid black;
+                border-radius: 50% 200% 50%;
+            }
+
+            .cube_face--front {
+                transform: rotateY(0) translateZ(25px);
+            }
+
+            .cube_face--right {
+                transform: rotateY(90deg) translateZ(25px);
+                background-color: #400868;
+            }
+
+            .cube_face--back {
+                transform: rotateY(180deg) translateZ(25px);
+                background-color: #4a0979;
+            }
+
+            .cube_face--left {
+                transform: rotateY(-90deg) translateZ(25px);
+                background-color: #550a8a;
+            }
+
+            .cube_face--top {
+                transform: rotateX(90deg) translateZ(25px);
+                background-color: #5f0c9c;
+            }
+
+            .scene:hover .cube {
+                transform: translateY(-40px) translateZ(-100px) rotateX(30deg) rotateY(30deg);
+            }
+
+            .heading {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .para {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .dang {
+                color: red;
+            }
+
+            .sauce {
+                color: red;
+            }
+        </style>
+        
+		<div class="heading">
+			<h1>Programming languages</h1>
+		</div>
+		<div class="para">
+			<p>
+				I am able <span class="dang">to write code</span>
+			</p>
+		</div>
+		<div class="container">
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-html5"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-html5"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-css3-alt"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-css3-alt"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-js"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-js"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-sass"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-sass"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-react"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-react"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-node"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-node"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fas fa-database"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fas fa-database"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-github-alt"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-github-alt"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+			<div class="scene">
+				<span class="cube_shadow"> </span>
+				<i class="fab fa-apple"></i>
+				<div class="cube">
+					<div class="cube_face cube_face--front">
+						<i class="fab fa-apple"></i>
+					</div>
+					<div class="cube_face cube_face--back"></div>
+					<div class="cube_face cube_face--right"></div>
+					<div class="cube_face cube_face--left"></div>
+					<div class="cube_face cube_face--top"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

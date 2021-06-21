@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    display: grid;
+    place-content: center;
+    font-family: monospace;
+    background: #ced8d7;
+  }
+  
+  .split {
+    position: relative;
+    width: 283.5px;
+    height: 283.5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: #232c39 radial-gradient( transparent 55%, #f2a43b calc(55% + 0.5px) calc(55% + 3.5px),
+                transparent calc(55% + 4px) 69%, #f2a43b calc(69% + 0.5px) calc(69% + 3.5px)) no-repeat;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px #232c39;
+    color: #FF2D74;
+    transform: rotate(90deg);
+  }
+  
+  .split > span {
+    --cs: (var(--total) - var(--i));
+    offset-path: path("M283.5 141.7c0 78.3-63.5 141.7-141.7 141.7S0 220 0 141.7 63.5 0 141.7 0s141.8 63.5 141.8 141.7z");
+    offset-anchor: left;
+    offset-rotate: auto 0deg;
+    offset-distance: calc(var(--cs) * -15px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 1.95rem;
+    animation: reveal 0.3s calc(1s + var(--i) * 0.02s) cubic-bezier(0.5, 0, 0.5, 1) both;
+  }
+  
+  @keyframes reveal {
+    from {
+      transform: rotateX(90deg);
+      opacity: 0;
+    }
+  }
+  
+   

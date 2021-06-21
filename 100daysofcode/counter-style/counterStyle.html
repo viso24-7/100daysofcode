@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CSS @counter-style Demo</title>
+    <style>
+        body {
+            background: #EEEEEE;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list-container {
+            float: left;
+            width: 40%;
+            margin-left: 20px;
+        }
+
+        .list-controls {
+            width: 40%;
+            margin-left: 10px;
+            border: 1px solid #4D4E53;
+            float: left;
+            padding: 10px;
+            background: white;
+        }
+
+        .code {
+            border-left: 6px solid #558ABB;
+            background: url("");
+            padding: 12px;
+        }
+
+        .header h1 {
+            margin: 0;
+            padding: 0;
+            font-family: Ubuntu, Arial, Tahoma, 'Sans Serif';
+        }
+
+        .header {
+            background: #27547E;
+            margin: 0 0 10px 0;
+            padding: 5px;
+            color: white;
+        }
+
+        .notes-section {
+            margin: 10px;
+            color: #4D4E53;
+            font-family: Ubuntu, Arial, Tahoma, 'Sans Serif';
+            float: left;
+        }
+
+        /* Demo styles */
+
+        @counter-style demo-cyclic {
+            system: cyclic;
+            symbols: ◆ ◇;
+            suffix: " ";
+        }
+
+        .demo-cyclic {
+            list-style: demo-cyclic;
+        }
+
+        @counter-style cs-fixed {
+            system: fixed;
+            symbols:          ;
+            suffix: " ";
+        }
+
+        .demo-fixed {
+            list-style: cs-fixed;
+        }
+
+        @counter-style cs-symbolic {
+            system: symbolic;
+            symbols: '*' ⁑ † ‡;
+            range: 1 15;
+            suffix: " ";
+        }
+
+        .demo-symbolic {
+            list-style: cs-symbolic;
+        }
+
+        @counter-style cs-alphabetic {
+            system: alphabetic;
+            symbols: A B C D E;
+            suffix: " ";
+        }
+
+        .demo-alphabetic {
+            list-style: cs-alphabetic;
+        }
+
+        @counter-style cs-numeric {
+            system: numeric;
+            symbols: A B C D E;
+        }
+
+        .demo-numeric {
+            list-style: cs-numeric;
+        }
+
+        @counter-style cs-additive-roman {
+            system: additive;
+            range: 1 100;
+            additive-symbols: 1000 M, 900 CM, 500 D, 400 CD, 100 C, 90 XC, 50 L, 40 XL, 10 X, 9 IX, 5 V, 4 IV, 1 I;
+        }
+
+        .demo-additive {
+            list-style: cs-additive-roman;
+        }
+
+        @counter-style cs-extends {
+            system: extends decimal;
+            prefix: '(';
+            suffix: ') ';
+        }
+
+        .demo-extends {
+            list-style: cs-extends;
+        }
+
+
+        /* Predefined styles */
+
+        .demo-decimal {
+            list-style: decimal;
+        }
+
+        .demo-decimal-leading-zero {
+            list-style: decimal-leading-zero;
+        }
+
+        .demo-arabic-indic {
+            list-style: arabic-indic;
+        }
+
+        .demo-armenian {
+            list-style: armenian;
+        }
+
+        .demo-upper-armenian {
+            list-style: upper-armenian;
+        }
+
+        .demo-lower-armenian {
+            list-style: lower-armenian;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>CSS @counter-style Demo</h1>
+
+</div>
+    <div class="list-container">
+        <ul id="demo-list" class="demo-cyclic">
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+            <li>Four</li>
+            <li>Five</li>
+            <li>Six</li>
+            <li>Seven</li>
+        </ul>
+    </div>
+
+    <div class="list-controls">
+        <h3>Select a counter style from the list</h3>
+        <select id="style-select">
+            <optgroup label="@counter-style system">
+                <option value="cyclic">cyclic</option>
+                <option value="fixed">fixed</option>
+                <option value="symbolic">symbolic</option>
+                <option value="alphabetic">alphabetic</option>
+                <option value="numeric">numeric</option>
+                <option value="additive">additive</option>
+                <option value="extends">extends</option>
+            </optgroup>
+            <optgroup label="Predefined styles">
+                <option disabled>Numeric ▼</option>
+                <option value="decimal">decimal</option>
+                <option value="decimal-leading-zero">decimal-leading-zero</option>
+                <option value="arabic-indic">arabic-indic</option>
+                <option value="armenian">armenian</option>
+                <option value="upper-armenian">upper-armenian</option>
+                <option value="lower-armenian">lower-armenian</option>        
+            </optgroup>
+        </select>
+
+            <pre class="code" id="code">
+                @counter-style blacknwhite {
+                    system: cyclic;
+                    symbols: ◆ ◇;
+                    suffix: " ";
+                }
+
+                ul {
+                    list-style: blacknwhite;
+                }
+            </pre>
+    </div>
+    <script>
+        (function () {
+            var styleSelect = document.querySelectorAll('style-select'),
+                demoList = document.getElementById('demo-list'),
+                codeContainer = document.getElementById('code');
+
+            var examples = {
+                'cyclic': {
+                    code: [
+                        '@counter-style blacknwhite {\n',
+                        '  system: cyclic;\n',
+                        '  symbols: ◆ ◇;\n',
+                        '  suffix: " ";\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: blacknwhite;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'fixed': {
+                    code: [
+                        '@counter-style circled-digits {\n',
+                        '  system: fixed;\n',
+                        '  symbols:          ;\n',
+                        '  suffix: " ";\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: circled-digits;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'symbolic': {
+                    code: [
+                        '@counter-style cs-symbolic {\n',
+                        '  system: symbolic;\n',
+                        "  symbols: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';\n",
+                        '  range: 1 15;\n',
+                        '  suffix: " ";\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: cs-symbolic;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'alphabetic': {
+                    code: [
+                        '@counter-style cs-alphabetic {\n',
+                        '  system: alphabetic;\n',
+                        "  symbols: A B C D E;\n",
+                        '  suffix: " ";\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: cs-alphabetic;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'numeric': {
+                    code: [
+                        '@counter-style cs-numeric {\n',
+                        '  system: numeric;\n',
+                        "  symbols: A B C D E;\n",
+                        '  suffix: " ";\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: cs-numeric;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'additive': {
+                    code: [
+                        '@counter-style cs-additive-roman {\n',
+                        '  system: additive;\n',
+                        "  range: 1 100;\n",
+                        '  additive-symbols: 100 C, 90 XC, 50 L, 40 XL, 10 X, 9 IX, 5 V, 4 IV, 1 I;\n',
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: cs-additive-roman;\n',
+                        '}'
+                    ].join('')
+                },
+
+                'extends': {
+                    code: [
+                        '@counter-style cs-extends {\n',
+                        '  system: extends decimal;\n',
+                        "  prefix: '(';\n",
+                        "  suffix: ') ';\n",
+                        '}\n\n',
+                        'ul {\n',
+                        '  list-style: cs-extends;\n',
+                        '}'
+                    ].join('')
+                },
+                'decimal': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: decimal;\n',
+                        '}',
+                    ].join('')
+                },
+
+                'decimal-leading-zero': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: decimal-leading-zero;\n',
+                        '}',
+                    ].join('')
+                },
+
+                'arabic-indic': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: arabic-indic;\n',
+                        '}',
+                    ].join('')
+                },
+
+                'armenian': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: armenian;\n',
+                        '}',
+                    ].join('')
+                },
+
+                'upper-armenian': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: upper-armenian;\n',
+                        '}',
+                    ].join('')
+                },
+
+                'lower-armenian': {
+                    code: [
+                        'ul {\n',
+                        '  list-style: lower-armenian;\n',
+                        '}',
+                    ].join('')
+                }
+          }
+
+            styleSelect.value = 'lower-armenian';
+            styleSelect.addEventListener('change',e => {
+                var selectedKey = e.target.value;
+                console.log('selected value is',selectedKey)
+                codeContainer.innerHTML = examples[selectedKey].code;
+                demoList.className = 'demo-' + selectedKey;
+            });
+        });
+    </script>
+</body>
+</html>

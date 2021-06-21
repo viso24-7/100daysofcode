@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/v4-shims.css">
+    <title>Document</title>
+    <style>
+      @import url(http://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,300);
+
+        * {
+            margin: 0; 
+            padding: 0;
+          }
+
+        body {background: #333;}
+
+        #wrapper {
+                width: 645px;
+                height: 500px;
+                margin: 35px auto 0 auto;
+            }
+
+        .mobile {
+            position: relative;
+            float: left;
+            box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        #tm {
+            display: none;
+         }
+
+
+        .mobile section {
+            position: relative;
+            width: 285px; 
+            height: 500px;
+            transition: all 0.25s;
+            background: url("https://images.unsplash.com/photo-1509027572446-af8401acfdc3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fHNwb3J0c3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+        }
+
+        .mobile section label {
+            position: absolute;
+            display: block;
+            width: 20%; 
+            left: 26%; 
+            top: 10px;
+            padding: 4px 0;
+            border-radius: 4px;
+            border: 2px solid white; 
+            color: white;
+            font: bold 14px Montserrat;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /*Nav styles*/
+        .sidenav {
+            position: absolute; 
+            width: 150px;
+            top: 0; 
+            left: 0;
+            bottom: 0; 
+            padding-top: 100px;
+            background: rgb(50, 60, 60); 
+        }
+
+        .sidenav li {
+            list-style-type: none;
+        }
+
+        .sidenav a { 
+            color: white; 
+            text-decoration: none; 
+        }
+
+        .sidenav b {
+            font: bold 12px/48px Montserrat; 
+            display: block;
+            opacity: 0; 
+            transform: translateX(50px); 
+            transition: all 0.4s;
+        }
+
+        .sidenav i {
+            display: block; 
+            width: 50px; 
+            float: left; 
+            line-height: 48px; 
+            text-align: center;
+            font-size: 16px; 
+        }
+
+
+        #tm:checked ~ section {
+            transform: translateX(150px);
+        }
+
+        #tm:checked ~ .sidenav b {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #tm:checked ~ .sidenav li:nth-child(1) b {transition-delay: 0.08s;}
+        #tm:checked ~ .sidenav li:nth-child(2) b {transition-delay: 0.16s;}
+        #tm:checked ~ .sidenav li:nth-child(3) b {transition-delay: 0.24s;}
+        #tm:checked ~ .sidenav li:nth-child(4) b {transition-delay: 0.32s;}
+        #tm:checked ~ .sidenav li:nth-child(5) b {transition-delay: 0.40s;}
+        #tm:checked ~ .sidenav li:nth-child(6) b {transition-delay: 0.48s;}
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="mobile">
+            <input type="checkbox" id="tm" />
+            <ul class="sidenav">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-futbol"></i>
+                        <b>Football</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-basketball-ball"></i>
+                        <b>Basketball</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-table-tennis"></i>
+                        <b>Tenis</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-swimmer"></i>
+                        <b>Swiming</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-skiing"></i>
+                        <b>Skiing</b>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-power-off"></i>
+                        <b>Logout</b>
+                    </a>
+                </li>
+            </ul>
+
+            <section>
+                <label for="tm">Sports</label>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

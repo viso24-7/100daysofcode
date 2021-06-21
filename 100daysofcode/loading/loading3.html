@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Loading</title>
+    </head>
+    <body>
+        <style>
+            .nointernet{
+                height: 300px;
+                width: 200px;
+                padding-top: 30vh;
+                margin-left: 45%;
+                text-align: center;
+                -webkit-animation: parentRotate 3s linear infinite;
+                animation: parentRotate 3s linear infinite;
+            }
+
+            .connect{
+                position: absolute;
+                height: 10px;
+                width: 50%;
+                top: 50%;
+                margin-top: -10px;
+                -webkit-transform-origin: right;
+                transform-origin: right;
+                -webkit-animation: childRotate 2s ease infinite;
+                animation: childRotate 2s ease infinite;        
+            }
+
+            .connect:before{
+                content: '';
+                position: relative;
+                display: block;
+                width: 20px;
+                height: 20px;
+                left: -10px;
+                background:  #7cf010;;
+                border-radius: 50%;
+            }
+            
+            .connect:nth-child(2):before{
+                width: 18px;
+                height: 18px;
+                background-color: #7cf010;
+            }
+
+            .connect:nth-child(3):before{
+                width: 16px;
+                height: 16px;
+                background-color: #7cf010;
+            }
+
+            .connect:last-child:before{
+                width: 14px;
+                height: 14px;
+                background-color: #7cf010;
+            }
+
+            .connect:first-child{
+                animation-delay:300ms;
+            }
+            .connect:nth-child(2){
+                animation-delay: 400ms;
+            }
+            .connect:nth-child(3){
+                animation-delay: 500ms;
+            }
+
+            .connect:last-child{
+                animation-delay: 600ms;
+            }
+
+            @-webkit-keyframes childRotate{
+
+                80%{
+                    transform:rotate(1turn);
+                }
+                100%{
+                    transform:rotate(1turn);
+                }
+            }
+
+            @keyframes childRotate{
+
+                80%{
+                    transform:rotate(1turn);
+                }
+                100%{
+                    transform:rotate(1turn);
+                }
+            }
+
+            @-webkit-keyframes parentRotate{
+                100%{
+                    transform:rotate(1turn);
+                }
+            }
+
+            @keyframes parentRotate{
+                100%{
+                    transform:rotate(1turn);
+                }
+            }
+        </style>
+        <div class="nointernet">
+              <div class="connect"></div>
+              <div class="connect"></div>
+              <div class="connect"></div>
+               <div class="connect"></div>
+        </div>
+    </body>
+    <script>
+              class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+                this.head = null;
+                this.tail = null;
+            }
+
+            append(value) {
+                let node = new Node(value);
+                // if list is empty
+                if (!this.head) {
+                    this.head = node;
+                    this.tail = node;
+                } else {
+                    this.tail.next = node;
+                    this.tail = node;
+                }
+            }
+
+            prepend(value) {
+                let node = new Node(value);
+                node.next = this.head;
+                this.head = node;
+            }
+
+            pop() {
+                let cur = this.head;
+
+                // only one or no item exists
+                if (!cur) return null;
+                if (!cur.next) {
+                    this.head = null;
+                    return cur;
+                }
+                // move till the 2nd last
+                while (cur.next.next) cur = cur.next;
+
+                let last = this.tail;
+                this.tail = cur;
+                this.tail.next = null;
+                return last;
+            }
+
+            popFirst() {
+                let first = this.head;
+                if (this.head && this.head.next) {
+                    this.head = this.head.next;
+                    first.next = null;
+                } else this.head = null;
+                return first;
+            }
+
+            head() {
+                return this.head;
+            }
+
+            removeAt(index) {
+                let i = 0;
+                let cur = this.head;
+                let prev = null;
+
+                while (cur != null) {
+                    if (i == index) {
+                        // remove
+                        if (prev == null) this.head = cur.next;
+                        else prev.next = cur.next;
+                        cur.next = null;
+                        return cur.value;
+                    } else {
+                        prev = cur;
+                        cur = cur.next;
+                        i++;
+                    }
+                }
+                return null;
+            }
+
+            insertAt(index, value) {
+                if (index == 0) return this.prepend(value);
+                let cur = this.head;
+                let i = 0;
+
+                while (cur != null) {
+                    if (i == index - 1) {
+                        let node = new Node(value);
+                        node.next = cur.next;
+                        cur.next = node;
+                        return true;
+                    } else {
+                        i++;
+                        cur = cur.next;
+                    }
+                }
+                return false;
+            }
+
+            tail() {
+                return this.tail;
+            }
+
+
+            _toArray() {
+                let arr = [];
+                let cur = this.head;
+                while (cur) {
+                    arr.push(cur.value);
+                    cur = cur.next;
+                }
+
+                return arr;
+            }
+        }
+
+
+        const printList = function (head) {
+            while (head !== null) {
+                console.log('head value is',head.value);
+                head = head.next;
+            }
+        };
+
+        function intersection(LL1, LL2) {
+            let curr1 = LL1.head;
+            let curr2 = LL2.head;
+
+            while(curr1){
+                    while (curr2) {
+                        if (curr2 !== curr1) {
+                            curr2 = curr2.next;
+                        } else {
+                            curr2 = LL2.head;
+                            curr1 = LL1.head;
+                        }
+                    }
+                return false;
+            }
+            return true;
+        }
+
+
+        let ll1 = new LinkedList();
+        for (let el of [7, 1, 7]) {
+            ll1.append(el);
+        }
+
+        let ll2 = new LinkedList();
+        for (let el of [2, 8]) {
+            ll2.append(el);
+        }
+        console.log(intersection(ll2, ll1)); //false
+
+        let ll3 = new LinkedList();
+        for (let el of [7, 1, 7]) {
+            ll3.append(el);
+        }
+        let ll4 = ll3;
+        ll4.prepend(7);
+        console.log(intersection(ll3, ll4)); //true
+    </script>
+</html>

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: #fff;
+            color: #666;
+            text-align: center;
+            font-family: futura, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+        }
+
+        div {
+            position: relative;
+        }
+
+        p {
+            margin-top: 40px;
+        }
+
+        a {
+            color: #DE8033;
+            text-decoration: none;
+            -webkit-transition: color 0.2s ease;
+            -moz-transition: color 0.2s ease;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+           color: #5AACAB;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        p#warning {
+            color: #ccc;
+            text-transform: none;
+        }
+
+        header, footer {
+            max-width: 800px;
+            margin: 0px auto 40px;
+        }
+
+        #stageWrap {
+            position: relative;
+            width: 600px;
+            margin: auto;
+            padding: 1px 0px 0px;
+            background-image: linear-gradient(to , #DE8033 70%, transparent 70%);
+            background-image: -webkit-linear-gradient(#DE8033 0%, #DE8033 70%, transparent 70%);
+            background-size: contain;
+        }
+
+        #stage {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        #stage div {
+           position: absolute;
+        }
+
+        #phoneWrap {
+            height: 329.6px;
+            width: 160px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 0;
+            perspective: 1000px;
+        }
+
+        #phoneReverse {
+            height: 329.6px;
+            width: 160px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transform-origin: 50% 100%;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg) rotateX(0deg) translateZ(0px) scale(1, 1);
+        }
+
+        #phone {
+            width: 100%;
+            height: 100%;
+            transform-origin: 50% 50%;
+            transform-style: preserve-3d;
+            z-index: 100;
+        }
+
+        #phone #pTop, #phone #pBottom {
+            height: 16px;
+            width: 160px;
+            background-color: #999999;
+            transform: rotateX(90deg) translateY(-8px) scale(1);
+        }
+
+        #phone #pTop {
+            top: -8px;
+            background-color: #cccccc;
+        }
+
+        #phone #pBottom {
+            bottom: -8px;
+        }
+
+        #phone #pLeft, #phone #pRight {
+            height: 329.6px;
+            width: 16px;
+            left: -8px;
+            background-color: #b3b3b3;
+            transform: rotateY(90deg) translateX(8px) scale(1);
+        }
+
+        #phone #pRight {
+            left: auto;
+            right: -8px;
+        }
+
+        #pBody:after, #laptopLid:after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 200%;
+            left: 0;
+            transform: translateZ(2px) translateX(0%);
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/highlight.svg) left center no-repeat;
+            background-size: auto 100%;
+        }
+
+        #pBody {
+            width: 100%;
+            height: 100%;
+            background-color: #e6e6e6;
+            overflow: hidden;
+            backface-visibility: hidden;
+            z-index: 0;
+        }
+
+        #pBody:after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            transform: translateZ(2px) translateX(100%);
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/highlight2.svg) right center no-repeat;
+            background-size: auto 100%;
+        }
+
+        #pBody #screen {
+            width: 136px;
+            height: 241.672px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transform-origin: 100% 50%;
+            transform: translateZ(1px);
+            border: 1px solid #e6e6e6;
+            border-top: 1px solid #b3b3b3;
+            border-bottom: none;
+            box-shadow: 0px 1px 0px white;
+        }
+
+        #speaker {
+            height: 5px;
+            width: 40px;
+            top: 20px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border-radius: 3px;
+            background-color: #fff;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2) inset;
+            transform: translateZ(0px);
+            border-top: 1px solid #b3b3b3;
+            z-index: 30;
+        }
+
+        #homeBtn {
+            width: 24px;
+            height: 24px;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            margin: auto;
+            border-radius: 50%;
+            background-color: #fff;
+            transform: translateZ(0px);
+            box-shadow: 0px 9px 0px #f7f7f7 inset;
+            border-top: 1px solid #b3b3b3;
+        }
+
+        #screen .phoneUiWrap {
+            width: 136px;
+            height: 241.672px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 0;
+            background-color: white;
+            transform-origin: 100% 50%;
+            overflow: hidden;
+        }
+
+        #screen .phoneUiWrap > div {
+            position: relative;
+            width: 100%;
+            transform: translate3d(0, 200%, 0);
+            opacity: 0;
+            background-size: cover;
+        }
+
+        #phoneHome {
+            width: 136px;
+            height: 241.672px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transform: translateZ(0px);
+            background-color: white;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/home.png) center center no-repeat;
+            background-size: cover;
+        }
+
+        #phoneUiWrap {
+           transform: translateZ(0px);
+        }
+
+        #phoneUiWrap #phoneUiMenu {
+            height: 10%;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/menu.png) center center no-repeat;
+            background-size: cover;
+            z-index: 100;
+        }
+
+        #phoneUiWrap #phoneUiDetails1 {
+            height: 20%;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/details.png) center center no-repeat;
+            background-size: cover;
+            z-index: 90;
+        }
+
+        #phoneUiWrap #phoneUiPlayer {
+            height: 50%;
+            background-color: #3D3E39;
+            z-index: 80;
+        }
+
+        #phoneUiWrap #phoneUiPlayer #playing {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: 0 0;
+            transform: translate3d(0, 0, 0) scaleX(0);
+            background-color: #F7C155;
+            opacity: 1;
+        }
+
+        #phoneUiWrap #phoneUiPlayer #playBtns {
+            position:absolute;
+            height: 100%;
+            width: 100%;
+            transform: translate3d(0, 0, 0);
+            opacity: 1;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/player.png) center center no-repeat;
+            background-size: 100%;
+        }
+
+        #phoneUiWrap #phoneUiDetails2 {
+            height: 20%;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/details.png) center center no-repeat;
+            background-size: cover;
+            z-index: 70;
+        }
+
+        #phoneUiWrap2 {
+            opacity: 1;
+            transform: translateZ(0px);
+        }
+
+        #phoneUiWrap2 #phoneUiMenu2 {
+            height: 20px;
+            color:white;
+            font-size: 10px;
+            font-family: sans-serif;
+            line-height: 20px;
+            background-color: #5AACAB;
+            z-index: 40;
+        }
+
+        #phoneUiWrap2 #checkIn {
+            z-index: 30;
+            height: 38%;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/checkIn.png) center center no-repeat;
+            background-size: 100%;
+        }
+
+        #phoneUiWrap2 #phonePhoto {
+            z-index: 20;
+            height: 30%;
+            background-color: #D55C41;
+        }
+
+        #phoneUiWrap2 #phonePhoto #photoBtn {
+            position: relative;
+            display: box;
+            display: flex;
+            box-align: end;
+            align-items: flex-end;
+            height: 100%;
+            width: 40%;
+        }
+
+        #phoneUiWrap2 #phonePhoto #photoBtn svg {
+            width: 30px;
+            margin: auto;
+        }
+
+        #phoneUiWrap2 #phonePhoto #snapShot {
+            width: 60%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            box-shadow: 0 0 0 3px #D55C41 inset;
+            background-color: white;
+            opacity: 0;
+        }
+
+        #phoneUiWrap2 #phonePhoto #snapShot img {
+            position: absolute;
+            max-height: 80%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            opacity: 0;
+        }
+
+        #phoneUiWrap2 #signOff {
+            z-index: 10;
+            height: 25%;
+            background-color: white;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/sign.png) center center no-repeat;
+            background-size: 140px;
+        }
+
+        #bannerWrap {
+            width: 100%;
+            top: 40px;
+        }
+
+        #banner3 {
+            top: 40px;
+        }
+
+        .banner {
+            max-width: 300px;
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+
+        .banner h3 {
+            position: relative;
+            left: 0;
+            right: 0;
+            padding: 6px 0 5px;
+            margin: auto;
+            z-index: 30;
+            color: #DE8033;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 100;
+        }
+
+        #banner1 h3, #banner2 h3, #banner3 h3 {
+            opacity: 0;
+        }
+
+        .flag-center {
+            height: 100%;
+            width: 240px;
+            left: 0;
+            right: 0;
+            top: 0;
+            margin: auto;
+            z-index: 20;
+            transform: scale(0);
+            transform-origin: 50% 50%;
+            background-color: white;
+        }
+
+        .flag-left, .flag-right {
+            width: 30px;
+            height: 100%;
+            top: 8px;
+            z-index: 10;
+        }
+
+        .flag-left:before, .flag-left:after, .flag-right:before, .flag-right:after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            background-color: green;
+        }
+
+        .flag-left:before, .flag-right:before {
+            width: 9px;
+            background-color: #b3b3b3;
+        }
+
+        .flag-left:after, .flag-right:after {
+            width: 70%;
+            background-color: yellow;
+            background-color: #e6e6e6;
+        }
+
+        .flag-left {
+            left: 9px;
+        }
+
+        .flag-left:before {
+            right: 0;
+            transform: scale(0);
+            transform-origin: 0% 50%;
+        }
+
+        .flag-left:after {
+            left: 0;
+            transform: scale(0);
+            transform-origin: 100% 50%;
+        }
+
+        .flag-right {
+            right: 9px;
+        }
+
+        .flag-right:before {
+            left: 0;
+            transform: scale(0);
+            transform-origin: 100% 50%;
+        }
+
+        .flag-right:after {
+            right: 0;
+            transform: scale(0);
+            transform-origin: 0% 50%;
+        }
+
+        #shadowWrap {
+            height: 8px;
+            width: 150px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        #pShadow {
+            height: 100%;
+            width: 100%;
+            top: 347.6px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border-radius: 3px;
+            z-index: 10;
+            background-color: #f2f2f2;
+        }
+
+        #laptopWrap {
+            width: 329.6px;
+            height: 230.72px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            perspective: 1500px;
+            backface-visibility: hidden;
+            z-index: 500;
+        }
+
+        #laptopWrap #laptopLid {
+            height: 100%;
+            width: 100%;
+            bottom: -115px;
+            opacity: 0;
+            background-color: #4d4d4d;
+            transform-origin: 50% 100%;
+            transform-style: preserve-3d;
+            transform: rotateX(-87deg) scale(0.8);
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        #laptopWrap #laptopScreen {
+            width: 91%;
+            height: 87%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: #fff;
+            transform: translateZ(1px);
+        }
+
+        #laptopWrap #laptopUiMenu {
+            width: 100%;
+            height: 10%;
+            color: white;
+            font-size: 10px;
+            font-family: sans-serif;
+            line-height: 20px;
+            background-color: #5AACAB;
+            transform: scaleY(0);
+            transform-origin: 0 0;
+        }
+
+        #laptopWrap #laptopDetails {
+            width: 100%;
+            height: 50%;
+            background-color: white;
+        }
+
+        #laptopWrap #laptopDetails #iconWrap {
+            height: 100%;
+            width: 50%;
+            top: 50%;
+            margin-top: -10px;
+            text-align: center;
+        }
+
+        #laptopWrap #laptopDetails .icons {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            transform: scale(0);
+        }
+
+        #laptopWrap #laptopDetails #laptopWords {
+            width: 50%;
+            height: 100%;
+            right: 0;
+            top: 45px;
+        }
+
+        #laptopWrap #laptopDetails #laptopWords div {
+            position: relative;
+            width: 80%;
+            height: 4px;
+            margin: 3px 0;
+            transform-origin: 0 0;
+            transform: scaleX(0);
+            background-color: #E6E6E6;
+        }
+
+        #laptopWrap #laptopChart {
+            display: box;
+            display: flex;
+            box-sizing: border-box;
+            box-align: end;
+            align-items: flex-end;
+            width: 100%;
+            height: 50%;
+            bottom: 0;
+            padding: 0 10%;
+            background-color: #DE8033;
+        }
+
+        #laptopWrap #laptopChart div {
+            position: relative;
+            width: 30%;
+            height: 80%;
+            margin: 0 auto;
+            background-color: #FAC456;
+            transform-origin: 0 100%;
+        }
+
+        #laptopWrap #laptopChart #bar1 {
+            height: 20%;
+            transform: scaleY(0);
+        }
+
+        #laptopWrap #laptopChart #bar2 {
+            height: 50%;
+            transform: scaleY(0);
+        }
+
+        #laptopWrap #laptopChart #bar3 {
+            height: 80%;
+            transform: scaleY(0);
+        }
+
+        .go #phoneWrap {
+            animation: phoneSlideIn 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .go #phone {
+            animation: phoneRotateIn 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .go #pBody:after {
+            animation: highlightSlideInBack 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .go #pShadow {
+            animation: phoneRotateIn 1.3s cubic-bezier(0.25, 1.25, 0.1, 1) forwards;
+        }
+
+        .go #phoneUiWrap {
+            animation: fadeIn 0.3s ease-out 1.1s forwards;
+        }
+
+        .go #banner1 h3 {
+            animation: fadeIn 0.2s ease-out 1.5s forwards;
+        }
+
+        .go #banner1 .flag-center {
+            animation: scaleX 0.3s ease-out 1.5s forwards;
+        }
+
+        .go #banner1 .flag-left:before,
+        .go #banner1 .flag-right:before {
+            animation: scaleX 0.1s ease-out 1.8s forwards;
+        }
+
+        .go #banner1 .flag-left:after,
+        .go #banner1 .flag-right:after {
+            animation: scaleX 0.2s ease-out 1.9s forwards;
+        }
+
+        .go #phoneUiMenu {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 2s forwards;
+        }
+
+        .go #phoneUiDetails1 {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 2.2s forwards;
+        }
+
+        .go #phoneUiPlayer {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 2.4s forwards;
+        }
+
+        .go #phoneUiDetails2 {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 2.6s forwards;
+        }
+
+        .go #playing {
+            animation: scaleX 2.3s linear 2.6s forwards;
+        }
+
+        .go #banner1 {
+            animation: fadeOut 0.15s ease-out 5.1s forwards;
+        }
+
+        .go #phoneUiWrap2 {
+            animation: fadeIn 0.3s ease-out 5.1s forwards;
+        }
+
+        .go #banner2 h3 {
+            animation: fadeIn 0.2s ease-out 5.5s forwards;
+        }
+
+        .go #banner2 .flag-center {
+            animation: scaleX 0.3s ease-out 5.5s forwards;
+        }
+
+        .go #banner2 .flag-left:before,
+        .go #banner2 .flag-right:before {
+            animation: scaleX 0.1s ease-out 5.8s forwards;
+        }
+
+        .go #banner2 .flag-left:after,
+        .go #banner2 .flag-right:after {
+            animation: scaleX 0.2s ease-out 5.9s forwards;
+        }
+
+        .go #phoneUiMenu2 {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 6s forwards;
+        }
+
+        .go #checkIn {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 6.2s forwards;
+        }
+
+        .go #phonePhoto {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 6.3s forwards;
+        }
+
+        .go #signOff {
+            animation: phoneUiSlideUp 1.2s cubic-bezier(0.25, 1.25, 0.1, 1) 6.6s forwards;
+        }
+
+        .go #photoBtn {
+            animation: fadeOutIn 0.2s ease 7.9s forwards;
+        }
+
+        .go #snapShot {
+            animation: fadeIn 0.5s ease 8s forwards;
+        }
+
+        .go #snapShot img {
+            animation: fadeIn 2s ease 8.2s forwards;
+        }
+
+        .go #banner2 {
+            animation: fadeOut 0.15s ease-out 9.6s forwards;
+        }
+
+        .go #homeBtn,
+        .go #speaker,
+        .go #screen {
+            animation: fadeOut 0.4s ease-out 9.6s forwards;
+        }
+
+        .go #phoneReverse {
+            animation: phoneMorph 0.9s cubic-bezier(0.25, 1.25, 0.1, 1) 10s forwards;
+        }
+
+        .go #shadowWrap {
+            animation: shadowSlideUp 0.9s cubic-bezier(0.25, 1.25, 0.1, 1) 10s forwards;
+        }
+
+        .go #banner3 h3 {
+            animation: fadeIn 0.2s ease-out 10.9s forwards;
+        }
+
+        .go #banner3 .flag-center {
+            animation: scaleX 0.3s ease-out 10.9s forwards;
+        }
+
+        .go #banner3 .flag-left:before,
+        .go #banner3 .flag-right:before {
+            animation: scaleX 0.1s ease-out 11.2s forwards;
+        }
+
+        .go #banner3 .flag-left:after,
+        .go #banner3 .flag-right:after {
+            animation: scaleX 0.2s ease-out 11.3s forwards;
+        }
+
+        .go #laptopLid {
+             animation: openLid 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 10.6s forwards;
+        }
+
+        .go #laptopLid:after {
+            animation: highlightSlideIn 1.8s cubic-bezier(0.19, 1, 0.22, 1) 10.7s forwards;
+        }
+
+        .go #laptopUiMenu {
+            animation: scaleY 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 10.6s forwards;
+        }
+
+        .go #iconWrap .icons:first-child {
+           animation: scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 11.1s forwards;
+        }
+
+        .go #iconWrap .icons:last-child {
+           animation: scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 11.2s forwards;
+        }
+
+        .go #laptopWords div:nth-child(1) {
+           animation: scaleX 2.5s cubic-bezier(0.19, 1, 0.22, 1) 11.4s forwards;
+        }
+
+        .go #laptopWords div:nth-child(2) {
+           animation: scaleX 2.5s cubic-bezier(0.19, 1, 0.22, 1) 11.5s forwards;
+        }
+
+        .go #laptopWords div:nth-child(3) {
+           animation: scaleX 2.5s cubic-bezier(0.19, 1, 0.22, 1) 11.6s forwards;
+        }
+
+        .go #laptopWords div:nth-child(4) {
+           animation: scaleX 2.5s cubic-bezier(0.19, 1, 0.22, 1) 11.7s forwards;
+        }
+
+        .go #bar1 {
+           animation: scaleY 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 11.5s forwards;
+        }
+
+        .go #bar2 {
+           animation: scaleY 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 11.6s forwards;
+        }
+
+        .go #bar3 {
+           animation: scaleY 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 11.7s forwards;
+        }
+
+        @keyframes phoneSlideIn {
+            0% {
+                transform: translate3d(-200%, 0, 0);
+                opacity: 0;
+            }
+            70% {
+                transform: translate3d(10px, 0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(0px, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes phoneRotateIn {
+            0%, 5% {
+                transform: rotateY(70deg);
+            }
+            70% {
+                transform: rotateY(-8deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        @keyframes highlightSlideInBack {
+            0% {
+                transform: translate3d(-50%, 0, 2px);
+            }
+            70% {
+                transform: translate3d(-20%, 0, 2px);
+            }
+            100% {
+                transform: translate3d(-30%, 0, 2px);
+            }
+        }
+
+        @keyframes highlightSlideIn {
+            0% {
+                transform: translate3d(-50%, 0, 2px);
+            }
+            100% {
+                transform: translate3d(-30%, 0, 2px);
+            }
+        }
+
+        @keyframes uiSlideIn {
+            0% {
+                transform: translate3d(-100%, 0, 0);
+                opacity: 0;
+            }
+            25% {
+                transform: translate3d(0, 0, 0) scaleX(0.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+
+        @keyframes phoneUiSlideUp {
+            0% {
+                transform: translate3d(0, 250px, 0);
+                opacity: 0;
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes phoneSlideOut {
+            0% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+            40% {
+                transform: translate3d(15px, 0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(-200%, 0, 0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOutIn {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shadowSlideUp {
+            0% {
+                transform: scaleX(1);
+                animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            40% {
+                transform: scaleX(0.95);
+                animation-timing-function: cubic-bezier(0.25, 1.25, 0.1, 1);
+            }
+            100% {
+                transform: scaleX(2);
+            }
+        }
+
+        @keyframes phoneMorph {
+            0% {
+                transform: scale(1, 1);
+                animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            40% {
+                transform: scale(0.95, 1.05);
+                animation-timing-function: cubic-bezier(0.25, 1.25, 0.1, 1);
+            }
+            100% {
+                transform: scale(2, 0.05);
+            }
+        }
+
+        @keyframes scaleX {
+            0% {
+                transform: translate3d(0, 0, 0) scaleX(0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0) scaleX(1);
+            }
+        }
+
+        @keyframes scaleY {
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes scale {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes openLid {
+            0% {
+                transform: rotateX(-87deg) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0deg) scale(0.8);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="stageWrap">
+        <div id="stage">
+    
+            <div id="laptopWrap">
+                <div id="laptopLid">
+                    <div id="laptopScreen">
+                        <div id="laptopDetails">
+                            <div id="iconWrap">
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/mapIcon.svg" class="icons">
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/stopWatchIcon.svg" class="icons">
+                            </div>
+                            <div id="laptopWords">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div id="laptopChart">
+                            <div id="bar1"></div>
+                            <div id="bar2"></div>
+                            <div id="bar3"></div>
+                        </div>
+                        <div id="laptopUiMenu">Job #200</div>
+                    </div>
+                </div>
+            </div><!--end laptopWrap-->
+    
+    
+            <div id="phoneWrap">
+              <div id="phoneReverse">
+                <div id="phone">
+                    <div id="pBody">
+                        <div id="screen">
+                            <div id="phoneHome"></div>
+                            <div id="phoneUiWrap" class="phoneUiWrap">
+                                <div id="phoneUiMenu"></div>
+                                <div id="phoneUiDetails1"></div>
+                                <div id="phoneUiPlayer">
+                                    <div id="playing"></div>
+                                    <div id="playBtns"></div>
+                                </div>
+                                <div id="phoneUiDetails2"></div>
+                            </div><!--end phoneUI-->
+    
+                            <div id="phoneUiWrap2" class="phoneUiWrap">
+                                <div id="phoneUiMenu2">Job #200</div>
+                                <div id="checkIn"></div>
+                                <div id="phonePhoto">
+                                    <div id="photoBtn">
+                                        <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                                            <g>
+                                                <path fill="#FFFFFF" d="M38.4,10.6c1.5,7.9,1.5,15.8,0,23.8c-0.1,0.4-0.3,0.7-0.6,1c-0.3,0.3-0.7,0.5-1.1,0.5
+                                                    c-5.6,0.6-11.2,0.9-16.7,0.9c-5.5,0-11-0.3-16.5-0.9c-0.4-0.1-0.8-0.2-1.1-0.5c-0.3-0.3-0.5-0.6-0.6-1c-0.9-4.6-1.4-8.5-1.4-11.8
+                                                    c0-3.2,0.5-7.2,1.4-12c0.1-0.4,0.3-0.7,0.6-1C2.7,9.2,3.1,9,3.5,9C5,8.8,7.2,8.6,10,8.4c0.6-2,1-3.1,1-3.4c0.1-0.4,0.4-0.8,0.8-1.1
+                                                    c0.4-0.3,0.8-0.5,1.1-0.5c2.3-0.2,4.7-0.3,7-0.3c2.4,0,4.8,0.1,7.2,0.3c0.4,0,0.8,0.2,1.1,0.5C28.7,4.3,29,4.6,29.1,5
+                                                    c0.1,0.2,0.4,1.4,1,3.4c2.9,0.2,5.1,0.4,6.6,0.6c0.4,0.1,0.7,0.2,1.1,0.5C38.1,9.8,38.4,10.2,38.4,10.6z M12,29.4
+                                                    c2.2,2.2,4.9,3.3,8,3.3s5.7-1.1,8-3.3s3.3-4.9,3.3-8c0-3.1-1.1-5.7-3.3-8s-4.9-3.3-8-3.3s-5.7,1.1-8,3.3s-3.3,4.9-3.3,8
+                                                    C8.7,24.5,9.8,27.1,12,29.4z M15.1,16.5c-1.4,1.4-2.1,3-2.1,4.9c0,1.9,0.7,3.6,2.1,4.9c1.4,1.4,3,2.1,4.9,2.1
+                                                    c1.9,0,3.6-0.7,4.9-2.1c1.4-1.4,2.1-3,2.1-4.9c0-1.9-0.7-3.6-2.1-4.9c-1.4-1.4-3-2.1-4.9-2.1C18.1,14.4,16.4,15.1,15.1,16.5z"/>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div id="snapShot">
+                                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42053/shower.svg" alt="shower icon"/>
+                                    </div>
+                                </div>
+                                <div id="signOff"></div>
+                            </div><!--end phoneUI-->
+                        </div>
+
+                       <div id="speaker"></div>
+                       <div id="homeBtn"></div>
+                    </div>
+
+                        <div id="pTop"></div>
+                        <div id="pBottom"></div>
+                        <div id="pLeft"></div>
+                        <div id="pRight"></div>
+                  </div>
+                </div><!--end phoneReverse-->
+    
+                    <div id="shadowWrap">
+                         <div id="pShadow"></div>
+                    </div><!--end shadowWrap-->
+            </div><!--end phoneWrap-->
+    
+          <div id="bannerWrap">
+                <div id="banner1" class="banner">
+                    <h3>Claim Messages</h3>
+                    <div class="flag-center"></div>
+                    <div class="flag-left"></div>
+                    <div class="flag-right"></div>
+                </div>
+                <div id="banner2" class="banner">
+                    <h3>Record Maintenance Info</h3>
+                    <div class="flag-center"></div>
+                    <div class="flag-left"></div>
+                    <div class="flag-right"></div>
+                </div>
+                <div id="banner3" class="banner">
+                    <h3>Get Stats</h3>
+                    <div class="flag-center"></div>
+                    <div class="flag-left"></div>
+                    <div class="flag-right"></div>
+                </div>
+            </div> <!--end bannerWrap-->
+    
+        </div>
+    </div> <!--end stageWrap-->
+    
+    <p>&mdash; Double click the stage to restart animation &mdash;</p>
+</body>
+<script>
+    var mainStage = document.getElementById("stage");
+    //auto start animation
+    function startAni() {
+        mainStage.classList.add("go");
+    }
+    window.setTimeout(startAni, 800);
+
+    // Function to change the content of t2
+    function playPause() {
+        mainStage.classList.toggle("go");
+    }
+
+    mainStage.addEventListener("click", playPause, false);
+</script>
+</html>

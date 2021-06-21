@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed</title>
+</head>
+<body>
+  <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #4C4C4C url('https://images.unsplash.com/photo-1564679820779-59aee29abf0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80');
+        background-size: cover;
+        font-family: sans-serif;
+     }
+
+    .wrapper {
+       width: 850px;
+       display: flex;
+     }
+
+    video {
+        box-shadow: 0 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .speed {
+        display: flex;
+        align-items: flex-start;
+        flex: 1;
+        margin: 10px;
+        overflow: hidden;
+        border-radius: 50px;
+        background: #efefef;
+        box-shadow: 0 0 1px 3px rgba(0,0,0,0.1);
+     }
+
+     .speed-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 16.3%;
+        padding: 2px;
+        color: white;
+        background: linear-gradient(-170deg, #2376ae 0%, #c16ecf 100%);
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+     }
+  </style>
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" loop controls></video>
+    <p>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+    <script>
+        const speed = document.querySelector('.speed');
+        const bar = speed.querySelector('.speed-bar');
+        const video = document.querySelector('.flex');
+
+        function handleMove(e) {
+                const y = e.pageY - this.offsetTop;
+                const percent = y / this.offsetHeight;
+                const min = 0.4;
+                const max = 4;
+                const height = Math.round(percent * 100) + '%';
+                const playbackRate = percent * (max - min) + min;
+                bar.style.height = height;
+                bar.textContent = playbackRate.toFixed(2) + '×';
+                video.playbackRate = playbackRate;
+            }
+
+        speed.addEventListener('mousemove', handleMove);
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating action button</title>
+</head>
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: url('https://images.unsplash.com/photo-1512270827728-63b3610a86e1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8MTEwMjY1Nnx8ZW58MHx8fA%3D%3D&dpr=1&auto=format&fit=crop&w=525&q=60');       
+        width: 250px;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+        padding: 18px 25px;
+        box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+    }
+
+    .fab-btn {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        padding: 4px;
+        transition: box-shadow 0.4s ease;
+        background: #4610f5;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        color: #fff;
+        font-size: 1.7rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .fab-btn span {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.5s ease;
+        transform: rotate(0deg);
+    }
+
+    .card-content {
+        position: relative;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        color: #fff;
+    }
+
+    input:checked + .fab-btn {
+        box-shadow: 0 0 2px 340px #811bff;
+    }
+
+    input:checked + .fab-btn span {
+       transform: rotate(315deg);
+    }
+
+    input:checked ~ .card-content {
+      opacity: 1;
+    }
+</style>
+<body>
+    <div class="card">
+        <input type="checkbox" id="inputCheck" hidden/>
+        
+        <label for="inputCheck" class="fab-btn">
+            <span>+</span>
+        </label>
+        
+        <div class="card-content">
+          <h1>Eminem gnat</h1>
+          <p>
+            
+Christian Cook
+7 hours ago
+Eminem's track record consists of him dissing rappers, and ending their careers. I think after this diss, Covid should be ending very soon.
+          </p>
+        </div>
+      </div>
+</body>
+</html>

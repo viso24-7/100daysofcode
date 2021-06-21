@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>load data from csv file</title>
+
+  <style>
+    html,
+    body,
+    #viewGas{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.19/"></script>
+
+  <script>
+ require(["esri/Map","esri/layers/CSVLayer","esri/views/MapView"],(Map, CSVLayer, MapView) => {
+     var url ="data.csv";
+
+     const csvLayer = new CSVLayer({
+         url:url,
+         copyright: "Europe gas"
+     });
+
+     const map = new Map({
+         basemap: "gray-vector",
+         layers: [csvLayer]
+     });
+
+     const view = new MapView({
+         container: "viewGas",
+         center: [9,58],
+         zoom:4,
+         map:map
+     });
+ });
+  </script>
+</head>
+
+<body>
+  <div id="viewGas"></div>
+</body>
+</html>

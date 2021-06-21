@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          color: #152831;
+          font-family: "Graphik", "Helvetica Neue", helvetica, "Apple Color Emoji",arial, sans-serif;
+          background: #f5f7f9;
+        }
+
+
+        main {
+          max-width: 800px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr 1fr 1fr 1fr;
+          grid-gap: 20px;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            padding-bottom: 20px;
+            position: relative;
+            justify-content: center;
+            background: #fff;
+        }
+
+        label {
+          width: 96%;
+          height: 300px;
+          border: 0;
+          background: paint(curved-line);
+        }
+
+        .curved-line-1 {
+            --curved-lineHeight: 80; /* default: element height */
+            --curved-lineWidth: 5; /* default: 3 */
+            --curved-lineColor: midnightblue; /* default: 'black' */
+            --curved-lineSpread: 20; /* default: 50 */
+        }
+
+        .curved-line-2 {
+            --curved-lineHeight: -135;
+            --curved-lineWidth: 2;
+            --curved-lineColor: deeppink;
+            --curved-lineSpread: 10;
+        }
+
+        .curved-line-3 {
+            --curved-lineHeight: 205;
+            --curved-lineWidth: 3;
+            --curved-lineColor: saddlebrown;
+            --curved-lineSpread: 2;
+        }
+
+        .curved-line-4 {
+            --curved-lineHeight: 64;
+            --curved-lineWidth: 3;
+            --curved-lineColor: #333;
+            --curved-lineSpread: 15;
+        }
+
+        .curved-line-5 {
+            --curved-lineHeight: 90;
+            --curved-lineWidth: 2;
+            --curved-lineColor: firebrick;
+            --curved-lineSpread: 3;
+        }
+
+        .curved-line-6 {
+            --curved-lineHeight: -50;
+            --curved-lineWidth: 2;
+            --curved-lineColor: black;
+            --curved-lineSpread: 4;
+              height: 5px;
+        }
+
+        .curved-line-7 {
+            --curved-lineHeight: -106;
+            --curved-lineWidth: 2;
+            --curved-lineColor: orangered;
+            --curved-lineSpread: 4;
+            height: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+      <div><label ></div>
+      <div><label class="curved-line-1" ></div>
+      <div><label class="curved-line-2" ></div>
+      <div><label class="curved-line-3" ></div>
+      <div><label class="curved-line-4" ></div>
+      <div><label class="curved-line-5" ></div>
+      <div><label class="curved-line-6" ></div>
+      <div><label class="curved-line-7" ></div>
+    </main>
+</body>
+<script>
+    (async function () {
+        if (CSS["paintWorklet"] === undefined)
+            await import("https://unpkg.com/css-paint-polyfill");
+            CSS.paintWorklet.addModule("./curved-line.js");
+    })();
+</script>
+</html>

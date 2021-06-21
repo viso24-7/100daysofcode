@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            padding: 80px 0;
+            box-sizing: border-box;
+            color: #444;
+            font-family: "Roboto";
+            font-weight: 300;
+            background: #FF8A8A;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .body {
+            position: relative;
+            width: 300px;
+            height: 500px;
+            margin: 0 auto;
+            border-radius: 6px;
+            z-index: 1;
+            background: #FFF;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .app-menu {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            padding: 30px 30px 20px;
+        }
+
+        .app-menu__title {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .app-nav {
+           display: inline-block;
+        }
+
+        .app-nav__icon {
+            position: relative;
+            display: block;
+            width: 14px;
+            height: 10px;
+            cursor: pointer;
+        }
+
+        .app-nav__icon:before, .app-nav__icon:after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 1px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: #222;
+            transition: 0.3s cubic-bezier(0.28, 0.55, 0.36, 1.18);
+        }
+
+        .app-nav__icon:after {
+            top: auto;
+            bottom: 0;
+        }
+
+        .app-nav ul {
+           display: none;
+        }
+
+        .app-search__icon {
+            position: relative;
+            display: block;
+            height: 14px;
+            width: 14px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .app-search__icon:before, .app-search__icon:after {
+            content: "";
+            position: absolute;
+            display: block;
+        }
+
+        .app-search__icon:before {
+            height: 12px;
+            width: 12px;
+            top: 0;
+            left: 0;
+            border: 1px solid #222;
+            border-radius: 100%;
+            box-sizing: border-box;
+        }
+
+        .app-search__icon:after {
+            height: 6px;
+            width: 1px;
+            right: 0;
+            bottom: 0;
+            background: #222;
+            transform-origin: bottom right;
+            transform: rotate(-45deg);
+        }
+        
+        .app-search__field {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s ease;
+            background: #FFF;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .app-search__field input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            border: 0;
+            padding: 50px 20px 0;
+            font-size: 14px;
+        }
+        
+        .app-header__image {
+           padding: 40px 0;
+        }
+
+        .app-header__image img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .app-header__image img:last-child {
+            display: none;
+        }
+
+        .app-tabs {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-tabs__tab {
+            margin: 0 15px;
+            padding: 10px 0;
+            color: #999;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .app-tabs__tab--one {
+            color: #222;
+            box-shadow: inset 0 -2px 0 0 #222;
+        }
+
+        .app-body {
+            position: relative;
+            display: flex;
+            height: 100%;
+            background: #EEF2F6;
+        }
+
+        .app-panel {
+            position: absolute;
+            height: calc(100% - 20px);
+            width: 260px;
+            top: 20px;
+            left: calc(100% - 2px);
+            margin-right: 15px;
+            padding: 20px 5px 0;
+            box-sizing: border-box;
+            background: #FFF;
+            transition: 0.6s cubic-bezier(0.28, 0.55, 0.36, 1.18);
+        }
+
+        .app-panel--one {
+           left: 20px;
+        }
+
+        .app-panel__header {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .app-panel__header span {
+            margin: 0 0 10px;
+            padding: 0 15px;
+            color: #999;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .app-panel__header span:first-child {
+            width: 100%;
+        }
+
+        .app-panel__content {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .app-panel__column {
+            margin-left:-31px;
+            padding: 0 10px;
+            color: #222;
+        }
+
+        .app-panel__column:first-child {
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .app-panel__column li {
+           padding: 10px 0;
+           list-style: none;
+        }
+
+        #app-event-1, #app-event-2, #app-event-3, #app-event-4 {
+           display: none;
+        }
+
+        #app-event-1:checked ~ .body .app .app-menu .app-nav .app-nav__icon:before {
+           transform: translateY(-2px);
+        }
+
+        #app-event-1:checked ~ .body .app .app-menu .app-nav .app-nav__icon:after {
+           transform: translateY(2px);
+        }
+
+        #app-event-2:checked ~ .body .app .app-menu .app-search .app-search__field {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #app-event-4:checked ~ .body .app .app-header .app-header__image img:first-child {
+           display: none;
+        }
+
+        #app-event-4:checked ~ .body .app .app-header .app-header__image img:last-child {
+          display: block;
+        }
+
+        #app-event-4:checked ~ .body .app .app-header .app-tabs .app-tabs__tab--one {
+            color: #999;
+            box-shadow: none;
+        }
+
+        #app-event-4:checked ~ .body .app .app-header .app-tabs .app-tabs__tab--two {
+            color: #222;
+            box-shadow: inset 0 -2px 0 0 #222;
+        }
+
+        #app-event-4:checked ~ .body .app .app-body .app-panel--one {
+           left: calc(-100% + 170px);
+        }
+
+        #app-event-4:checked ~ .body .app .app-body .app-panel--two {
+           left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input id="app-event-1" type="checkbox"/>
+    <input id="app-event-2" type="checkbox"/>
+    <input id="app-event-3" type="radio" name="app-event-3" checked="checked"/>
+    <input id="app-event-4" type="radio" name="app-event-3"/>
+
+ <div class="body">
+    <div class="app">
+        <div class="app-menu">
+            <div class="app-nav">
+                <label class="app-nav__icon" for="app-event-1"></label>
+                <ul>
+                  <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            <div class="app-menu__title">Menu</div>
+            <div class="app-search">
+                <label class="app-search__icon" for="app-event-2"></label>
+                <div class="app-search__field">
+                     <input type="text" placeholder="Search..."/>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-header">
+            <div class="app-header__image">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/coffee-cup-thin.png"/>
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/donut-thin.png"/>
+            </div>
+            <div class="app-tabs">
+                <label class="app-tabs__tab app-tabs__tab--one" for="app-event-3">Coffee</label>
+                <label class="app-tabs__tab app-tabs__tab--two" for="app-event-4">Donuts</label>
+            </div>
+        </div>
+
+        <div class="app-body">
+            <div class="app-panel app-panel--one">
+                <div class="app-panel__header">
+                    <span>Shots</span>
+                    <span>Sml</span>
+                    <span>Lrg</span>
+                </div>
+                <div class="app-panel__content">
+                <div class="app-panel__column">
+                    <ul>
+                        <li>Expresso</li>
+                        <li>Cappuccino</li>
+                        <li>Americano</li>
+                        <li>Cafe Latte</li>
+                        <li>Macchiato</li>
+                    </ul>
+                </div>
+                <div class="app-panel__column">
+                    <ul>
+                        <li>2.30</li>
+                        <li>3.10</li>
+                        <li>1.90</li>
+                        <li>2.60</li>
+                        <li>2.20</li>
+                    </ul>
+                </div>
+                <div class="app-panel__column">
+                    <ul>
+                        <li>2.90</li>
+                        <li>3.50</li>
+                        <li>2.20</li>
+                        <li>3.00</li>
+                        <li>2.70</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-panel app-panel--two">
+            <div class="app-panel__header"><span>Shots</span><span>PR</span></div>
+            <div class="app-panel__content">
+            <div class="app-panel__column">
+                <ul>
+                    <li>Regular</li>
+                    <li>Chocolate</li>
+                    <li>Glazed</li>
+                    <li>Sprinkles</li>
+                    <li>Coffee</li>
+                </ul>
+            </div>
+            <div class="app-panel__column">
+                <ul>
+                    <li>0.80</li>
+                    <li>2.10</li>
+                    <li>1.90</li>
+                    <li>2.60</li>
+                    <li>1.20</li>
+                </ul>
+            </div>
+            </div>
+        </div>
+
+     </div>
+    </div>
+ </div>
+</body>
+</html>

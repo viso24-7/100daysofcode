@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>canvas as favicon</title>
+        <link rel="shortcut icon" width=32px>
+    </head>
+  <body>
+    <canvas style="display: none" id="loader" width="16" height="16"></canvas>
+  
+    <script>
+        class Loader {
+                constructor(link, canvas) {
+                    this.link = link;
+                    this.canvas = canvas;
+                    this.context = canvas.getContext('2d');
+                    this.context.lineWidth = 4;
+                    this.context.strokeStyle = "red";
+                }
+
+                    setProgress(progress) {
+                        const startAngle = 1.5 * Math.PI;
+                        this.context.clearRect(0, 0, 16, 16);
+                        this.context.beginPath();
+                        this.context.arc(8, 8, 5, startAngle, (progress * 2 * Math.PI) / 100 + startAngle);
+                        this.context.stroke();
+                        this.link.href = this.canvas.toDataURL("image/png"); // update favicon
+                    }
+         }
+
+                const canvas = document.querySelector("#loader");
+                const link = document.querySelector('link[rel*="icon"]');
+                const loader = new Loader(link,canvas);
+
+                let progress = 0;
+                const loading = () => {
+                    loader.setProgress(progress);
+                        if (progress >= 100) {
+                            return;
+                        }
+                    progress++;
+                    requestAnimationFrame(loading);
+                 }
+                loading();
+   </script>
+  </body>
+</html>

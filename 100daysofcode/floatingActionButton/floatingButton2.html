@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viso Alarm</title>
+    <style>
+        body{
+            margin:0;
+            color:#444;
+            background:#5cffbd;
+            font:300 18px/18px Roboto, sans-serif;
+        }
+
+        *,:after,:before{
+            box-sizing:border-box
+        }
+
+        .pull-left{float:left}
+        .pull-right{float:right}
+        .clearfix:after,.clearfix:before{content:'';display:table}
+        .clearfix:after{clear:both;display:block}
+
+        .alarm{
+            width:310px;
+            margin:5% auto 0;
+            position:relative;
+            background:#f5feff;
+            box-shadow:0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+        }
+
+        .alarm a{
+            color:inherit;
+            text-decoration:none;
+        }
+
+        .alarm .top{
+            height:30px;
+            background:#0096a6;
+        }
+
+        .alarm .top .action .mini,
+        .alarm .top .action .maxi,
+        .alarm .top .action .exit,
+        .alarm .top .action span{
+            padding:2px 5px;
+            display:inline-block;
+        }
+
+        .alarm .top .action span{
+            padding:0;
+        }
+
+        .alarm .top .action .mini span{
+            width:10px;
+            height:2px;
+            background:#45b4c0;
+        }
+
+        .alarm .top .action .maxi span{
+            width:12px;
+            height:10px;
+            border:2px solid #45b4c0;
+        }
+
+        .alarm .top .action .exit span{
+            width:12px;
+            height:12px;
+            position:relative;
+        }
+
+        .alarm .top .action .exit span:before,
+        .alarm .top .action .exit span:after{
+            top:50%;
+            content:'';
+            height:2px;
+            width:inherit;
+            position:absolute;
+            background:#45b4c0;
+        }
+
+        .alarm .top .action .exit span:before{
+            right:0;
+            transform:rotate(45deg);
+        }
+
+        .alarm .top .action .exit span:after{
+            right:0;
+            transform:rotate(-45deg);
+        }
+
+        .alarm .slide-date{
+            min-height:165px;
+            position:relative;
+            background:#00bcd4;
+        }
+
+        .alarm .slide-date .alarm-prev,
+        .alarm .slide-date .alarm-next{
+            top:50%;
+            position:absolute;
+        }
+
+        .alarm .slide-date .alarm-prev{
+            left:20px;
+        }
+
+        .alarm .slide-date .alarm-next{
+            right:20px;
+        }
+
+        .alarm .slide-date .alarm-prev span,
+        .alarm .slide-date .alarm-next span{
+            height:2px;
+            width:15px;
+            display:block;
+            background:#f5feff;
+            position:relative;
+        }
+
+        .alarm .slide-date .alarm-prev span:before,
+        .alarm .slide-date .alarm-prev span:after,
+        .alarm .slide-date .alarm-next span:before,
+        .alarm .slide-date .alarm-next span:after{
+            content:'';
+            width:10px;
+            height:inherit;
+            position:absolute;
+            background:inherit;
+        }
+
+        .alarm .slide-date .alarm-prev span:before{
+            top:3px;
+            left:-2px;
+            -webkit-transform:rotate(45deg);
+            transform:rotate(45deg);
+        }
+
+        .alarm .slide-date .alarm-prev span:after{
+            left:-2px;
+            bottom:3px;
+            -webkit-transform:rotate(-45deg);
+            transform:rotate(-45deg);
+        }
+
+        .alarm .slide-date .alarm-next span:before{
+            top:3px;
+            right:-2px;
+            -webkit-transform:rotate(130deg);
+            transform:rotate(130deg);
+        }
+
+        .alarm .slide-date .alarm-next span:after{
+            right:-2px;
+            bottom:3px;
+            -webkit-transform:rotate(-130deg);
+            transform:rotate(-130deg);
+        }
+
+        .alarm .slide-date .date{
+            text-align:center;
+        }
+
+        .alarm .slide-date .date .dd{
+            color:#f5feff;
+            font-size:72px;
+            font-weight:100;
+            padding-top:35px;
+            line-height:72px;
+        }
+
+        .alarm .slide-date .date .mm-yy{
+            color:#007c8d;
+            font-weight:400;
+            padding-top:10px;
+        }
+
+        .alarm .day{
+            color:#f5feff;
+            font-size:11px;
+            font-weight:400;
+            line-height:11px;
+            background:#616161;
+            padding:10px 20px;
+            text-transform:uppercase;
+            box-shadow:0 2px 4px -1px rgba(0,0,0,.4) inset;
+        }
+
+        .alarm .alarm-content{
+            padding:15px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .alarm .alarm-ul .alarm-li{
+            z-index:0;
+            display:block;
+            padding:15px 0;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off{
+            display:none;
+        }
+
+        .alarm .alarm-ul .alarm-li:not(:last-child):after{
+            bottom:0;
+            left:45px;
+            height:1px;
+            content:'';
+            position:absolute;
+            background:#d0cfcf;
+        }
+
+        .alarm .alarm-bell{
+            width:10px;
+            height:10px;
+            display:block;
+            margin-left:5px;
+            position:relative;
+            background:#d0cfcf;
+            border-radius:5px 5px 0 0;
+        }
+
+        .alarm .alarm-bell:before,
+        .alarm .alarm-bell:after{
+            content:'';
+            position:absolute;
+        }
+
+        .alarm .alarm-bell:before{
+            top:50%;
+            left:50%;
+            width:4px;
+            height:15px;
+            margin-top:-7px;
+            margin-left:-2px;
+            border-radius:3px;
+            background:inherit;
+        }
+
+        .alarm .alarm-bell:after{
+            height:0;
+            left:-2px;
+            width:14px;
+            bottom:-1px;
+            border:5px solid transparent;
+            border-bottom:5px solid #d0cfcf;
+        }
+
+        .alarm .alarm-info{
+            margin-left:20px;
+        }
+
+        .alarm .alarm-info .alarm-time{
+            color:#d0cfcf;
+            font-size:34px;
+        }
+
+        .alarm .alarm-info .alarm-repeat span{
+            color:#d0cfcf;
+            font-size:10px;
+            font-weight:600;
+        }
+
+        .alarm .alarm-ul{
+            -webkit-animation:swipeIn .4s;
+            animation:swipeIn .4s;
+        }
+
+        .alarm .alarm-ul .alarm-li .alarm-toggle{
+            width:30px;
+            height:20px;
+            display:block;
+            position:relative;
+        }
+
+        .alarm .alarm-ul .alarm-li .alarm-toggle:before,
+        .alarm .alarm-ul .alarm-li .alarm-toggle:after{
+            top:50%;
+            content:'';
+            position:absolute;
+            transition:all .3s ease-in-out 0s;
+        }
+
+        .alarm .alarm-ul .alarm-li .alarm-toggle:before{
+            left:0;
+            z-index:1;
+            width:15px;
+            height:15px;
+            margin-top:-7.5px;
+            border-radius:50%;
+            background:#f5feff;
+            border:2px solid #7e8182;
+        }
+
+        .alarm .alarm-ul .alarm-li .alarm-toggle:after{
+            width:30px;
+            height:2px;
+            display:block;
+            border-radius:1px;
+            background:#d0cfcf;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-bell{
+            background:#2096f4;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-bell:after{
+            border-bottom-color:#2096f4;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-time{
+            color:#acb3b4;
+        }
+        
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-repeat span.active{
+            color:#2096f4;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-toggle:before{
+            left:15px;
+            background:#2096f4;
+            border-color:#2096f4;
+        }
+
+        .alarm .alarm-ul .alarm-li .on-off:checked + .alarm-list-inf .alarm-toggle:after{
+            background:#2096f4;
+        }
+
+        .alarm .alarm-content .calendar{
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            z-index:99;
+            padding:15px;
+            position:absolute;
+
+            top:80px;
+            left:45px;
+            right:45px;
+            bottom:80px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-day{
+            width:100%;
+            display:table;
+        }
+        
+        .alarm .alarm-content .calendar .calendar-day .tgl-dd{
+            display:none;
+        }
+
+        .alarm .alarm-content .calendar .calendar-day .tgl-day{
+            width:1%;
+            color:#ccbf43;
+            font-size:16px;
+            font-weight:400;
+            text-align:center;
+            display:table-cell;
+        }
+
+        .alarm .alarm-content .calendar .calendar-day .tgl-dd:checked + .tgl-day{
+            color:inherit;
+        }
+
+        .alarm .alarm-content .calendar .calendar-time{
+            width:100%;
+            display:table;
+            margin-top:30px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-time>div{
+            width:1%;
+            text-align:center;
+            display:table-cell;
+        }
+
+        .alarm .alarm-content .calendar .calendar-time .text{
+            font-weight:400;
+            margin-bottom:5px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-time select,
+        .alarm .alarm-content .calendar .calendar-action .btn{
+            width:80%;
+            color:#444;
+            font-size:18px;
+            font-weight:400;
+            background:#fff;
+            text-align:center;
+            border-radius:2px;
+            border:1px solid #ccc;
+            box-shadow:0 1px 4px rgba(0,0,0,.4);
+        }
+
+        .alarm .alarm-content .calendar .calendar-time select{
+            padding:8px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-action{
+            width:100%;
+            display:table;
+            margin-top:50px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-action .button{
+            min-width:1%;
+            display:table-cell;
+        }
+
+        .alarm .alarm-content .calendar .calendar-action .btn{
+            border-radius:0;
+            padding:10px 15px;
+        }
+
+        .alarm .alarm-content .calendar .calendar-action .btn.btn-danger{
+            color:#eee;
+            background:#ff5151;
+            border-color:transparent;
+        }
+
+        .alarm .tgl{
+            display:none;
+        }
+
+        .alarm .toggle{
+            z-index:99;
+            top:170px;
+            right:15px;
+            width:45px;
+            height:45px;
+            display:block;
+            position:absolute;
+            border-radius:50%;
+            background:#ffee4d;
+            box-shadow:0 3px 2px rgba(0,0,0,.4);
+            transition:all .4s ease-in-out 0s;
+        }
+
+        .alarm .toggle:before,
+        .alarm .toggle:after{
+            top:50%;
+            left:50%;
+            content:'';
+            width:12px;
+            height:2px;
+            background:#444;
+            margin-top:-2px;
+            margin-left:-6px;
+            position:absolute;
+        }
+
+        .alarm .toggle:before{
+            transform:rotate(90deg);
+        }
+
+        .alarm .alarm-content .calendar-wrap{
+            top:50%;
+            left:50%;
+            z-index:1;
+            width:400px;
+            height:400px;
+            overflow:hidden;
+            border-radius:50%;
+            position:absolute;
+            margin-top:-200px;
+            margin-left:-200px;
+            background:#ffee4d;
+            -webkit-transform:translate(117px,-154px) scale(0);
+            transform:translate(117px,-154px) scale(0);
+            transition:all .4s ease-in-out 0s;
+        }
+
+        .alarm .tgl:checked + .toggle + .alarm-content .alarm-ul{
+            -webkit-animation:swipeOut .3s;
+            animation:swipeOut .3s;
+        }
+
+        .alarm .tgl:checked + .toggle{
+            transform:translate(-80px,100px) scale(0);
+        }
+
+        .alarm .tgl:checked + .toggle + .alarm-content .calendar-wrap{
+            -webkit-transform:translate(0) scale(1);
+            transform:translate(0) scale(1);
+        }
+
+        @keyframes swipeIn{
+            0%{
+                opacity:0;
+                visibility:hidden;
+                transform:translate3d(-100%,0,0);
+            }
+            100%{
+                transform:translate3d(0,0,0);
+            }
+        }
+
+        @-webkit-keyframes swipeIn{
+            0%{
+                opacity:0;
+                visibility:hidden;
+                -webkit-transform:translate3d(-100%,0,0);
+                transform: translate3d(-100%,0,0);
+            }
+            100%{
+                -webkit-transform:translate3d(0,0,0);
+                transform:translate3d(0,0,0);
+                
+           }
+        }
+
+        @keyframes swipeOut{
+            0%{
+                transform:translate3d(0,0,0);
+            }
+            100%{
+                opacity:0;
+                visibility:hidden;
+                transform:translate3d(-100%,0,0);
+            }
+        }
+
+        @-webkit-keyframes swipeOut{
+            0%{
+                -webkit-transform:translate3d(0,0,0);
+                transform:translate3d(0,0,0);
+            }
+            100%{
+                opacity:0;
+                visibility:hidden;
+                -webkit-transform:translate3d(-100%,0,0);
+                transform: translate3d(-100%,0,0);
+           }
+        }
+    </style>
+</head>
+<body>
+    <div class="alarm-wrap">
+        <div class="alarm">
+            <div class="top clearfix">
+                <div class="action pull-right">
+                    <a href="#" class="mini"><span></span></a>
+                    <a href="#" class="maxi"><span></span></a>
+                    <a href="#" class="exit"><span></span></a>
+                </div>
+            </div>
+            <div class="slide-date">
+                <div class="alarm-prev"><span></span></div>
+                <div class="date">
+                    <div class="dd">28</div>
+                    <div class="mm-yy">December 2020</div>
+                </div>
+                <div class="alarm-next"><span></span></div>
+            </div>
+            <div class="day">Monday</div>
+            <input id="main-toggle" type="checkbox" class="tgl">
+            <label for="main-toggle" class="toggle"></label>
+
+            <div class="alarm-content">
+                <div class="calendar-wrap">
+                   <div class="calendar">
+                        <div class="calendar-day">
+                            <input class="tgl-dd" id="tgl-day-1" type="checkbox" checked>
+                            <label class="tgl-day" for="tgl-day-1">SU</label>
+                            <input class="tgl-dd" id="tgl-day-2" type="checkbox" checked>
+                            <label class="tgl-day" for="tgl-day-2">MO</label>
+                            <input class="tgl-dd" id="tgl-day-3" type="checkbox">
+                            <label class="tgl-day" for="tgl-day-3">TU</label>
+                            <input class="tgl-dd" id="tgl-day-4" type="checkbox" checked>
+                            <label class="tgl-day" for="tgl-day-4">WE</label>
+                            <input class="tgl-dd" id="tgl-day-5" type="checkbox">
+                            <label class="tgl-day" for="tgl-day-5">TH</label>
+                            <input class="tgl-dd" id="tgl-day-6" type="checkbox">
+                            <label class="tgl-day" for="tgl-day-6">FR</label>
+                            <input class="tgl-dd" id="tgl-day-7" type="checkbox">
+                            <label class="tgl-day" for="tgl-day-7">SA</label>
+                        </div>
+                      <div class="calendar-time">
+                        <div class="time-hh">
+                            <div class="text">H</div>
+                            <select>
+                                <option>01</option>
+                                <option>02</option>
+                                <option>03</option>
+                                <option>04</option>
+                                <option>05</option>
+                                <option>06</option>
+                                <option>07</option>
+                                <option>08</option>
+                                <option>09</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                            </select>
+                        </div>
+                        <div class="time-mm">
+                            <div class="text">M</div>
+                            <select>
+                                <option>10</option>
+                                <option>20</option>
+                                <option selected>30</option>
+                                <option>40</option>
+                                <option>50</option>
+                                <option>60</option>
+                            </select>
+                        </div>
+                        <div class="time-ss">
+                            <div class="text">S</div>
+                            <select>
+                                <option>00</option>
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                                <option>40</option>
+                                <option>50</option>
+                                <option>60</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="calendar-action clearfix">
+                        <div class="button"><button class="btn btn-default pull-left">Begin</button></div>
+                        <div class="button"><label for="main-toggle" class="btn btn-danger pull-right">Cancel</label></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alarm-ul">
+                    <div class="alarm-li">
+                        <input id="alarm-1" type="checkbox" class="on-off" checked>
+                        <div class="alarm-list-inf clearfix">
+                            <div class="pull-left">
+                                <span class="alarm-bell"></span>
+                            </div>
+                            <div class="pull-left">
+                                <div class="alarm-info">
+                                    <div class="alarm-time">06:30</div>
+                                    <div class="alarm-repeat">
+                                        <span class="active">SU</span>
+                                        <span>MO</span>
+                                        <span class="active">TU</span>
+                                        <span class="active">WE</span>
+                                        <span>TH</span>
+                                        <span class="active">FR</span>
+                                        <span class="active">SA</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <label class="alarm-toggle" for="alarm-1"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alarm-li">
+                        <input id="alarm-2" type="checkbox" class="on-off">
+                        <div class="alarm-list-inf clearfix">
+                            <div class="pull-left">
+                                <span class="alarm-bell"></span>
+                            </div>
+                            <div class="pull-left">
+                                <div class="alarm-info">
+                                    <div class="alarm-time">09:30</div>
+                                    <div class="alarm-repeat">
+                                        <span>SU</span>
+                                        <span>MO</span>
+                                        <span>TU</span>
+                                        <span class="active">WE</span>
+                                        <span>TH</span>
+                                        <span>FR</span>
+                                        <span>SA</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <label class="alarm-toggle" for="alarm-2"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alarm-li">
+                        <input id="alarm-3" type="checkbox" class="on-off" checked>
+                        <div class="alarm-list-inf clearfix">
+                            <div class="pull-left">
+                                <span class="alarm-bell"></span>
+                            </div>
+                            <div class="pull-left">
+                                <div class="alarm-info">
+                                    <div class="alarm-time">15:30</div>
+                                    <div class="alarm-repeat">
+                                        <span class="active">SU</span>
+                                        <span>MO</span>
+                                        <span>TU</span>
+                                        <span>WE</span>
+                                        <span>TH</span>
+                                        <span>FR</span>
+                                        <span>SA</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <label class="alarm-toggle" for="alarm-3"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+     </div>
+</body>
+</html>

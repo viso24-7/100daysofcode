@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .arc text {
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+
+        .arc path {
+            stroke: #fff;
+        }
+
+        .title {
+            text-transform: capitalize;
+            fill: teal;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <svg width="500" height="400"></svg>
+    <script>
+        var svg = d3.select("svg"),
+            width = svg.attr("width"),
+            height = svg.attr("height"),
+            radius = Math.min(width, height) / 2;
+        
+        var g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        var color = d3.scaleOrdinal(['#FF0000','#008c45','#EF3340','#984ea3','#e41a1c']);
+
+        var pie = d3.pie().value(function(d){ return d.percent; });
+        var path = d3.arc().outerRadius(radius - 10).innerRadius(0);
+        var label = d3.arc().outerRadius(radius).innerRadius(radius - 80);
+
+        d3.csv("unemployment.csv",function(error,data){
+                if(error) throw error;
+                
+                var arc = g.selectAll(".arc").data(pie(data)).enter().append("g").attr("class", "arc");
+                arc.append("path").attr("d", path).attr("fill", function(d){ return color(d.data.country); });
+            
+                console.log(arc)
+            
+                arc.append("text").attr("transform",function(d){ 
+                            return "translate(" + label.centroid(d) + ")"; 
+                    }).text(function(d) { return d.data.country; });
+
+                  /*  svg.selectAll(".arc").transition().ease(d3.easeLinear).duration(5000)
+                        .attr("d",path)
+                        .attr("fill",function(d){ return color(d.data.country); })
+                        .delay(function(d,i){ return(i*100)}) 
+                 */       
+        });
+
+        svg.append("g").attr("transform", "translate(" + (width / 2 - 120) + "," + 10 + ")")
+            .append("text").text("Unemployment statistics - Jan 2020").attr("class", "title")
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+@import "compass/css3";
+
+body {
+    background: teal;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.cover-slider__wrap {
+    position: relative;
+    max-width: 640px;
+    height: 480px;
+    margin: 1em auto;
+    padding: 5em 1em;
+    color: #fff;
+    font-size: 30px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    line-height: 2;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    box-shadow: 0 0 .5em rgba(#000,.5);
+}
+.cover-slider__inner {
+    position: relative;
+    min-height: 40em;
+    text-align: center;
+    z-index: 10;
+}
+.cover-slider {
+    backface-visibility: hidden;
+}
+.cover-slider__slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 100%;
+    padding: 0;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    list-style: none;
+    z-index: 0;
+    opacity: .5;
+
+    &.active {
+        animation-duration: 2500ms;
+        animation-name: slidein;
+        animation-fill-mode: forwards;
+    }
+    
+    &.inactive {
+        animation-duration: 2500ms;
+        animation-name: slideout;
+        animation-fill-mode: forwards;
+    }
+
+
+    @keyframes slidein {
+        from {
+            left: 0;
+            right: 100%;
+        }
+        to {
+            left: 0;
+            right: 0;
+        }
+    }
+
+    @keyframes slideout {
+        from {
+            left: 0;
+            right: 0;
+        }
+        to {
+            left: 100%;
+            right: 0;
+        }
+    }
+
+}
+
+.cover-slider__slide {
+    &:nth-child(1){
+        background-image: url("https://unsplash.it/640/480");
+    }
+    &:nth-child(2){
+        background-image: url("https://unsplash.it/641/480");
+    }
+    &:nth-child(3){
+        background-image: url("https://unsplash.it/641/481");
+    }
+    &:nth-child(4){
+        background-image: url("https://unsplash.it/643/482");
+    }
+}
+
+.hide {
+    position: absolute;
+    left: -9999px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<style>
+    body {
+    background: rgba(2, 0, 0, 0.849);
+    color: rgb(236, 165, 31);
+    }
+    input[type="checkbox"] {
+        position: absolute;
+        top: 25px; 
+        right: 50px;
+        font-size:50px;
+        cursor:pointer;
+        appearance:none;
+        z-index:100;
+    }
+
+    input[type="checkbox"]::after {
+        position: absolute;
+        top: 0px; 
+        right: 0px;
+        content: '☀️';
+    }
+
+    input[type="checkbox"]:checked::after {
+        content: '🌙';
+    }
+
+    .dark-mode {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background: white;
+        opacity:0;
+        mix-blend-mode: difference; 
+        transition: all 3s ease-in-out;
+    }
+
+    input[type=checkbox]:checked ~ div {
+         opacity: 1;
+    }
+</style>
+<body>  
+    <input type="checkbox">
+    <div class="dark-mode"></div>
+</body>
+</html>

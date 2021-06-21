@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+ <html>
+     <head>
+        <meta charset="utf-8">
+     </head>
+   <html>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font: 14px Helvetica, Arial, sans-serif;
+        }
+    
+        path,
+        line {
+            fill: none;
+            stroke: #000;
+        }
+    
+        .axis path,
+        .axis line {
+            shape-rendering: crispEdges;
+            stroke: #ccc;
+        }
+    
+        .axis path {
+            display: none;
+        }
+    
+        .connection {
+            stroke-width: 2px;
+        }
+    
+        circle {
+            fill: #fff;
+            stroke: #000;
+            stroke-width: 1px;
+        }
+    
+        div.controls {
+            padding-top: 0.5em;
+            text-align: center;
+        }
+    
+        div.button {
+            background-color: #fff;
+            border-radius: 50%;
+            color: #333;
+            padding: 0.5em 1em;
+            line-height: 140%;
+            vertical-align: middle;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+        }
+    
+        g.year text {
+            font-size: 12px;
+            letter-spacing: 0.03em;
+        }
+    
+        div.button:hover,
+        div.button:focus,
+        div.button:active,
+        div.button.active {
+            background-color: #ebebeb;
+            border-color: #adadad;
+        }
+    
+        div.button:active,
+        div.button.active {
+            color: #000;
+            outline: 0;
+            box-shadow: inset 0 3px 15px rgba(0, 0, 0, 0.125);
+        }
+    
+        div.outer {
+            width: 960px;
+            margin: 0 auto;
+        }
+      </style>
+
+       <div class="outer">
+            <div class="controls">
+                <div class="button active">Country Code</div>
+                <div class="button">Region Code</div>
+            </div>
+            <div class="chart"></div>
+       </div>
+   <script src="//d3js.org/d3.v3.min.js"></script>
+   <script>
+        let margin = { top: 10, right: 110, bottom: 40, left: 10 },
+            width = 960 - margin.left - margin.right,
+            height = 440 - margin.top - margin.bottom;
+
+        let x = d3.scale.linear().range([0, width]);
+        let y = d3.scale.linear().range([height, 0]);
+        let highlight = ['Albania','Austria','Canada','Japan','Denmark','Finland','Germany','Italy'];
+        let yTicks = {
+                countryCode: {
+                    ticks: d3.range(),
+                    domain: [1.07715, 4.41543],
+                    suffix: "country code"
+                },
+                regionCode: {
+                    ticks: d3.range(0.09, 0.27, 0.03),
+                    domain: [0.06463, 0.26492],
+                    suffix: "region code"
+                }
+        };
+
+        let xAxis = d3.svg.axis().scale(x).tickSize(-height).tickFormat(function(d) {
+                             return d.name;
+                    }).orient("bottom");
+
+        let yAxis = d3.svg.axis().scale(y).tickSize(-width).tickValues(yTicks.countryCode.ticks)
+                      .tickFormat(yFormat("country-code")).orient("right");
+
+        let line = d3.svg.line().x(get("name", x));
+        let point = function(d) {
+                return "translate(" + line.x()(d) + " " + line.y()(d) + ")";
+        };
+
+        let svg = d3.select(".chart").append("svg").attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom).append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.csv("country_full.csv",function(error, data) {
+                data.forEach(function(d) {
+                    for (let key in d) {
+                        d[key] = +d[key];
+                    }
+                });
+
+                x.domain([2500, 10500]);
+                y.domain(yTicks.countryCode.domain);
+
+                line.y(get("country-code", y));
+
+                svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")")
+                    .call(xAxis).append("text").text("Countries")
+                    .attr("transform", "translate(" + width + ")").attr("dy", "2.5em").attr("text-anchor", "end");
+
+                let yg = svg.append("g").attr("class", "y axis").attr("transform", "translate(" + width + ")").call(yAxis);
+                    yg.append("text").text("country code").attr("dy", "2.5em");
+ 
+                let path = svg.append("path").attr("class", "connection").datum(data).attr("d", line);
+                let circles = svg.selectAll("g.year").data(data).enter().append("g").attr("class", "year").attr("transform", point);
+                    circles.append("circle").attr("r", 2);
+
+                circles.filter(function(d) {
+                        return highlight.indexOf(d.name) !== -1;
+                    }).append("text").text(get("year")).attr("dy","-0.6em")
+                    .attr("dx",function(d) {
+                        return (d.year === 2008 ? "0.45em" : "-0.6em");
+                    }).attr("text-anchor",function(d) {
+                        return (d.year === 2008 ? "start" : "end");
+                    });
+
+                let buttons = d3.selectAll(".button").data(["country-code", "region-code"]).on("click", update);
+
+                    function update(yVar) {
+                        buttons.classed("active",function(d) {
+                            return d === yVar;
+                        });
+
+                        y.domain(yTicks[yVar].domain);
+                        yAxis.tickValues(yTicks[yVar].ticks).tickFormat(yFormat(yVar));
+                        line.y(get(yVar, y));
+                        yg.transition().duration(250).call(yAxis);
+                        path.transition().duration(250).attr("d", line);
+                        circles.transition().duration(250).attr("transform", point);
+                    }
+
+        });
+
+        function yFormat(key) {
+            return function(d, i) {
+                let isLast = (i === yTicks[key].ticks.length - 1);
+                return d3.format("$.2f")(d) + (isLast ? " " + yTicks[key].suffix : "");
+            };
+        }
+
+        function get(p,f) {
+            if(f){
+                return function(d) {
+                     return f(d[p]);
+                };
+            }
+
+        return function(d) {
+               return d[p];
+            };
+        }
+  </script>
+</html>

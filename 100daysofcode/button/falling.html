@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Falling Dots Loader</title>
+</head>
+<style>
+	* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background: #270045;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 400px;
+  height: 200px;
+  display: grid;
+  place-items: center;
+}
+.container .loader {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.container .loader .l {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  margin: 0 15px;
+}
+.container .loader .l:after, .container .loader .l:before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+.container .loader .l:after {
+  transform: translateY(-500%);
+  animation: fall_after 2s cubic-bezier(0.75, -0.4, 0, 1.6) infinite;
+  animation-delay: calc( 1s - ( 0.15s * ( var(--i)) ) );
+}
+.container .loader .l:before {
+  transform: translateY(0%);
+  animation: fall_before 2s cubic-bezier(0.75, -0.4, 0, 1.6) infinite;
+  animation-delay: calc( 1s - ( 0.15s * ( var(--i)) ) );
+}
+.container .loader .l._1:after, .container .loader .l._1:before {
+  background: linear-gradient(to bottom, #faa000 0, #dc6302 100%);
+}
+.container .loader .l._2:after, .container .loader .l._2:before {
+  background: linear-gradient(to bottom, #fd0020 0, #c10018 100%);
+}
+.container .loader .l._3:after, .container .loader .l._3:before {
+  background: linear-gradient(to bottom, #00aefc 0, #007bb2 100%);
+}
+.container .loader .l._4:after, .container .loader .l._4:before {
+  background: linear-gradient(to bottom, #a800fd 0, #4f1dd4 100%);
+}
+
+@keyframes fall_before {
+  100% {
+    transform: translateY(500%);
+  }
+}
+@keyframes fall_after {
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+
+</style>
+
+<body>
+
+<div class="container">
+  <div class="loader">
+    <div class="l _1" style="--i: 0;"></div>
+    <div class="l _2" style="--i: 1;"></div>
+    <div class="l _3" style="--i: 2;"></div>
+    <div class="l _4" style="--i: 3;"></div>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+

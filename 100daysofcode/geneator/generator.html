@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Open up the Dev Tools</h1>
+  <script>
+        const invokeRange = function* (creation, destruction, growth = 1) {
+        let i = creation;
+            while (i < destruction) {
+                yield i;
+                i += growth;
+            }
+        };
+
+        for (let i of invokeRange(7, 17))
+        console.log('%c generate my range', 'background: #7cf010; color: dark; display: block;', i);
+  </script>
+</body>
+</html>

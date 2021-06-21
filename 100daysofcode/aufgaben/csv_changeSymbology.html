@@ -1,0 +1,79 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Change symbology and list data by attribute</title>
+
+  <style>
+    html,
+    body,
+    #viewGas{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.19/"></script>
+
+  <script>
+ require(["esri/Map","esri/layers/CSVLayer","esri/views/MapView"],(Map,CSVLayer,MapView) => {
+     var url ="data.csv";
+
+     const csvLayer = new CSVLayer({
+         url:url,
+         copyright: "Europe gas",
+         definitionExpression: "code LIKE '%'",
+         renderer:{
+            type: "simple",  
+            symbol: {
+              type: "simple-marker",  
+              size: 6,
+              color: "black",
+              outline: {  
+                width: 1.2,
+                color: "white"
+              }
+            }}
+         });
+     csvLayer.definitionExpression = "code";
+
+     const map = new Map({
+         basemap: "gray-vector",
+         layers: [csvLayer]
+     });
+
+     const view = new MapView({
+         container: "viewGas",
+         center: [9,58],
+         zoom:4,
+         map:map
+     });
+ 
+    
+     var csvLayerView;
+     view.whenLayerView(csvLayer).then(layerView => {
+      const query = csvLayer.createQuery();
+      query.outFields = ["code"]; 
+
+      layerView.watch("updating",val => {
+          if(!val){
+            layerView.queryFeatures(query).then(res => {
+              let obj = res.features;
+              obj.map((el,ind) => {
+                 console.log(el.attributes.code)
+              })
+            })
+          }
+        })
+     });
+ });
+  </script>
+</head>
+
+<body>
+  <div id="viewGas"></div>
+</body>
+</html>

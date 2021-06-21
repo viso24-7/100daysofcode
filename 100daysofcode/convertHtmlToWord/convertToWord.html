@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Export Html to Word Document</title>
+    </head>
+    <body>
+
+        <div id="exportContent" style="height:150px;width:250px">
+            <!-- Your content to export here -->
+            <h3>Dhurata Dora </h3>
+            Ich liebe keine außer Mum
+            Du weißt nicht zu schätzen, ich muss dich vergessen
+            Bitte gib mir ein bisschen vom Gras
+            Und wieder hab' ich Wodka im Glas
+            Baby, bin besoffen, du bist mir egal
+        </div>
+
+        <button onclick="Export2Doc('exportContent', 'test')" style="color:green;margin-top:20px;">Export as Doc</button>
+</body>
+
+  
+<script  type="text/javascript">
+ function Export2Doc(element, filename = ''){
+    let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    let postHtml = "</body></html>";
+    let html = preHtml+document.getElementById(element).innerHTML+postHtml;
+    let blob = new Blob(['\ufeff', html],{type: 'application/msword'});
+
+    let url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html)
+        filename = filename?filename+'.doc': 'document.doc';
+    let downloadLink = document.createElement("a");
+        document.body.appendChild(downloadLink);
+
+    if(navigator.msSaveOrOpenBlob){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        downloadLink.href = url;
+        downloadLink.download = filename;
+        downloadLink.click();
+    }
+
+ document.body.removeChild(downloadLink);
+}
+</script>
+</html>

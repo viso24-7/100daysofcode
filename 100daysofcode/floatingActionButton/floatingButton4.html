@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/v4-shims.css">
+    <style>
+        .btn-multi {
+            position: absolute;
+            z-index: 999;
+            right: 15%;
+            top: 14px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Roboto', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 8px 20px;
+            font-size: 14px;
+            background-color: #E91E63;
+            border-radius: 2px;
+            color: white;
+            border: none;
+            transition: all 0.2s ease-in;
+            background-position: 50%;
+            outline: none !important;
+        }
+
+        .btn.btn-circle {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            padding: 0 !important;
+            font-size: 18px;
+        }
+
+        .btn-multi input {
+           display: none;
+        }
+
+        .btn-multi input:not(:checked) ~ label {
+           transform: rotate(0);
+        }
+
+        .btn-multi input:not(:checked) ~ label .btn {
+            border-radius: 0;
+            height: 30px;
+            width: 30px;
+            box-shadow: none;
+        }
+
+        .btn-multi input:not(:checked) ~ label .btn:first-child {
+            border-top-left-radius: 100%;
+            transform: translate(25px, 25px);
+        }
+
+        .btn-multi input:not(:checked) ~ label .btn:nth-child(2) {
+            border-top-right-radius: 100%;
+            transform: translate(55px, 25px);
+        }
+        .btn-multi input:not(:checked) ~ label .btn:nth-child(3) {
+            border-bottom-left-radius: 100%;
+            transform: translate(25px, 55px);
+        }
+
+        .btn-multi input:not(:checked) ~ label .btn:nth-child(4) {
+            border-bottom-right-radius: 100%;
+            transform: translate(55px, 55px);
+        }
+
+        .btn-multi input:not(:checked) ~ label .btn .icon {
+            opacity: 0;
+        }
+
+        .btn-multi input:not(:checked) ~ label > .icon {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .btn-multi label {
+            position: relative;
+            display: block;
+            height: 110px;
+            width: 110px;
+            transform: rotate(45deg);
+            transition: all 0.2s ease-in;
+            cursor: default;
+            border-radius: 30px;
+        }
+
+        .btn-multi label .btn {
+            position: absolute;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .btn-multi label .btn:nth-child(2) {
+           transform: translate(60px, 0);
+        }
+
+        .btn-multi label .btn:nth-child(3) {
+           transform: translate(0, 60px);
+        }
+
+        .btn-multi label .btn:nth-child(4) {
+           transform: translate(60px, 60px);
+        }
+
+        .btn-multi label .btn .icon {
+            opacity: 1;
+            transition: all 0.15s ease-in-out;
+            transform: rotate(-45deg);
+        }
+
+        .btn-multi label > .icon {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            width: 60px;
+            top: 25px;
+            left: 25px;
+            color: white;
+            border-radius: 50%;
+            font-size: 30px;
+            opacity: 0;
+            transition: all 0.25s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-multi">
+		<input type="checkbox" id="multi-btn" name="multi-btn" />
+		<label for="multi-btn">
+            <a href="https://www.facebook.com/" class="btn btn-circle" target="_blank">
+                <i class="fa fa-facebook icon" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.twitter.com/" class="btn btn-circle" target="_blank">
+                <i class="fa fa-twitter icon" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.google.com/" class="btn btn-circle" target="_blank">
+                <i class="fa fa-google-plus icon" aria-hidden="true"></i>
+            </a>
+			<span class="btn btn-circle">
+                <i class="material-icons icon">close</i>
+            </span>
+			<i class="material-icons icon">share</i>
+		</label>
+	</div>
+</body>
+</html>

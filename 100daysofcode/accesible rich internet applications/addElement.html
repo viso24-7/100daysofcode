@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>How to add element to parent Node</title>
+    </head>
+    <body>
+        <style>
+            .red {
+                 background: red;
+            }
+            #main-navbar{
+                display: flex;
+                flex-direction: column;
+                width: 10%;
+            }
+        </style>
+        <header class="navbar navbar-s" id="master" role="banner">
+            <div class="container">
+              <nav id="main-navbar" class="navbar-collapse" role="navigation" aria-expanded="true">
+                Navigation
+              </nav>
+            </div>
+        </header>
+    </body>
+    <script>
+       var navi = document.getElementById('main-navbar');
+       navi.classList.add('red');
+       var link = document.createElement("a");                 
+       var textnode = document.createTextNode("Home");   
+           link.appendChild(textnode);   
+           link.style.left = "45px";                           
+           navi.appendChild(link);     
+</script>
+</html>

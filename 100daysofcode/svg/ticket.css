@@ -1,0 +1,133 @@
+body {
+    font-family: "Raleway", sans-serif;
+    font-size: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+   .container {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1514190226263-0a4456a291f2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y29uY2VydCUyMGNvbGRwbGF5fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+  }
+
+   .container .phone {
+        position: absolute;
+        width: 29em;
+        height: 59em;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ff4c4d;
+        background: #4ca7ff;
+        border: 10px solid #000;
+        border-radius: 15px;
+  }
+
+   .phone .top {
+        position: absolute;
+        width: 29em;
+        height: 8em;
+        z-index: 3;
+        background: #ff3334;
+        background: #198eff;
+        box-sizing: border-box;
+  }
+
+    .top h1 {
+        padding: .5em;
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: 'Pacifico', cursive;
+        color: #fff;
+  }
+
+    .top .name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3em;
+        width: 29em;
+        font-weight: bold;
+        color: #fff;
+    }
+
+   .printer {
+        position: absolute;
+        width: 22em;
+        height: 0.75em;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #333;
+        border: 10px solid #232323;
+        border-radius: 10px;
+  }
+
+   .printer:nth-of-type(2) {
+    height: 15em;
+    top: 15.3%;
+    background: #4ca7ff;
+    border: 0;
+    border-bottom: 10px solid #232323;
+    z-index: 2;
+  }
+
+   .ticket {
+        position: absolute;
+        top: 4.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 28em;
+  }
+
+   .ticket svg {
+      height: 100%;
+  }
+
+   .ticket svg .cls-3 {
+    stroke: #fff;
+    stroke-miterlimit: 10;
+  }
+
+   .ticket svg .cls-3,  .ticket svg .cls-4 {
+    fill: #fcfcfc;
+  }
+
+   .ticket svg .cls-2 {
+    fill: #6f87ff;
+  }
+
+   .ticket svg .cls-1 {
+    fill: #fff;
+  }
+
+   .ticket svg .a {
+    fill: #fff;
+    stroke: red;
+    stroke-width: 5px;
+  }
+
+   .ticket svg .a:nth-of-type(2) {
+    stroke: green;
+  }
+  
+  .b { fill: #6f87ff;}
+  
+  .c,.d {
+    fill: #fcfcfc;
+  }
+  
+  .c {
+    stroke: #fff;
+    stroke-miterlimit: 10;
+  }
+  
+
+  @media (max-width: 599px) {
+    body {
+      font-size: 6px;
+    }
+  }

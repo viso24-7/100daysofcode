@@ -1,0 +1,72 @@
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700|Open+Sans:400,800);
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	background: black;
+	padding: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.text {
+	background: white;
+	padding: 10px 20px 20px 20px;
+}
+
+p:nth-child(2n) {
+	font-family: 'Inconsolata', monospace ;
+	letter-spacing: 2%;
+	color: #555;
+	font-size: 110%;
+}
+
+svg {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    float: left;
+    opacity: 1;
+    shape-outside: ellipse(110px 200px at 0 0);	
+}
+
+.control {
+	position: absolute;
+    width: 100%;
+    min-height: 3em;
+    bottom: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	background: #eee;
+}
+
+
+ellipse {
+	fill: none;
+	transition: all .2s;
+}
+
+.action:hover svg ellipse {
+	fill: rgba(0,0,0,.12);
+	transition: all .12s;
+}
+
+.css {
+	background: rgba(0,0,209,.4);
+	padding: 5px;
+}
+
+.move { cursor: move; }
+.resize { cursor: nesw-resize !Important; }

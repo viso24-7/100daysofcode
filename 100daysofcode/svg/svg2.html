@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>how to refer linear gradient in css</title>
+    </head>
+    <body>
+        <svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m258 0c-45 0-83 38-83 83 0 45 37 83 83 83 45 0 83-39 83-84 0-45-38-82-83-82zm-85 204c-13 0-24 10-24 23v48c0 13 11 23 24 23h23v119h-23c-13 0-24 11-24 24l-0 47c0 13 11 24 24 24h168c13 0 24-11 24-24l0-47c0-13-11-24-24-24h-21v-190c0-13-11-23-24-23h-123z"></path>
+          </svg>
+          
+          <svg height="0" width="0">
+            <defs>
+              <linearGradient id="lgrad-p" gradientTransform="rotate(75)"><stop offset="45%" stop-color="#4169e1"></stop><stop offset="99%" stop-color="#c44764"></stop></linearGradient>
+              <linearGradient id="lgrad-s" gradientTransform="rotate(75)"><stop offset="45%" stop-color="#ef3c3a"></stop><stop offset="99%" stop-color="#6d5eb7"></stop></linearGradient>
+              <linearGradient id="lgrad-g" gradientTransform="rotate(75)"><stop offset="45%" stop-color="#585f74"></stop><stop offset="99%" stop-color="#b6bbc8"></stop></linearGradient>
+            </defs>
+          </svg>
+          <div></div>
+        
+          <style>
+            :first-child {
+              height:150px;
+              width:150px;
+              fill:url(#lgrad-p) blue;
+            }
+            div{
+              position:relative;
+              width:150px;
+              height:150px;
+              fill:url(#lgrad-s) red;
+            }
+          </style>
+    </body>
+    <script>
+        const shadow = document.querySelector('div').attachShadow({mode: 'open'});
+        shadow.innerHTML="<svg viewbox=\"0 0 512 512\">\
+            <path d=\"m258 0c-45 0-83 38-83 83 0 45 37 83 83 83 45 0 83-39 83-84 0-45-38-82-83-82zm-85 204c-13 0-24 10-24 23v48c0 13 11 23 24 23h23v119h-23c-13 0-24 11-24 24l-0 47c0 13 11 24 24 24h168c13 0 24-11 24-24l0-47c0-13-11-24-24-24h-21v-190c0-13-11-23-24-23h-123z\"></path>\
+            </svg>\
+            <svg height=\"0\">\
+            <defs>\
+            <linearGradient id=\"lgrad-s\" gradientTransform=\"rotate(75)\"><stop offset=\"45%\" stop-color=\"#ef3c3a\"></stop><stop offset=\"99%\" stop-color=\"#6d5eb7\"></stop></linearGradient>\
+            <linearGradient id=\"lgrad-g\" gradientTransform=\"rotate(75)\"><stop offset=\"45%\" stop-color=\"#585f74\"></stop><stop offset=\"99%\" stop-color=\"#b6bbc8\"></stop></linearGradient>\
+            </defs>\
+        </svg>\
+        ";
+      </script>
+</html>
