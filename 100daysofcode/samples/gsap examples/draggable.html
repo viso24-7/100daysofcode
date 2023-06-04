@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable Carousel</title>
+    <style>
+        body {
+           background-color: #ffffdf;
+        }
+
+        main {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            visibility: hidden;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .container {
+            height: 400px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background: #f8f4f9;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+                rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        .carrousel-wrappper {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            border-radius: 50%;
+            transition: all 0.3s linear;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: unset;
+        }
+
+        .single-item {
+            position: absolute;
+            opacity: 0.5;
+            height: 70px;
+            width: 70px;
+            transition: all 0.3s linear;
+            transition-property: height, width;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .active {
+            opacity: 1;
+            width: 200px;
+            height: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <section class="container">
+          <h2>Cities to visit?</h2>
+          <div class="carrousel-wrappper">
+            <div class="single-item">
+              <img src="./img/vienna.avif" alt="Vienna" />
+            </div>
+            <div class="single-item ">
+              <img src="./img/berlin.avif" alt="Berlin" />
+            </div>
+            <div class="single-item">
+              <img src="./img/milano.avif" alt="Milano" />
+            </div>
+            <div class="single-item">
+              <img src="./img/paris.avif" alt="Paris" />
+            </div>
+            <div class="single-item">
+              <img src="./img/london.avif"  alt="London"/>
+            </div>
+            <div class="single-item">
+              <img src="./img/madrid.avif" alt="Madrid" />
+            </div>
+          </div>
+        </section>
+      </main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.0.0/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/Draggable.min.js"></script>
+<script>
+    gsap.registerPlugin(Draggable);
+    const slides = gsap.utils.toArray(".single-item");
+    slides[0].classList.add("active");
+
+    let activeIndex = 0;
+    const oneItem = 360 / slides.length;
+
+    const animation = () => {
+        gsap.set(".carrousel-wrappper", {
+            xPercent: -50,
+            yPercent: 0,
+            width: `${slides.length * 53}px`,
+            height: `${slides.length * 53}px`
+        });
+        circleSetup(".carrousel-wrappper", ".single-item", -50);
+
+        Draggable.create(".carrousel-wrappper", {
+            type: "rotation",
+            liveSnap: true,
+            snap: function (endValue) {
+               let activeSlideIndexSnap = Math.round(endValue / oneItem);
+               return Math.round((activeSlideIndexSnap * 360) / slides.length);
+            },
+            onRelease: activeSlide
+        });
+    };
+
+    const activeSlide = function(){
+        const maxRotation = gsap.utils.wrap(0, 360, this.rotation);
+        activeIndex = Math.abs(Math.floor(maxRotation / oneItem) - slides.length);
+
+        if(activeIndex === slides.length) activeIndex = 0;
+        slides.forEach((slide, idx) => {
+                slide.classList.remove("active");
+                if (idx === activeIndex) {
+                    slide.classList.add("active");
+                }
+            });
+    };
+
+    const circleSetup = (circle,items,percentageValue) => {
+        const mainCicle = document.querySelector(circle);
+        const circleItem = gsap.utils.toArray(items);
+
+        const radius = mainCicle.offsetWidth / 2;
+        const center = mainCicle.offsetWidth / 2;
+        const total = circleItem.length;
+        const slice = (2 * Math.PI) / total;
+
+        circleItem.forEach((item,i) => {
+            const angle = i * slice;
+            const x = center + radius * Math.sin(angle);
+            const y = center - radius * Math.cos(angle);
+
+            gsap.set(item, {
+                rotation: angle + "_rad",
+                xPercent: percentageValue,
+                yPercent: percentageValue,
+                x,
+                y
+            });
+        });
+    };
+
+    window.addEventListener("load", () => {
+        animation();
+        gsap.set("main", { autoAlpha: 1 });
+    });
+</script>
+</html>

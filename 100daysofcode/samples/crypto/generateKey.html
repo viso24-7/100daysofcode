@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window.crypto.subtle</title>
+  <style>
+     *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+     }
+
+     body{
+        display: grid;
+        place-content: center;
+        min-height: 100vh;
+     }
+
+     section{
+        display: flex;
+        flex-direction: column;
+        gap:6px;
+        padding: 4px 6px;
+        border: 1.4px solid rgb(68, 62, 62);
+        border-radius: 19px;
+        box-shadow: 1px 1px 10px rgba(0,0,0,.3),
+                    2px 2px 15px rgba(0,0,0,.5);
+     }
+
+     .encrypt-decrypt-controls{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding-top: 6px;
+     }
+
+     #rsa-oaep-message{
+        border-radius: 22px;
+        border: 1.4px solid rgb(148, 148, 26);
+        text-align: center;
+        outline: none;
+        padding: 4px;
+     }
+
+     .encrypt-button,
+     .decrypt-button{
+        width: 30%;
+        padding: 6px;
+        border:none;
+        border-radius: 16px;
+        font-size: 1.1em;
+        color:#fff;
+        font-weight: 600;
+     }
+
+     .encrypt-button{
+      background-color: rgb(7, 113, 16);
+     }
+
+     .decrypt-button{
+      background-color: rgb(230, 57, 9);
+     }
+  </style>
+</head>
+<body>
+      <section class="encrypt-decrypt rsa-oaep">
+        <h2 class="encrypt-decrypt-heading">RSA-OAEP</h2>
+        <div class="encrypt-decrypt-controls">
+          <div class="message-control">
+            <label for="rsa-oaep-message">Enter a message to encrypt:</label>
+            <input type="text" id="rsa-oaep-message" name="message" size="25" value="The owl hoots at midnight">
+          </div>
+          <div class="ciphertext">Ciphertext:<span class="ciphertext-value"></span></div>
+          <div class="decrypted">Decrypted:<span class="decrypted-value"></span></div>
+          <input class="encrypt-button" type="button" value="Encrypt">
+          <input class="decrypt-button" type="button" value="Decrypt">
+        </div>
+       </section> 
+</body>
+  <script>
+    (() => {
+        let ciphertext;
+        function getMessageEncoding(){
+            const messageBox = document.querySelector("#rsa-oaep-message");
+            let message = messageBox.value;
+            let enc = new TextEncoder();
+            return enc.encode(message);
+        }
+
+        async function encryptMessage(key){
+            let encoded = getMessageEncoding();
+            ciphertext = await window.crypto.subtle.encrypt({name: "RSA-OAEP"},key,encoded);
+            let buffer = new Uint8Array(ciphertext,0,5);
+            const ciphertextValue = document.querySelector(".rsa-oaep .ciphertext-value");
+            ciphertextValue.classList.add('fade-in');
+            ciphertextValue.addEventListener('animationend', () => {
+                ciphertextValue.classList.remove('fade-in');
+            });
+            ciphertextValue.textContent = `${buffer}...[${ciphertext.byteLength} bytes total]`;
+        }
+
+        async function decryptMessage(key){
+            let decrypted = await window.crypto.subtle.decrypt({name:"RSA-OAEP"},key,ciphertext);
+            let dec = new TextDecoder();
+            const decryptedValue = document.querySelector(".rsa-oaep .decrypted-value");
+            decryptedValue.classList.add('fade-in');
+            decryptedValue.addEventListener('animationend', () => {
+                decryptedValue.classList.remove('fade-in');
+            });
+            decryptedValue.textContent = dec.decode(decrypted);
+        }
+
+        window.crypto.subtle.generateKey({name:"RSA-OAEP",modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),
+            hash:"SHA-256"},true,["encrypt", "decrypt"]).then((keyPair) => {
+                const encryptButton = document.querySelector(".rsa-oaep .encrypt-button");
+                    encryptButton.addEventListener("click", () => {
+                                encryptMessage(keyPair.publicKey);
+                    });
+
+                 const decryptButton = document.querySelector(".rsa-oaep .decrypt-button");
+                 decryptButton.addEventListener("click", () => {
+                       decryptMessage(keyPair.privateKey);
+                 });
+        });
+
+    })();
+  </script>
+</html>

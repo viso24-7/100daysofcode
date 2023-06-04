@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,300;1,400;1,500;1,700&family=Roboto:ital,wght@0,500;1,400&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       :root {
+            --outline-focus: 2px solid;
+            --outline-offset: 0.875rem;
+        }
+
+        .radio-group {
+            --offset-radio-box: -0.25rem;
+            --size-radio-box: 1.5rem;
+            --gap-radio-text: 0.75rem;
+            --opacity-radio: 0.75;
+            --spacing-radio: 0.8rem;
+            --spacing-heading: 1.25rem;
+            --size-font: 1.6rem;
+            --size-font-heading: 1.5rem;
+            --duration-radio: 200ms;
+            --delay-radio: 100ms;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .dark-theme {
+            width: 600px;
+            color: #fff;
+            --background: #090b10;
+            --color-heading: hsl(174, 42%, 65%);
+            --color-radio: #fff;
+            --color-radio-checked: hsl(174, 42%, 65%);
+            --color-outline: #fff;
+        }
+
+        .dark-theme .heading {
+            text-shadow: 0 0.125rem 0.625rem hsla(174, 42%, 65%, 0.3);
+        }
+
+        body {
+            display: grid;
+            place-content: center;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        section {
+            background-color: var(--background);
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 0px;
+        }
+
+        section ::selection {
+            background-color: var(--color-radio-checked);
+            color: var(--background);
+        }
+
+        fieldset,
+        legend,
+        label {
+            all: unset;
+            position: relative;
+        }
+
+        label,
+        legend {
+            display: block;
+        }
+
+        /* === relevant portion === */
+        .heading {
+            color: var(--color-heading);
+            margin-bottom: var(--spacing-heading);
+            font-size: var(--size-font-heading);
+            line-height: 125%;
+        }
+
+        .radio {
+            color: currentColor;
+        }
+
+        .radio-wrapper {
+            font-size: 0;
+        }
+
+        .radio-wrapper input[type="radio"] {
+            width: calc(var(--size-radio-box) + var(--gap-radio-text));
+            height: calc(var(--size-radio-box) + var(--gap-radio-text));
+        }
+
+        .radio {
+            font-size: var(--size-font);
+            font-weight: inherit;
+            opacity: var(--opacity-radio);
+            transition: all ease var(--duration-radio) var(--delay-radio);
+            position: relative;
+            top: calc(var(--offset-radio-box) * -1);
+            user-select: none;
+            cursor: pointer;
+            display: inline-flex;
+            place-items: flex-start;
+        }
+
+        .radio:hover {
+            opacity: 1;
+        }
+
+        .radio span {
+            position: relative;
+            top: var(--offset-radio-box, 0);
+            min-width: var(--size-radio-box);
+            min-height: var(--size-radio-box);
+            margin-right: var(--gap-radio-text);
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .radio span::before {
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: max(2px, var(--size-radio-box) * 0.1) solid
+                var(--color, var(--color-radio));
+            transition: all ease var(--duration-radio) var(--delay-radio);
+        }
+
+        .radio span::after {
+            bottom: 0%;
+            width: 50%;
+            height: 50%;
+            background-color: var(--color, var(--color-radio));
+            transform: translate(-50%, 50%);
+            transition: all cubic-bezier(0.18, 0.89, 0.32, 1.28) var(--duration-radio)
+                var(--delay-radio);
+        }
+
+        .radio span::before,
+        .radio span::after {
+            content: "";
+            position: absolute;
+            left: 0%;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .radio-wrapper input:checked ~ .radio span::after {
+            left: 50%;
+            bottom: 50%;
+        }
+
+        .radio-wrapper input:checked ~ .radio {
+            --color: var(--color-radio-checked);
+            opacity: 1;
+        }
+
+        .radio::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) translateY(var(--offset-radio-box));
+            width: calc(100% + var(--outline-offset));
+            height: calc(100% + var(--outline-offset));
+            border: var(--outline-focus);
+            border-color: var(--color-outline);
+            border-radius: 3px;
+            opacity: 0;
+        }
+
+        .radio-wrapper input:focus-visible ~ .radio::before {
+            opacity: 1;
+        }
+
+        .radio-group .radio-wrapper {
+            margin-bottom: var(--spacing-radio);
+        }
+
+        .radio-group .radio-wrapper:last-of-type {
+            margin-bottom: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .radio span::after {
+                transition: none;
+            }
+        }
+
+        .radio-wrapper input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            clip: rect(1px, 1px, 1px, 1px);
+            clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px);
+            padding: 0;
+            border: 0;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+            opacity: 0.2;
+        }
+
+     </style>
+</head>
+<body>
+    <section class="dark-theme" aria-label="Radio group demo in light theme">
+        <div class="wrapper">
+            <fieldset class="radio-group">
+                <legend class="heading">Your favorite code editor?</legend>
+    
+                <div class="radio-wrapper">
+                    <input id="r11" type="radio" name="group1" value="vscode" checked />
+                    <label for="r11" class="radio"><span></span>Visual Studio Code</label>
+                </div>
+    
+                <div class="radio-wrapper">
+                    <input id="r12" type="radio" name="group1" value="webstorm" />
+                    <label for="r12" class="radio"><span></span>JetBrains WebStorm</label>
+                </div>
+    
+                <div class="radio-wrapper">
+                    <input id="r13" type="radio" name="group1" value="vim" />
+                    <label for="r13" class="radio"><span></span>Vim</label>
+                </div>
+    
+                <div class="radio-wrapper">
+                    <input id="r14" type="radio" name="group1" value="sublimetext" />
+                    <label for="r14" class="radio"><span></span>Sublime Text</label>
+                </div>
+    
+                <div class="radio-wrapper">
+                    <input id="r15" type="radio" name="group1" value="notepad++" />
+                    <label for="r15" class="radio"><span></span>Notepad++</label>
+                </div>
+            </fieldset>
+        </div>
+    </section>        
+</body>
+<script>
+
+</script>
+</html>

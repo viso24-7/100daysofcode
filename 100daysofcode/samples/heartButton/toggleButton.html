@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Button</title>
+  <style>
+    @import "https://unpkg.com/open-props/open-props.min.css";
+    @import "https://unpkg.com/open-props/normalize.min.css";
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      background: var(--gray-11);
+    }
+
+
+    #root {
+      height: 100vh;
+      width: 100vw;
+      display: grid;
+      place-items: center;
+    }
+
+    [aria-pressed=true] {
+      --delay: 0.2s;
+    }
+
+    button {
+      --transition: 0.2s;
+      --delay: 0s;
+      --liked: 0;
+      --active: 0;
+      --hover: 0;
+      --font-size: 2rem;
+      display: grid;
+      position: relative;
+      border: 1px solid hsl(0 0% 100% / 0.25);
+      border-radius: calc(var(--font-size) * 0.75);
+      grid-template-columns: auto 1fr auto;
+      font-size: var(--font-size);
+      align-items: center;
+      font-weight: 500;
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      --mod: calc(1 - var(--active));
+      box-shadow: inset 0 4px 4px hsl(0 0% 100% / 0.1),
+        0 calc(var(--mod) * (var(--font-size) * 0.5)) calc(var(--mod) * (var(--font-size) * 1))
+        calc(var(--mod) * (var(--font-size) * -0.25)) var(--gray-12),
+        0 calc(var(--mod) * (var(--font-size) * 0.75)) calc(var(--mod) * (var(--font-size) * 1.2))
+        calc(var(--mod) * (var(--font-size) * -0.15)) black;
+      outline-color: var(--gray-8);
+      color: var(--gray-0);
+      background:linear-gradient(hsl(0 0% 14%), hsl(0 0% 8%));
+      scale: calc(1 - (var(--active) * 0.1));
+      transition: scale calc(var(--transition) * 0.5), box-shadow calc(var(--transition) * 0.5);
+      background-attachment: fixed;
+    }
+
+    button:focus-visible {
+      outline-color: black;
+      outline-width: 4px;
+      outline-offset: 0;
+    }
+
+    button:active {
+      --active: 1;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    [aria-pressed=true] {
+      --liked: 1;
+    }
+
+    button > span:first-of-type {
+      padding: 0 calc(var(--font-size) * 1.7);
+      font-family: sans-serif;
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    button > span:first-of-type:after {
+      content: "";
+      width: 4px;
+      left: 100%;
+      background: var(--gray-7);
+      top: 10%;
+      bottom: 10%;
+      position: absolute;
+    }
+
+    [data-text] {
+      translate: calc((1 - var(--liked)) * 44%) 0;
+      display: inline-block;
+      transition: translate var(--transition) var(--delay);
+    }
+
+    [aria-pressed=true] [data-text] span:last-of-type {
+      transition: 0s var(--delay);
+    }
+
+    [data-text] span:last-of-type {
+      opacity: var(--liked);
+    }
+
+    svg {
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      translate: calc((1 - var(--liked)) * 150%) -50%;
+      transition: translate var(--transition) var(--delay), opacity var(--transition);
+      transform-origin: 35% 65%;
+      width: calc(var(--font-size) * 1.5);
+      opacity: calc(0.5 + ((var(--hover) + var(--active) + var(--liked)) * 0.5));
+    }
+
+    [aria-pressed=true] svg {
+      animation: nod var(--transition);
+    }
+
+    @keyframes nod {
+      50% {
+        rotate: -65deg;
+      }
+    }
+
+    button:hover {
+      --hover: 1;
+    }
+
+    [data-likes] {
+      display: grid;
+      place-items: center;
+      width: calc(var(--font-size) * 3.2);
+      height: calc(var(--font-size) * 2.8);
+      position: relative;
+      translate: 0 calc(var(--liked) * -100%);
+      transition: translate var(--transition) var(--delay);
+    }
+
+    [data-likes] span {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      inset: 0;
+      font-variant: tabular-nums;
+      opacity: 0.5;
+    }
+
+    [data-likes] span:last-of-type {
+      translate: 0 100%;
+      opacity: calc(0.5 + (var(--liked) * 0.5));
+      transition: opacity var(--transition) var(--delay);
+    }
+
+  </style>
+</head>
+<body>
+   <div id="root"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script> 
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+<script src="app.jsx" type="text/babel" charset="utf-8"> </script>
+</html>

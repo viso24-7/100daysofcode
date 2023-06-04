@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @charset "UTF-8";
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: sans-serif;
+        }
+
+        .card {
+            width: 290px;
+            padding: 10px 10px;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+        .card .image-wrap {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 10px;
+            clip-path: path("M0.0815125 10C0.0815125 4.47715 4.55867 0 10.0815 0H260.082C265.604 0 270.082 4.47715 270.082 10V213C270.082 218.523 265.604 223 260.082 223H154C148.477 223 144 218.523 144 213V167.5C144 161.977 139.523 157.5 134 157.5H10.0815C4.55867 157.5 0.0815125 153.023 0.0815125 147.5V10Z");
+            background-image: url("vienna.jpg");
+            background-size: cover;
+        }
+
+        .card-content {
+            position: relative;
+            display: grid;
+            grid-template-areas: "price space" "caption caption";
+            transform: translatey(-36px);
+            margin-bottom: -36px;
+        }
+
+        .card-price {
+            flex: 1 0;
+            grid-area: price;
+            height: 46px;
+            width: 132px;
+            background: #212121;
+            border-radius: 10px 10px 0 0;
+            padding: 8px 16px;
+            position: relative;
+        }
+
+        .card-price:before {
+            content: attr(city);
+            color: #212121;
+            font-weight: 700;
+            background-color: #fff;
+            display: block;
+            width: 100%;
+            height: 100%;
+            line-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+
+        .card-price .inverted-corner {
+            position: absolute;
+            bottom: 0;
+            left: 100%;
+        }
+
+        .card-price .inverted-corner.white {
+            bottom: 10px;
+            left: calc(100% + 12px);
+        }
+
+        .card-space {
+            grid-area: space;
+            flex: 1 0;
+        }
+
+        .card-caption {
+            grid-area: caption;
+            background-color: #212121;
+            border-radius: 0 10px 10px 10px;
+            color: #fff;
+        }
+
+        .card-caption ul {
+            margin: 10px 0 20px;
+            list-style: none;
+            padding: 0 0 0 20px;
+        }
+
+        .card-caption li::before {
+            content: "🤮";
+            margin-inline-end: 1ch;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="image-wrap"></div>
+        <div class="card-content">
+          <div class="card-price" city="Wien">
+              <svg class="inverted-corner" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0V10H10C4.47715 10 0 5.52285 0 0Z" fill="#212121"/>
+               </svg>
+              <svg class="inverted-corner white" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0V10H10C4.47715 10 0 5.52285 0 0Z" fill="#fff"/>
+             </svg>
+          </div>
+          <div class="card-space"></div>          
+          <div class="card-caption">
+            <ul>
+              <li>Austria</li>
+              <li>3 million Inhabitants</li>
+              <li>Lovely City</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins' sans-serif;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #f8f8f8;
+        }
+
+
+        .card{
+            position: relative;
+            width: 300px;
+            height: 400px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 25px 50px rgba(0,0,0,.15);
+        }
+
+        .card span{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            top: -10px;
+            left: -10px;
+            overflow:hidden;
+        }
+
+        .card span::before{
+           content:"Hiring";
+           position: absolute;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           width: 210%;
+           height: 40px;
+           rotate: -45deg;
+           translate: 0 -27px;
+           font-size: 1.4em;
+           font-weight: 600;
+           color: #fff;
+           letter-spacing: 0.1em;
+           background: #a02d48;
+           box-shadow: 0 5px 10px rgba(0,0,0,.15);
+        }
+
+        .card span::after{
+           content: "";
+           position: absolute;
+           width: 10px;
+           height: 10px;
+           bottom: -2px;
+           left: 0px;
+           background: #cc2d3e;
+           box-shadow: 140px -140px #cc2d3e;
+           z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+       <span></span>
+    </div>
+</body>
+</html>

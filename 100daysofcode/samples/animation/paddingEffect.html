@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+       }
+
+       body{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap:15px;
+          min-height: 100vh;
+          background-color: rgb(115, 108, 108);
+        }
+
+         
+        img {
+            --s: 400px; 
+            
+            width: var(--s);
+            height: var(--s); 
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: .5s;
+        }
+
+        img.center {
+            padding: calc(var(--s)/2);
+            background: #88C425;
+        }
+
+        img.vertical {
+            padding-block: calc(var(--s)/2);
+            background: #F07818;
+        }
+
+        img.horizontal {
+            padding-inline: calc(var(--s)/2);
+            background: #AB3E5B;
+        }
+
+        img.random {
+            padding: calc(var(--s)/2) 0 calc(var(--s)/2) 0;
+            background: #0E2430;
+        }
+
+        img:hover {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://picsum.photos/id/75/200/200" class="center" alt="grap">
+    <img src="https://picsum.photos/id/102/200/200" class="vertical" alt="raspberry">
+    <img src="https://picsum.photos/id/248/200/200" class="horizontal" alt="cactus">
+    <img src="https://picsum.photos/id/1080/200/200" class="random" alt="strawberry">
+</body>
+<script>
+
+</script>
+</html>

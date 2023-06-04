@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+  <title>Document</title>
+  <style>
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+     }
+
+     body {
+         display: grid;
+         place-items: center;
+         min-height: 100vh;
+         background: hsl(210 24% 22%);
+      }
+
+      .ghost {
+         position: absolute;
+         width: clamp(100px, 25vmin, 300px);
+         aspect-ratio: 1 / 2;
+         background: white;
+         border-radius: 50% 50% 0 0 / 25% 25% 0 0;
+         --size: clamp(10px, 2vmin, 300px);
+         mask: radial-gradient(var(--size) at bottom, transparent 97%, black),
+               radial-gradient(var(--size) at 25% 50%, black 97%, transparent);
+         mask-repeat: repeat-x;
+         mask-size: calc(2 * var(--size)) 100%, calc(4 * var(--size)) calc(2 * var(--size));
+         mask-position: 50% calc(100% - var(--size)),calc(50% - var(--size)) 99%;
+         -webkit-mask: radial-gradient(var(--size) at bottom, transparent 97%, black),
+               radial-gradient(var(--size) at 25% 50%, black 97%, transparent);
+         -webkit-mask-repeat: repeat-x;
+         -webkit-mask-size: calc(2 * var(--size)) 100%, calc(4 * var(--size)) calc(2 * var(--size));
+         -webkit-mask-position: 50% calc(100% - var(--size)),calc(50% - var(--size)) 99%;
+         animation: spoop 0.5s infinite linear reverse;
+      }
+
+      @keyframes spoop {
+            to {
+               -webkit-mask-position: calc(50% + (var(--size) * 4)) calc(100% - var(--size)),calc(50% + (var(--size) * 3)) 99%;
+            }
+      }
+
+      .ghost__eyes {
+         height: 8%;
+         width: 60%;
+         position: absolute;
+         top: 25%;
+         left: 50%;
+         transform: translateX(-50%);
+         display: flex;
+         justify-content: space-between;
+      }
+
+      .ghost__eye {
+         height: 100%;
+         aspect-ratio: 1;
+         background: radial-gradient(circle at 75% 25%, white 10%, transparent 12%), black;
+         border-radius: 50%;
+      }
+
+      .ghost__mouth {
+         position: absolute;
+         left: 50%;
+         top: 30%;
+         border-radius: 50%;
+         clip-path: inset(50% 0 0 0);
+         transform: translateX(-50%);
+         height: 8%;
+         aspect-ratio: 1;
+         background:radial-gradient(circle at 90% 90%, red 20%, transparent 22%),black;
+      }
+  </style>
+</head>
+<body>
+   <div class="ghost">
+      <div class="ghost__eyes">
+        <div class="ghost__eye ghost__eye--left"></div>
+        <div class="ghost__eye ghost__eye--right"></div>
+      </div>
+      <div class="ghost__mouth"></div>
+    </div>
+</body>
+<script >
+
+</script>
+</html>
